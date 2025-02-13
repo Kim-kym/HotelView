@@ -1,3 +1,5 @@
+//  최상단 메뉴바
+
 import "../styled/MenuHeader.css";
 
 function MenuHeader() {
@@ -15,15 +17,15 @@ function MenuHeader() {
             <li>
               <a href="/">숙소</a>
             </li>
-            <li>
+            {/* <li>
               <a href="/">즐겨찾기</a>
-            </li>
+            </li> */}
             <li>
               <a href="/">장바구니</a>
             </li>
-            <li>
+            {/* <li>
               <a href="/">이벤트/혜택</a>
-            </li>
+            </li> */}
             <li>
               <a href="/">고객 센터</a>
             </li>
@@ -32,7 +34,7 @@ function MenuHeader() {
         <div className="header-right-box">
           <button>회원가입</button>
           <button>로그인</button>
-          <button>My</button>
+          {/* <button>My</button> */}
         </div>
       </div>
     </header>
