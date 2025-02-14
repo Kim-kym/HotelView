@@ -1,8 +1,10 @@
 .header-container {
     display: flex;
     justify-content: space-between;
-    margin: 0 30px;
+    margin: 0 30px 20px 30px;
     padding: 0 300px;
+    border-bottom: 1px solid rgb(219, 161, 139);
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.3);
     /* background: lightyellow; */
 
 }
