@@ -22,9 +22,7 @@ function JejuMap({ children }) {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // 타일 이미지 url
             />
           </MapContainer>
-          <div className="map-overlay">
-          {children}
-          </div>
+          <div className="map-overlay">{children}</div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 //  최상단 메뉴바
 
+import { Link } from "react-router-dom";
 import "../styled/MenuHeader.css";
 
 function MenuHeader() {
@@ -33,7 +34,9 @@ function MenuHeader() {
         </nav>
         <div className="header-right-box">
           <button>회원가입</button>
-          <button>로그인</button>
+          <Link to="/login">
+            <button>로그인</button>
+          </Link>
           {/* <button>My</button> */}
         </div>
       </div>
