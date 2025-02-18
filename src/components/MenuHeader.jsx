@@ -8,7 +8,9 @@ function MenuHeader() {
     <header className="page-header">
       <div className="header-container">
         <div className="header-logo">
-          <h1>logo</h1>
+          <Link to="/">
+            <h1>logo</h1>
+          </Link>
         </div>
         <nav className="header-nav">
           <ul>
@@ -33,7 +35,9 @@ function MenuHeader() {
           </ul>
         </nav>
         <div className="header-right-box">
-          <button>회원가입</button>
+          <Link to="/signup">
+            <button>회원가입</button>
+          </Link>
           <Link to="/login">
             <button>로그인</button>
           </Link>
