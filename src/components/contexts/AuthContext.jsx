@@ -1,3 +1,6 @@
+// 로그인 상태를 전역적을 관리하기 위한 context 파일.
+// 어떤 컴포넌트에서든 편하게 로그인 상태값을 불러올 수 있도록 함
+
 import { createContext, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 

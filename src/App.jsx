@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
-import ReserveForm from "./components/pages/ReserveForm";
+import ReserveForm from "./components/forms/ReserveForm";
 import JejuMap from "./components/maps/JejuMap";
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
