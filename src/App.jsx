@@ -9,14 +9,6 @@ import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 
 function App() {
-  const [message, setMessage] = useState("서버 응답 대기 중...");
-
-  useEffect(() => {
-    axios.get(API_URL)
-      .then(response => setMessage(JSON.stringify(response.data))) // 데이터를 JSON 형태로 변환해서 출력
-      .catch(error => setMessage(`에러 발생: ${error.message}`));
-    }, []);
-
   return (
     <Router>
       <MenuHeader />
