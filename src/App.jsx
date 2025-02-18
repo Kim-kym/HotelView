@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
-import ReserveForm from "./components/contents/ReserveForm";
+import ReserveForm from "./components/forms/ReserveForm";
 import JejuMap from "./components/maps/JejuMap";
-import LoginPage from "./components/contents/LoginPage";
+import SignInPage from "./components/pages/SignInPage";
+import SignUpPage from "./components/pages/SignUpPage";
 
 function App() {
   const [message, setMessage] = useState("서버 응답 대기 중...");
@@ -39,12 +41,6 @@ function App() {
         />
       </Routes>
       <Footer />
-
-        {/* 스프링부트 API 연결 확인 */}
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", textAlign: "center" }}>
-        <h2>Spring Boot API 연결 테스트</h2>
-        <p>{message}</p>
-      </div>
     </Router>
   );
 
