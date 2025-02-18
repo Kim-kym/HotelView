@@ -9,7 +9,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -33,6 +32,8 @@ export function AuthProvider({ children }) {
       console.error("로그인 오류:", error);
       alert("로그인 요청 중 오류 발생");
     }
+
+    const navigate = useNavigate();
   };
 
   return (

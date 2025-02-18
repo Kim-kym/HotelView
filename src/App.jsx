@@ -10,6 +10,7 @@ import SignUpPage from "./components/pages/SignUpPage";
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <MenuHeader />
       <Routes>
@@ -21,7 +22,8 @@ function App() {
             </JejuMap>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         {/* 회원가입 페이지 */}
         <Route
           path="/reserve"
@@ -34,6 +36,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 
 }
