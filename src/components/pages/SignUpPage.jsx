@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function SignUpPage() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
   const [ssn, setSsn] = useState("");
@@ -11,10 +12,17 @@ function SignUpPage() {
   const [address, setAddress] = useState("");
   const [reference, setReference] = useState("");
   const [marketingOptIn, setMarketingOptIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault(); // ✅ 폼 제출 시 새로고침 방지
+
+    /* 비밀번호 확인 */
+    if (password !== confirmPassword) {
+      setErrorMessage("비밀번호가 일치하지 않습니다.");
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:8080/user/signup", {
@@ -65,6 +73,16 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
         />
+        <input
+          type="password"
+          placeholder="비밀번호 확인"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
         <input
           type="text"
           placeholder="이름"

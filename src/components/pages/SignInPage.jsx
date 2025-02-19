@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import "../../styled/SignInPage.css";
 
 function SignInPage() {
   const { handleLogin } = useAuth();
@@ -19,9 +19,10 @@ function SignInPage() {
   };
 
   return (
-    <div>
-      <h1>로그인 페이지</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="signin-container">
+      <h1>로그인</h1>
+      <form className="signin-form" onSubmit={handleSubmit}>
+        {" "}
         <input
           type="text"
           placeholder="아이디"
