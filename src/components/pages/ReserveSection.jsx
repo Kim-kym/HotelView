@@ -1,7 +1,7 @@
 // 컨텐츠 상단 영역
 
 import "../../styled/ReserveSection.css";
-import "../maps/JejuMap";
+import JejuMap from "../maps/JejuMap";
 
 function ReserveSection() {
   return (
@@ -9,8 +9,17 @@ function ReserveSection() {
       <div className="page-content">
         <img className="background-sea" src="/images/sea.jpg" alt="sea" />
       </div>
-      {/* {children} { JejuMap 렌더링 } */}
-      <div className="page-content-placeholder"></div>
+
+      {/* 지도 렌더링 */}
+      <div className="page-content-placeholder">
+        <div className="map-container">
+          <div className="map-background">
+            <div className="map-wrapper">
+              <JejuMap />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
