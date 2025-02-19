@@ -1,4 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
+import "../../styled/SignInPage.css";
 
 function SignInPage() {
   const { username, setUsername, password, setPassword, handleLogin } =
@@ -10,9 +11,9 @@ function SignInPage() {
   };
 
   return (
-    <div>
-      <h1>로그인 페이지</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="signin-container">
+      <h1>로그인</h1>
+      <form className="signin-form" onSubmit={handleSubmit}>
         {" "}
         <input
           type="text"
@@ -28,7 +29,7 @@ function SignInPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        <button type="submit">로그인</button>
+        <button type="submit" className="submit-button">로그인</button>
       </form>
     </div>
   );

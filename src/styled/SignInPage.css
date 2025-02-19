@@ -1,0 +1,48 @@
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding-top: 40px; 
+    padding-bottom: 40px;
+  }
+  
+  .signin-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* 회원가입 폼과 동일한 너비 */
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signin-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* ✅ 입력창 둥글게 */
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .signin-form .submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #d4af7a; /* ✅ 따뜻한 베이지 색 */
+    color: white;
+    border: 2px solid #d4af7a;
+    border-radius: 20px; /* ✅ 둥근 버튼 */
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .signin-form .submit-button:hover {
+    background-color: #c49c5d;
+    border-color: #c49c5d;
+  }
+  
