@@ -11,7 +11,7 @@ function HotelListDummy() {
       name: "호텔 프리미어",
       address: "서울특별시 강남구 테헤란로 123",
       rating: 4.5,
-      price: "150,000원/박",
+      price: "150,000",
       image: "/images/hotel_dummy.jpg",
     },
     {
@@ -19,7 +19,7 @@ function HotelListDummy() {
       name: "호텔 클래식",
       address: "부산광역시 해운대구 달맞이길 45",
       rating: 4.0,
-      price: "120,000원/박",
+      price: "120,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+2",
     },
     {
@@ -27,7 +27,7 @@ function HotelListDummy() {
       name: "호텔 오션뷰",
       address: "제주특별자치도 제주시 해안로 67",
       rating: 4.7,
-      price: "200,000원/박",
+      price: "200,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+3",
     },
     {
@@ -35,7 +35,7 @@ function HotelListDummy() {
       name: "호텔 블루",
       address: "인천광역시 연수구 송도동",
       rating: 4.3,
-      price: "140,000원/박",
+      price: "140,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+4",
     },
     {
@@ -43,7 +43,7 @@ function HotelListDummy() {
       name: "호텔 로얄",
       address: "대구광역시 중구 동성로",
       rating: 4.6,
-      price: "160,000원/박",
+      price: "160,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+5",
     },
     {
@@ -51,7 +51,7 @@ function HotelListDummy() {
       name: "호텔 스카이",
       address: "대전광역시 서구 둔산동",
       rating: 4.2,
-      price: "130,000원/박",
+      price: "130,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+6",
     },
     {
@@ -59,7 +59,7 @@ function HotelListDummy() {
       name: "호텔 센트럴",
       address: "광주광역시 북구 운암동",
       rating: 4.1,
-      price: "125,000원/박",
+      price: "125,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+7",
     },
     {
@@ -67,7 +67,7 @@ function HotelListDummy() {
       name: "호텔 그랜드",
       address: "울산광역시 남구 삼산동",
       rating: 4.8,
-      price: "210,000원/박",
+      price: "210,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+8",
     },
     {
@@ -75,7 +75,7 @@ function HotelListDummy() {
       name: "호텔 다이아몬드",
       address: "경기도 수원시 팔달구",
       rating: 4.4,
-      price: "145,000원/박",
+      price: "145,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+9",
     },
     {
@@ -83,7 +83,7 @@ function HotelListDummy() {
       name: "호텔 벨라",
       address: "강원도 춘천시 중앙로",
       rating: 4.5,
-      price: "155,000원/박",
+      price: "155,000",
       image: "https://via.placeholder.com/300x200?text=Hotel+10",
     },
   ];
@@ -120,11 +120,22 @@ function HotelListDummy() {
                   />
                   <div className="hotel-info">
                     <h2>{hotel.name}</h2>
-                    <p>주소: {hotel.address}</p>
-                    <p>가격: {hotel.price}</p>
+                    <p>{hotel.address}</p>
                   </div>
-                  <div className="hotel-booking">
-                    <h3>평점: {hotel.rating} / 5</h3>
+                  <div className="hotel-status-wrapper">
+                    <div className="hotel-rating">
+                      <p>★ {hotel.rating}</p>
+                    </div>
+                    <div className="hotel-status"></div>
+                    <div className="hotel-price">
+                      <p>1박당 요금</p>
+                      <p>{hotel.price}</p>
+                    </div>
+                    <div className="reservation-button">
+                      <button>
+                        <p>예약하기</p>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Link>
