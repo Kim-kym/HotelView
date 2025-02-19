@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styled/SingUpPage.css";
+import "../../styled/SignupPage.css";
 
 function SignUpPage() {
   const [userData, setUserData] = useState({
@@ -41,19 +41,31 @@ function SignUpPage() {
     const value = userData[field];
 
     if (!value) {
-      setErrorMessage(`${field === "email" ? "이메일" : 
-                       field === "nickname" ? "닉네임" : 
-                       field === "phone" ? "전화번호" : "주민등록번호"}을 입력하세요.`);
+      setErrorMessage(
+        `${
+          field === "email"
+            ? "이메일"
+            : field === "nickname"
+            ? "닉네임"
+            : field === "phone"
+            ? "전화번호"
+            : "주민등록번호"
+        }을 입력하세요.`
+      );
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:8050/user/check-duplicate?type=${field}&value=${value}`);
+      const response = await fetch(
+        `http://localhost:8050/user/check-duplicate?type=${field}&value=${value}`
+      );
       const data = await response.json();
 
       if (response.ok) {
         setCheckResult((prev) => ({ ...prev, [field]: data.isDuplicate }));
-        setErrorMessage(data.isDuplicate ? "이미 사용 중입니다." : "사용 가능합니다.");
+        setErrorMessage(
+          data.isDuplicate ? "이미 사용 중입니다." : "사용 가능합니다."
+        );
       } else {
         setErrorMessage("중복 확인 실패. 다시 시도하세요.");
       }
@@ -108,16 +120,19 @@ function SignUpPage() {
     <div className="signup-container">
       <h1>회원가입</h1>
       <form className="signup-form" onSubmit={handleRegister}>
-
         <div className="input-group">
           <input
             type="email"
             placeholder="이메일"
             value={userData.email}
-            onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
             autoComplete="email"
           />
-          <button type="button" onClick={() => handleCheckDuplicate("email")}>중복 확인</button>
+          <button type="button" onClick={() => handleCheckDuplicate("email")}>
+            중복 확인
+          </button>
         </div>
 
         <input
@@ -135,7 +150,7 @@ function SignUpPage() {
           onChange={(e) => {
             setConfirmPassword(e.target.value);
             setErrorMessage("");
-          }} 
+          }}
           required
         />
 
@@ -149,7 +164,6 @@ function SignUpPage() {
           required
         />
 
-
         <div className="input-group">
           <input
             type="text"
@@ -157,7 +171,9 @@ function SignUpPage() {
             value={userData.ssn}
             onChange={(e) => setUserData({ ...userData, ssn: e.target.value })}
           />
-          <button type="button" onClick={() => handleCheckDuplicate("ssn")}>중복 확인</button>
+          <button type="button" onClick={() => handleCheckDuplicate("ssn")}>
+            중복 확인
+          </button>
         </div>
 
         <div className="input-group">
@@ -165,9 +181,16 @@ function SignUpPage() {
             type="text"
             placeholder="닉네임"
             value={userData.nickname}
-            onChange={(e) => setUserData({ ...userData, nickname: e.target.value })}
+            onChange={(e) =>
+              setUserData({ ...userData, nickname: e.target.value })
+            }
           />
-          <button type="button" onClick={() => handleCheckDuplicate("nickname")}>중복 확인</button>
+          <button
+            type="button"
+            onClick={() => handleCheckDuplicate("nickname")}
+          >
+            중복 확인
+          </button>
         </div>
 
         <div className="input-group">
@@ -175,9 +198,13 @@ function SignUpPage() {
             type="text"
             placeholder="전화번호"
             value={userData.phone}
-            onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+            onChange={(e) =>
+              setUserData({ ...userData, phone: e.target.value })
+            }
           />
-          <button type="button" onClick={() => handleCheckDuplicate("phone")}>중복 확인</button>
+          <button type="button" onClick={() => handleCheckDuplicate("phone")}>
+            중복 확인
+          </button>
         </div>
 
         <input
