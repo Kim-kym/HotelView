@@ -1,6 +1,12 @@
+/* src/components/HotelList.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .hotel-list-container {
-    width: 100%;
-  }
+  width: 100%;
+}
   
 .hotel-list-background {
   width: 100%;
@@ -26,60 +32,88 @@
     gap: 20px;               /* 아이템 사이의 간격 */
     padding: 10px 0;
   }
-  
+
   .hotel-box {
     flex: 0 0 auto;          /* 크기 변경 없이 고정 너비 유지 */
-    width: 80vh;            /* 원하는 고정 너비 (예: 300px) */
+    width: 90vh;            /* 원하는 고정 너비 (예: 300px) */
+    height: 40vh;
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
   }
-
+  
   .hotel-box-background {
     display: flex;
     width: 100%;
+    height: 100%;
     padding: 2vh;
     background-color: #fff;
   }
-
+ 
   .hotel:hover {
     transform: translateY(-5px);
   }
   
   .hotel-image,
-  .hotel-info,
-  .hotel-reserve {
-    flex: 1;
+  .hotel-info {
+    flex: 1.5;
   }
-
-  .hotel img {
-    width: 90%;
-    height: 200px;
-    object-fit: cover;
+  
+  .hotel-image {
+    height: 100%;
     border-radius: 2vh;
   }
-  
+
   .hotel-info {
-    margin-left: 1vh;
-  }
-  
-  .hotel-info h2 {
-    margin: 0 0 10px;
-    font-size: 20px;
+    padding: 0 0 0 2vh ;
   }
   
   .hotel-info p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #555;
+    margin-top: 2vh;
   }
 
-  .hotel-booking {
-    margin: 0;
+  .hotel-status-wrapper {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+    padding-left: 2vh;
   }
   
+  .hotel-status {
+    margin-top: auto;
+  }
+
+
+
+  .hotel-price P:first-child {
+  color: rgb(20, 20, 20);
+  font-size: 14px;
+}
+
+  .hotel-price P:last-child {
+    color: red; 
+    font-size: 25px;
+  }
+
+  .reservation-button button {
+    width: 100%;
+    height: 5vh;
+    border-radius: 1vh;
+    background-color: rgb(84, 135, 228);
+    color: white;
+    border: none;
+    margin-top: 2vh;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.2)
+  }
+
+  .reservation-button p {
+    font-size: 16px;
+  }
+
   /* 반응형 디자인 */
   @media (max-width: 768px) {
     .hotel {
