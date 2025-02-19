@@ -1,6 +1,7 @@
 //  최상단 메뉴바
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 import "../styled/MenuHeader.css";
 
 function MenuHeader() {
@@ -30,7 +31,7 @@ function MenuHeader() {
       <div className="header-container">
         <div className="header-logo">
           <Link to="/">
-            <h1>logo</h1>
+            <h1><img src={logo} alt="Logo" /></h1>
           </Link>
         </div>
         <nav className="header-nav">
