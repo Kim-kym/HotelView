@@ -37,7 +37,7 @@ function SignInPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        <button type="submit">로그인</button>
+        <button type="submit" className="submit-button">로그인</button>
       </form>
     </div>
   );

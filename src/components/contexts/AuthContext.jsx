@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch("http://localhost:8080/user/login", {
+      const response = await fetch("http://localhost:8050/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
