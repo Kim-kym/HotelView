@@ -65,7 +65,7 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
         />
-                <input
+        <input
           type="text"
           placeholder="이름"
           value={name}

@@ -1,25 +1,33 @@
+import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function SignInPage() {
-  const { username, setUsername, password, setPassword, handleLogin } =
-    useAuth();
+  const { handleLogin } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // ✅ 폼 제출 시 새로고침 방지
-    handleLogin(); // ✅ 로그인 로직 실행
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await handleLogin(username, password); // ✅ 로그인 성공 여부 반환
+    if (success) {
+      navigate("/"); // ✅ 로그인 성공 후 대시보드로 이동
+    } else {
+      alert("로그인 실패!");
+    }
   };
 
   return (
     <div>
       <h1>로그인 페이지</h1>
       <form onSubmit={handleSubmit}>
-        {" "}
         <input
           type="text"
           placeholder="아이디"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          autoComplete="userId"
+          autoComplete="username" //
         />
         <input
           type="password"
