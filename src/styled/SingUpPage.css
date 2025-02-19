@@ -1,0 +1,88 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 화면 높이 100%로 설정 */
+    width: auto;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* 입력 창 너비 조절 */
+    gap: 10px; /* 입력 필드 간격 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signup-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+  }
+  
+  .signup-form .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .signup-form .submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #d4af7a;
+    color: white;
+    border: 2px solid #d4af7a;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .signup-form button:hover {
+    background-color: #c49c5d;
+    border-color: #c49c5d;
+  }
+
+
+  .input-group {
+  position: relative;  /* 부모 요소 설정 */
+  width: 100%;
+  max-width: 300px;
+}
+
+.input-group input {
+  width: 100%;          /* 입력창 전체 너비 */
+  padding: 10px 70px 10px 10px; /* 버튼과 겹치지 않도록 우측 패딩 추가 */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 입력창도 둥글게 조정 */
+  box-sizing: border-box;
+}
+
+.input-group button {
+    position: absolute;
+    right: 5px; /* ✅ 입력창 내부 오른쪽 정렬 */
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px 8px; /* ✅ 버튼 크기 조정 */
+    font-size: 14px;
+    background-color: #d4af7a;
+    color: white;
+    border: 2px solid #d4af7a;
+    border-radius: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 75%; /* ✅ 입력창과 높이 맞추기 */
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+.input-group button:hover {
+    background-color: #c49c5d;
+    border-color: #c49c5d;
+}
