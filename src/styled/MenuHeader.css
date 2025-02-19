@@ -7,10 +7,12 @@ a {
 .header-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 1px;
-    padding: 0 300px;
+    padding: 0 100px;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
     /* background: lightyellow; */
+    margin: 0 auto;
 }
 
 .header-nav ul {
@@ -40,10 +42,14 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+/* a:hover {
     background-color: rgb(224, 224, 171)
-}
+} */
 
+.header-nav li:hover {
+    background-color: #f3e9da;
+    font-weight: bold;
+}
 .header-right-box {
     display: flex;
     align-items: center;
@@ -62,5 +68,13 @@ a:hover {
 }
 
 .header-right-box button:hover {
-    background-color: rgb(214, 169, 102);
+    background-color: #c49c5d;
+    border-color: #c49c5d;;
+    font-weight: bold;
 }
+
+img {
+    display: block; /* 이미지가 보이도록 설정 */
+    width: 60px;  /* 로고 크기 조정 */
+    height: 60px;
+  }
