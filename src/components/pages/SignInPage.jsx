@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "../../styled/SignInPage.css";
+import { useNavigate } from "react-router-dom";
 
 function SignInPage() {
   const { handleLogin } = useAuth();
@@ -14,7 +15,7 @@ function SignInPage() {
     if (success) {
       navigate("/"); // ✅ 로그인 성공 후 대시보드로 이동
     } else {
-      alert("로그인 실패!");
+      alert("아이디나 비밀번호를 확인해주세요");
     }
   };
 
@@ -37,7 +38,9 @@ function SignInPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        <button type="submit" className="submit-button">로그인</button>
+        <button type="submit" className="submit-button">
+          로그인
+        </button>
       </form>
     </div>
   );

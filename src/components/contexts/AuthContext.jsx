@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
       }
     } catch (error) {
       console.error("로그인 오류:", error);
-      alert("로그인 요청 중 오류 발생");
+      return false;
     }
   };
 
@@ -58,6 +58,7 @@ export function AuthProvider({ children }) {
         method: "POST",
         credentials: "include", // ✅ 서버에서 세션 삭제
       });
+
       setIsAuthenticated(false); // ✅ 로그아웃 상태 변경
     } catch (error) {
       console.error("로그아웃 오류:", error);
