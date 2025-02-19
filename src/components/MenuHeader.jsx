@@ -18,7 +18,7 @@ function MenuHeader() {
               <a href="/">예약</a>
             </li>
             <li>
-              <a href="/">숙소</a>
+              <Link to="/hotels">호텔</Link>
             </li>
             {/* <li>
               <a href="/">즐겨찾기</a>
