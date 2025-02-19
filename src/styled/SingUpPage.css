@@ -67,10 +67,10 @@
 
 .input-group button {
     position: absolute;
-    right: 5px; /* ✅ 입력창 내부 오른쪽 정렬 */
+    right: 5px; /* 입력창 내부 오른쪽 정렬 */
     top: 50%;
     transform: translateY(-50%);
-    padding: 5px 8px; /* ✅ 버튼 크기 조정 */
+    padding: 5px 8px; 
     font-size: 14px;
     background-color: #d4af7a;
     color: white;
@@ -78,11 +78,16 @@
     border-radius: 15px;
     cursor: pointer;
     white-space: nowrap;
-    height: 75%; /* ✅ 입력창과 높이 맞추기 */
+    height: 75%; /* 입력창과 높이 맞추기 */
     transition: background-color 0.3s, border-color 0.3s;
   }
 
 .input-group button:hover {
     background-color: #c49c5d;
     border-color: #c49c5d;
+}
+
+.error-message {
+  font-size: 12px;
+  color: rgb(240, 134, 34);  
 }

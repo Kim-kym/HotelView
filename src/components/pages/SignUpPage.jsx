@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styled/SingUpPage.css";
@@ -15,6 +16,14 @@ function SignUpPage() {
   const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (confirmPassword && password !== confirmPassword) {
+      setErrorMessage("비밀번호가 일치하지 않습니다.");
+    } else {
+      setErrorMessage("");
+    }
+  }, [password, confirmPassword]);
 
   const handleRegister = async (e) => {
     e.preventDefault(); // ✅ 폼 제출 시 새로고침 방지
@@ -83,7 +92,10 @@ function SignUpPage() {
           type="password"
           placeholder="비밀번호 확인"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+            setErrorMessage(""); // 🔹 사용자가 입력을 변경하면 오류 메시지 초기화
+          }} 
           required
         />
 
