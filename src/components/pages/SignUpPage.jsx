@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 function SignUpPage() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [ssn, setSsn] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [reference, setReference] = useState("");
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -16,12 +22,22 @@ function SignUpPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId, password, email }),
+        body: JSON.stringify({
+          userId,
+          password,
+          name,
+          nickname,
+          ssn,
+          phone,
+          address,
+          reference: reference || null, // `null` 허용
+          marketingOptIn: marketingOptIn ? 1 : 0, // `0` 또는 `1`로 변환
+        }),
       });
 
       if (response.ok) {
         alert("회원가입 성공! 로그인 페이지로 이동합니다.");
-        navigate("/login"); // ✅ 회원가입 후 로그인 페이지로 이동
+        navigate("/login");
       } else {
         alert("회원가입 실패. 다시 시도해주세요.");
       }
@@ -49,13 +65,52 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
         />
-        <input
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoComplete="email"
+                <input
+          type="text"
+          placeholder="이름"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
         />
+        <input
+          type="text"
+          placeholder="닉네임"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="주민등록번호"
+          value={ssn}
+          onChange={(e) => setSsn(e.target.value)}
+        />
+        <input
+          type="tel"
+          placeholder="전화번호"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          autoComplete="tel"
+        />
+        <input
+          type="text"
+          placeholder="주소"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="추천인 (선택사항)"
+          value={reference}
+          onChange={(e) => setReference(e.target.value)}
+        />
+        <label>
+          <input
+            type="checkbox"
+            checked={marketingOptIn}
+            onChange={(e) => setMarketingOptIn(e.target.checked)}
+          />
+          마케팅 정보 수신 동의
+        </label>
         <button type="submit">회원가입</button>
       </form>
     </div>
