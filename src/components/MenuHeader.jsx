@@ -66,13 +66,14 @@ function MenuHeader() {
             </>
           ) : (
             <>
-              {userRole === "admin" ? (
+              {userRole === "admin" && (
                 <Link to="/admin">
                   <button>회원 관리</button>
                 </Link>
-              ) : (
+              )}
+              {userRole === "user" && (
                 <Link to="/mypage">
-                  <button className="mypage-btn">마이페이지</button>
+                  <button>마이페이지</button>
                 </Link>
               )}
               <button onClick={handleLogout}>로그아웃</button>
