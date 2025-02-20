@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import "../styled/MyPage.css";
-
+import "../../styled/MyPage.css";
 function MyPage() {
   const [userInfo, setUserInfo] = useState({});
   const [showPointHistory, setShowPointHistory] = useState(false);

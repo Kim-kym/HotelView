@@ -69,7 +69,7 @@ function MenuHeader() {
           ) : (
             <>
               {userRole === "admin" ? (
-                <Link to="/admin/edit-user">
+                <Link to="/admin">
                   <button>회원 관리</button>
                 </Link>
               ) : (

@@ -9,6 +9,8 @@ import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 // import HotelList from "./components/pages/HotelList";
 import HotelListDummy from "./components/pages/HotelListDummy";
+import MyPage from "./components/pages/MyPage";
+import Admin from "./components/pages/Admin";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             }
           />
           <Route path="/login" element={<SignInPage />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/signup" element={<SignUpPage />} />
           {/* <Route path="/hotels" element={<HotelList />} /> */}
           <Route path="/hotels" element={<HotelListDummy />} />
