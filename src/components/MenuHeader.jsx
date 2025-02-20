@@ -1,28 +1,27 @@
 //  최상단 메뉴바
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styled/MenuHeader.css";
+import "../styled/MyPage.css";
 
 function MenuHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(""); 
+  const [userRole, setUserRole] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // localStorage에서 로그인 정보 확인
-    const userToken = localStorage.getItem("userToken"); // 로그인 시 토큰 저장된다고 가정
-    const role = localStorage.getItem("userRole"); // "admin" 또는 "user"로 저장한다고 가정
-
-    if (userToken) {
+    const role = sessionStorage.getItem("userRole"); //  세션에서 userRole 가져오기
+    if (role) {
       setIsLoggedIn(true);
-      setUserRole(role); // 역할 설정
+      setUserRole(role);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("userToken"); // 로그아웃 시 토큰 삭제
-    localStorage.removeItem("userRole"); // 역할 정보 삭제
+    sessionStorage.clear(); //  세션 로그아웃 처리
     setIsLoggedIn(false);
     setUserRole("");
+    navigate("/");
   };
 
   return (
@@ -68,12 +67,12 @@ function MenuHeader() {
           ) : (
             <>
               {userRole === "admin" ? (
-                <Link to="/admin/edit-user">
-                  <button>회원 정보 수정</button>
+                <Link to="/admin">
+                  <button>회원 관리</button>
                 </Link>
               ) : (
                 <Link to="/mypage">
-                  <button>마이페이지</button>
+                  <button className="mypage-btn">마이페이지</button>
                 </Link>
               )}
               <button onClick={handleLogout}>로그아웃</button>
