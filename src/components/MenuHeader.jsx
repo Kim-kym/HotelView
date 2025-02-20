@@ -36,7 +36,7 @@ function MenuHeader() {
         <nav className="header-nav">
           <ul>
             <li>
-              <a href="/">예약</a>
+              <a href="/">소개</a>
             </li>
             <li>
               <Link to="/hotels">호텔</Link>
