@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import "../../styled/MyPage.css";
+import { useNavigate } from "react-router-dom";
+
 function MyPage() {
   const [userInfo, setUserInfo] = useState({});
   const [showPointHistory, setShowPointHistory] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8020/user/mypage", {
@@ -37,9 +40,7 @@ function MyPage() {
         <button onClick={() => setShowPointHistory(true)}>
           포인트 히스토리
         </button>
-        <button onClick={() => (window.location.href = "/point-payment")}>
-          포인트 충전
-        </button>
+        <button onClick={() => navigate("/payment")}>포인트 충전</button>
         <button>정보 수정</button>
       </div>
 
