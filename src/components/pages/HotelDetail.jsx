@@ -198,8 +198,25 @@ function HotelDetail() {
                   <img src="/" alt="room1"></img>
                   <div>
                     <h3>
-                      <div className="room-name"></div>
+                      <div className="room-name">방 종류</div>
                     </h3>
+                  </div>
+                </div>
+                <div className="room-reserve-box">
+                  <div className="room-reserve-wrapper">
+                    <div>숙박</div>
+                    <div>체크인 16:30 ~ 체크아웃 11:00</div>
+                    <div className="room-price-box">
+                      <div>가격</div>
+                      <div>무료 취소(3일 이내)</div>
+                    </div>
+                    <div className="room-status-box">
+                      <div>남은 객실 1개</div>
+                      <div>
+                        <button>찜</button>
+                        <button>예약하기</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
