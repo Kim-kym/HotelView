@@ -18,7 +18,7 @@ function JejuMap({ children }) {
           <MapContainer
             center={position} // 초기 중심 좌표
             zoom={10} // 초기 줌 레벨
-            minZoom={9} // 최소 확대 수준 (지나치게 축소되지 않도록 설정)
+            minZoom={11} // 최소 확대 수준 (지나치게 축소되지 않도록 설정)
             maxZoom={16} // 최대 확대 수준
             maxBounds={bounds} // 축소 시 지도 경계를 설정
             maxBoundsViscosity={1.0} // 경계 밖으로 이동하지 않도록 설정

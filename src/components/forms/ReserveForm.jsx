@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faMagnifyingGlass, faPerson } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
 import { addMonths, format } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import React from "react";
 
 const CustomRangeInput = React.forwardRef(({ onClick, startDate, endDate }, ref) => {
@@ -16,7 +16,7 @@ const CustomRangeInput = React.forwardRef(({ onClick, startDate, endDate }, ref)
     const checkInDate = format(startDate, 'MM/dd/yyyy');
     const checkOutWeekday = format(checkoutDisplay, 'EEEE');
     const checkOutDate = format(checkoutDisplay, 'MM/dd/yyyy');
-    
+;
     return (
       <div className="date-range-wrapper" onClick={onClick} ref={ref}>
         <div className="checkIn-wrapper" role="button" tabIndex="0">
@@ -62,8 +62,8 @@ function ReserveForm() {
       const decrementChild = () => {
         setOccupancy(prev => ({ ...prev, children: prev.children > 0 ? prev.children - 1 : 0 }));
     };
-  
-  
+    console.log("ReserveForm 렌더링됨")
+    console.log(document.querySelector(".reservation-form-container"))
     return(
         <div className="reservation-form-container">
             <div className="reservation-form-background">
