@@ -11,6 +11,7 @@ import SignUpPage from "./components/pages/SignUpPage";
 import HotelListDummy from "./components/pages/HotelListDummy";
 import MyPage from "./components/pages/MyPage";
 import Admin from "./components/pages/Admin";
+import MapWithSearch from "./components/pages/MapWithSearch";
 
 function App() {
   return (
@@ -21,9 +22,7 @@ function App() {
           <Route
             path="/"
             element={
-              <JejuMap>
-                <ReserveForm />
-              </JejuMap>
+              <MapWithSearch/>
             }
           />
           <Route path="/login" element={<SignInPage />} />
@@ -36,9 +35,7 @@ function App() {
           <Route
             path="/reserve"
             element={
-              <JejuMap>
-                <ReserveForm />
-              </JejuMap>
+              <MapWithSearch/>
             }
           />
         </Routes>

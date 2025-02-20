@@ -10,7 +10,7 @@ a {
     align-items: center;
     margin-bottom: 1px;
     padding: 0 100px;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 0  rgb(219, 161, 139);
     /* background: lightyellow; */
     margin: 0 auto;
 }

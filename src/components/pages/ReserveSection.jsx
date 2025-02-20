@@ -2,7 +2,6 @@
 
 import "../../styled/ReserveSection.css";
 import JejuMap from "../maps/JejuMap";
-import ReserveForm from "../forms/ReserveForm";
 
 function ReserveSection() {
   return (
@@ -23,13 +22,6 @@ function ReserveSection() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      
-      {/* 예약 폼 섹션 */}
-      <div className="hero-form">
-        <div className="reservation-form-container">
-          <ReserveForm />
         </div>
       </div>
     </section>

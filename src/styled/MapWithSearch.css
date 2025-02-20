@@ -1,0 +1,26 @@
+/* 📌 지도 + 검색창을 감싸는 큰 컨테이너 */
+.map-search-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 📌 지도 크기 */
+.map-container {
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 📌 검색 폼 컨테이너 */
+.search-container {
+    width: 100%;
+}

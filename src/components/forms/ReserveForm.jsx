@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styled/ReserveForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faMagnifyingGlass, faPerson } from "@fortawesome/free-solid-svg-icons";
@@ -6,49 +6,18 @@ import DatePicker from "react-datepicker";
 import { addMonths, format } from "date-fns";
 // import "react-datepicker/dist/react-datepicker.css";
 import React from "react";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons"; // 📌 추가해야 함
 
-const CustomRangeInput = React.forwardRef(({ onClick, startDate, endDate }, ref) => {
-    
-    const defaultCheckOutDate = new Date(startDate);
-    defaultCheckOutDate.setDate(defaultCheckOutDate.getDate() + 1);
-    const checkoutDisplay = endDate ? endDate : defaultCheckOutDate;
-    const checkInWeekday = format(startDate, 'EEEE');
-    const checkInDate = format(startDate, 'MM/dd/yyyy');
-    const checkOutWeekday = format(checkoutDisplay, 'EEEE');
-    const checkOutDate = format(checkoutDisplay, 'MM/dd/yyyy');
-;
-    return (
-      <div className="date-range-wrapper" onClick={onClick} ref={ref}>
-        <div className="checkIn-wrapper" role="button" tabIndex="0">
-          <span className="check-icon">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-          </span>
-          <div className="checkIn-info">
-            <div className="checkIn-weekday">{checkInWeekday}</div>
-            <div className="checkIn-date">{checkInDate}</div>
-          </div>
-        </div>
-        <div className="checkOut-wrapper" role="button" tabIndex="0">
-          <span className="check-icon">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-          </span>
-          <div className="checkOut-info">
-            <div className="checkOut-weekday">{checkOutWeekday}</div>
-            <div className="checkIn-date">{checkOutDate}</div>
-          </div>
-        </div>
-      </div>
-    );
-  });
-CustomRangeInput.displayName="CutomRangeInput";
 
 function ReserveForm() {
 
-    const [dateRange, setDateRange] = useState([new Date(), null]);
+    const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
+    const [dateModalOpen, setDateModalOpen] = useState(false);
 
     const [occupancy, setOccupancy] = useState({ adults:2, children: 0});
     const [occupancyOpen, setOccupancyOpen] = useState(false);
+
     const incrementAdult = () => {
     setOccupancy(prev => ({ ...prev, adults: prev.adults + 1}));   
     };
@@ -62,13 +31,27 @@ function ReserveForm() {
       const decrementChild = () => {
         setOccupancy(prev => ({ ...prev, children: prev.children > 0 ? prev.children - 1 : 0 }));
     };
-    console.log("ReserveForm 렌더링됨")
-    console.log(document.querySelector(".reservation-form-container"))
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!e.target.closest(".date-modal") && !e.target.closest(".date-box")) {
+                setDateModalOpen(false);
+            }
+        };
+
+        if (dateModalOpen) {
+            document.addEventListener("click", handleClickOutside);
+        } else {
+            document.removeEventListener("click", handleClickOutside);
+        }
+
+        return () => document.removeEventListener("click", handleClickOutside);
+    }, [dateModalOpen]);
+
     return(
         <div className="reservation-form-container">
             <div className="reservation-form-background">
                 <div className="reservation-form-wrapper">
-                    <h2>Hotels</h2>
                     <form className="reservation-form">
                         <div className="search-box">
                             <div className="search-wrapper">
@@ -78,21 +61,77 @@ function ReserveForm() {
                             <input type="text" placeholder="어디로 가시나요" />
                             </div>
                         </div>
-                        <div className="date-box">
-                        <DatePicker
-                selected={startDate}
-                onChange={(update) => {
-                  setDateRange(update);
-                }}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-                minDate={new Date()}
-                maxDate={addMonths(new Date(), 5)}
-                // customInput에 커스텀 인풋 컴포넌트를 전달합니다.
-                customInput={<CustomRangeInput startDate={startDate} endDate={endDate} />}
-                />
+                        <div className="date-box-wrapper">
+                        <div className="date-box" onClick={() => setDateModalOpen(!dateModalOpen)}>
+                            <FontAwesomeIcon icon={faCalendarAlt} className="date-icon" />
+                            <span>
+                            {startDate && endDate
+                                ? `${format(startDate, "yyyy/MM/dd")} - ${format(endDate, "yyyy/MM/dd")}`
+                                : "날짜 선택"}
+                            </span>
                         </div>
+
+                        {/* 📌 날짜 선택 모달 */}
+                        {dateModalOpen && (
+                        <div 
+                            className="date-modal"
+                            onClick={(e) => e.stopPropagation()} // ✅ 바깥 클릭으로 닫히는 문제 방지
+                        >
+                            <DatePicker
+                                selected={startDate || new Date()}
+                                onChange={(update) => update && setDateRange(update)}
+                                startDate={startDate}
+                                endDate={endDate}
+                                selectsRange
+                                minDate={new Date()}
+                                maxDate={addMonths(new Date(), 5)}
+                                dateFormat="yyyy/MM/dd"
+                                inline
+                                shouldCloseOnSelect={false} // ✅ 날짜 클릭 시 달력이 닫히지 않도록 설정
+                                renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
+                                    <div className="custom-datepicker-header">
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.preventDefault(); // ✅ 기본 동작 방지
+                                                e.stopPropagation(); // ✅ 이벤트 전파 방지
+                                                decreaseMonth(); // ✅ 이전 달로 이동
+                                            }}
+                                            className="nav-button"
+                                        >
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </button>
+                                        <span>{monthDate ? format(monthDate, "MMMM yyyy") : "로딩 중..."}</span>
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                increaseMonth(); // ✅ 다음 달로 이동
+                                            }}
+                                            className="nav-button"
+                                        >
+                                            <FontAwesomeIcon icon={faChevronRight} />
+                                        </button>
+                                    </div>
+                                )}
+                            />
+                            {/* ✅ 확인 버튼을 눌러야만 달력이 닫힘 */}
+                            <button
+                                className="date-modal-close"
+                                type="button"
+                                onClick={(e) => {
+                                    e.preventDefault(); 
+                                    e.stopPropagation();
+                                    setDateModalOpen(false); // ✅ 확인 버튼을 눌렀을 때만 모달 닫기
+                                }}
+                            >
+                                확인
+                            </button>
+                        </div>
+                    )}
+                    </div>
+
                         <div className="occupancy-box">
                         <div className="occupancy-wrapper" role="button" tabIndex="0" onClick={() => setOccupancyOpen(true)}>
                             <span className="occupancy-icon">
@@ -103,7 +142,7 @@ function ReserveForm() {
                             </div>                         
                                
                         </div>
-                                      {/* 인원수 선택 모달 */}
+               {/* 인원수 선택 모달  */}
               {occupancyOpen && (
                 <div className="occupancy-modal">
                   <div className="occupancy-modal-content">
@@ -138,6 +177,7 @@ function ReserveForm() {
             </div>
         </div>   
     )
+
 }
 
 export default ReserveForm;
