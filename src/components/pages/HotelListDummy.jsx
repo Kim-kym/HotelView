@@ -1,6 +1,6 @@
 // src/components/HotelListDummy.js
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "../../styled/HotelList.css";
 
 function HotelListDummy() {
@@ -91,12 +91,47 @@ function HotelListDummy() {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // url 쿼리 파라미터
+  // 새로고침 시에도 url에 저장된 정렬 옵션을 이용해 상태 복원
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSort = searchParams.get("sort") || "recommend";
+  // 적용된 정렬 버튼에 색을 입히기 위한 상태 저장
+  const [activeSort, setActiveSort] = useState(initialSort);
+
   // 컴포넌트가 마운트되면 더미 데이터를 설정
   useEffect(() => {
-    // API 호출 대신 더미 데이터 적용
     setHotels(dummyHotels);
     setLoading(false);
+    handleSort(initialSort);
   }, []);
+
+  const handleSort = (sortType) => {
+    let sortedHotels = [...hotels];
+    switch (sortType) {
+      case "recommend":
+        // 추천 순: 원래 데이터 순서로 복원하거나, 추천 알고리즘 적용 가능
+        sortedHotels = [...dummyHotels];
+        break;
+      case "price":
+        sortedHotels.sort((a, b) => {
+          const priceA = parseInt(a.price.replace(/,/g, ""));
+          const priceB = parseInt(b.price.replace(/,/g, ""));
+          return priceA - priceB;
+        });
+        break;
+      case "rating":
+        sortedHotels.sort((a, b) => b.rating - a.rating);
+        break;
+      case "favorites":
+        sortedHotels.sort((a, b) => b.favorites - a.favorites);
+        break;
+      default:
+        break;
+    }
+    setHotels(sortedHotels); // 정렬된 호텔 목록 업데이트
+    setActiveSort(sortType); // 현재 활성화된 정렬 기준 업데이트
+    setSearchParams({ sort: sortType }); // url 쿼리 파라미터 업데이트
+  };
 
   if (loading) {
     return <div>로딩 중...</div>;
@@ -107,11 +142,52 @@ function HotelListDummy() {
       <div className="hotel-list-background">
         <img src="/images/sea.jpg" alt="sea" />
       </div>
+
       <div className="hotel-list-wrapper">
+        <div className="hotel-list-sortBar-box">
+          <div className="hotel-list-sortBar-wrapper">
+            <div
+              className={`hotel-list-sortBar-button ${
+                activeSort === "recommend" ? "active" : ""
+              }`}
+              role="button"
+              onClick={() => handleSort("recommend")}
+            >
+              자쿠과 추천
+            </div>
+            <div
+              className={`hotel-list-sortBar-button ${
+                activeSort === "price" ? "active" : ""
+              }`}
+              role="button"
+              onClick={() => handleSort("price")}
+            >
+              예약가 낮은 순
+            </div>
+            <div
+              className={`hotel-list-sortBar-button ${
+                activeSort === "rating" ? "active" : ""
+              }`}
+              role="button"
+              onClick={() => handleSort("rating")}
+            >
+              후기 좋은 순
+            </div>
+            <div
+              className={`hotel-list-sortBar-button ${
+                activeSort === "favorites" ? "active" : ""
+              }`}
+              role="button"
+              onClick={() => handleSort("favorite")}
+            >
+              찜 많은 순
+            </div>
+          </div>
+        </div>
         <div className="hotel-list">
           {hotels.map((hotel) => (
             <div key={hotel.id} className="hotel-box">
-              <Link to={`/hotel/${hotel.id}`}>
+              <Link to={`/hotels/${hotel.id}`}>
                 <div className="hotel-box-background">
                   <img
                     className="hotel-image"

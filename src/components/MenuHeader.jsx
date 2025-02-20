@@ -5,7 +5,7 @@ import "../styled/MenuHeader.css";
 
 function MenuHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(""); 
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     // localStorage에서 로그인 정보 확인
@@ -30,7 +30,9 @@ function MenuHeader() {
       <div className="header-container">
         <div className="header-logo">
           <Link to="/">
-            <h1><img src="images/logo.png" alt="Logo" /></h1>
+            <h1>
+              <img src="images/logo.png" alt="Logo" />
+            </h1>
           </Link>
         </div>
         <nav className="header-nav">
