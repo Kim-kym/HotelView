@@ -30,7 +30,7 @@ function MenuHeader() {
       <div className="header-container">
         <div className="header-logo">
           <Link to="/">
-            <h1><img src="images/logo.png" alt="Logo" /></h1>
+            <h1><img src="images/logo.JPG" alt="Logo" /></h1>
           </Link>
         </div>
         <nav className="header-nav">
