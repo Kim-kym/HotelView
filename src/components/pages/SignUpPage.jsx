@@ -92,7 +92,7 @@ function SignUpPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userData.email,
+          email: userData.email,
           password,
           name,
           nickname: userData.nickname,
