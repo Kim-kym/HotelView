@@ -13,6 +13,7 @@ import MyPage from "./components/pages/MyPage";
 import PaymentPage from "./components/pages/PaymentPage";
 import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
+import HotelDetail from "./components/pages/HotelDetail";
 
 function App() {
   return (
@@ -20,12 +21,7 @@ function App() {
       <Router>
         <MenuHeader />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MapWithSearch/>
-            }
-          />
+          <Route path="/" element={<MapWithSearch />} />
           <Route path="/login" element={<SignInPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/payment" element={<PaymentPage />} />
@@ -33,13 +29,9 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           {/* <Route path="/hotels" element={<HotelList />} /> */}
           <Route path="/hotels" element={<HotelListDummy />} />
+          <Route path="/hotels/:id" element={<HotelDetail />} />
           {/* 회원가입 페이지 */}
-          <Route
-            path="/reserve"
-            element={
-              <MapWithSearch/>
-            }
-          />
+          <Route path="/reserve" element={<MapWithSearch />} />
         </Routes>
         <Footer />
       </Router>
