@@ -17,7 +17,7 @@ const PaymentPage = () => {
 
   const completePayment = async () => {
     try {
-      const response = await fetch("http://localhost:8080/user/charge-points", {
+      const response = await fetch("http://localhost:8050/user/charge-points", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: 1, amount }), // userId는 로그인된 유저 정보로 변경 필요

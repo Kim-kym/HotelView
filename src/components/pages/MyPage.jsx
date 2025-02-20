@@ -8,7 +8,7 @@ function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8020/user/mypage", {
+    fetch("http://localhost:8050/user/mypage", {
       method: "GET",
       credentials: "include",
     })
