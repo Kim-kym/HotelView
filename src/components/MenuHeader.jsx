@@ -29,7 +29,7 @@ function MenuHeader() {
         <div className="header-logo">
           <Link to="/">
             <h1>
-              <img src="images/logo.png" alt="Logo" />
+              <img src="images/logo.JPG" alt="Logo" />
             </h1>
           </Link>
         </div>
