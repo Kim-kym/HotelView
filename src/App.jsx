@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
-import CompanyIntro from "./components/pages/CompanyIntro";  
-// 소개 추가
+import CompanyIntro from "./components/pages/CompanyInrto";
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 // import HotelList from "./components/pages/HotelList";
