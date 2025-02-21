@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
-import ReserveForm from "./components/forms/ReserveForm";
-import JejuMap from "./components/maps/JejuMap";
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 // import HotelList from "./components/pages/HotelList";
@@ -14,7 +12,7 @@ import PaymentPage from "./components/pages/PaymentPage";
 import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
 import HotelDetail from "./components/pages/HotelDetail";
-import CompanyIntro from "./components/pages/CompanyIntro"; //  회사소개 페이지 추가
+// import CompanyIntro from "./components/pages/CompanyIntro"; //  회사소개 페이지 추가
 
 function App() {
   return (
@@ -33,7 +31,8 @@ function App() {
           <Route path="/hotels/:id" element={<HotelDetail />} />
           {/* 회원가입 페이지 */}
           <Route path="/reserve" element={<MapWithSearch />} />
-          <Route path="/companyIntro" element={<CompanyIntro />} /> {/* 회사소개 페이지 추가 */}
+          {/* <Route path="/companyIntro" element={<CompanyIntro />} /> */}
+          {/* 회사소개 페이지 추가 */}
         </Routes>
         <Footer />
       </Router>

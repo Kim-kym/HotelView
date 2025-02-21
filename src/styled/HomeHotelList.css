@@ -1,0 +1,103 @@
+/* 🔹 호텔 리스트 컨테이너 - 지도와 동일한 크기로 설정 */
+.hotel-list-container {
+    width: 100%;
+    max-width: 1200px; /* 지도 너비와 동일하게 설정 */
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* 컨테이너를 벗어나지 않도록 설정 */
+}
+
+/* 🔹 호텔 리스트 스타일 */
+.hotel-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ 한 줄에 2개 배치 */
+    gap: 20px;  /* ✅ 카드 간 간격 조정 */
+    justify-content: center;
+    padding: 10px;
+}
+
+/* 🔹 호텔 카드 스타일 */
+.hotel-box {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 100%;  /* ✅ 컨테이너 너비에 맞게 조정 */
+    max-width: 550px; /* ✅ 카드 크기를 줄여서 컨테이너 안에 맞춤 */
+    height: 400px;  /* ✅ 카드 높이 조정 */
+}
+
+.hotel-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 호텔 이미지 스타일 */
+.hotel-image {
+    width: 100%;
+    height: 200px; /* ✅ 이미지 높이 키우기 */
+    object-fit: cover; /* 이미지 비율 유지 */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* 🔹 호텔 정보 스타일 */
+.hotel-info {
+    padding: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* ✅ 텍스트 정렬 균형 유지 */
+    flex-grow: 1;
+}
+
+/* 🔹 호텔 제목 */
+.hotel-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+/* 🔹 호텔 주소 */
+.hotel-info .hotel-address {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* 🔹 호텔 평점 */
+.hotel-info .hotel-rating {
+    font-size: 14px;
+    color: #ff9800;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* 🔹 호텔 가격 */
+.hotel-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin-top: auto;
+}
+
+/* 🔹 반응형 스타일 */
+@media (max-width: 1024px) {
+    .hotel-list {
+        grid-template-columns: repeat(2, 1fr); /* ✅ 태블릿에서도 2개 유지 */
+    }
+}
+
+@media (max-width: 768px) {
+    .hotel-list {
+        grid-template-columns: 1fr; /* ✅ 모바일에서는 1개씩 */
+    }
+}
