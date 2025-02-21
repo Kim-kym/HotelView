@@ -79,6 +79,9 @@
     transition: transform 0.3s;
   }
   
+  .hotel-box:hover{
+    transform: scale(1.02); 
+  }
   .hotel-box-background {
     display: flex;
     width: 100%;
@@ -141,7 +144,7 @@
     align-items: center;
     margin-top: auto; /* 자동으로 아래쪽 정렬 */
   }
-  
+
   .reservation-button {
     width: 90%;  /* 버튼 크기 조절 */
     max-width: 200px;  /* 너무 커지지 않도록 제한 */

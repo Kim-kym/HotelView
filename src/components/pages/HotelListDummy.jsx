@@ -38,6 +38,9 @@ function HotelListDummy() {
 
   return (
     <div className="hotel-list-container">
+    <div className="hotel-list-background">
+      <img src="/images/sea.jpg" alt="sea" />
+    </div>
       <div className="hotel-list-wrapper">
         <div className="hotel-list">
           {hotels.map((hotel) => (
