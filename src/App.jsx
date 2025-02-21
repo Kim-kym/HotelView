@@ -15,6 +15,7 @@ import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
 import HotelDetail from "./components/pages/HotelDetail";
 
+
 function App() {
   return (
     <AuthProvider>
