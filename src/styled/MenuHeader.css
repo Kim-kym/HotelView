@@ -1,3 +1,10 @@
+/* @font-face {
+    font-family: "JejuDoldam";
+    src: url("/fonts/EF_jejudoldam(TTF).ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  } */
+
 a {
     color: inherit; 
     text-decoration: none;
@@ -13,6 +20,10 @@ a {
     box-shadow: 0 1px 0  rgb(219, 161, 139);
     /* background: lightyellow; */
     margin: 0 auto;
+
+    /* font-family: "JejuDoldam", sans-serif; */
+    /* font-size: 20px; */
+
 }
 
 .header-nav ul {
@@ -50,6 +61,7 @@ a {
     background-color: #f3e9da;
     font-weight: bold;
 }
+
 .header-right-box {
     display: flex;
     align-items: center;

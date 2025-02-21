@@ -11,6 +11,15 @@
 } */
 
 /* 마이페이지 전체 컨테이너 */
+.mypage-wrapper {
+  display: flex;
+  justify-content: flex-start; /* 마이페이지와 패널을 자연스럽게 나란히 배치 */
+  align-items: flex-start;
+  position: relative;
+  max-width: 1100px; /* ✅ 마이페이지와 패널을 포함한 최대 너비 */
+  margin: 20px auto;
+}
+
 
 .mypage-header {
   display: flex;
@@ -21,8 +30,8 @@
 
 
 .mypage-container {
-  max-width: 800px;
-  margin: 20px auto;
+  flex-grow: 1; /* ✅ 마이페이지가 줄어들지 않도록 설정 */
+  max-width: 800px; /* ✅ 마이페이지 크기 고정 */
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
