@@ -10,7 +10,6 @@ import SignUpPage from "./components/pages/SignUpPage";
 // import HotelList from "./components/pages/HotelList";
 import HotelListDummy from "./components/pages/HotelListDummy";
 import MyPage from "./components/pages/MyPage";
-import PaymentPage from "./components/pages/PaymentPage";
 import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
 import HotelDetail from "./components/pages/HotelDetail";
@@ -24,7 +23,6 @@ function App() {
           <Route path="/" element={<MapWithSearch />} />
           <Route path="/login" element={<SignInPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/signup" element={<SignUpPage />} />
           {/* <Route path="/hotels" element={<HotelList />} /> */}
