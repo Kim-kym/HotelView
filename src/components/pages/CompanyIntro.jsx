@@ -8,11 +8,6 @@ const CompanyIntro = () => {
   return (
     <div className="company-intro-container">
       {/* 상단 제주도 바다 이미지 섹션 */}
-      <img
-          src="/images/sea.jpg"
-          alt="제주도 바다"
-          className="w-full h-full object-cover"
-        />
       <div className="company-header">
         <h1>회사 소개</h1>
         <p>고객을 위한 최고의 호텔 관리 시스템</p>
