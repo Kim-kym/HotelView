@@ -1,9 +1,31 @@
 // import React from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styled/CompanyIntro.css";
 
 const CompanyIntro = () => {
   const navigate = useNavigate();
+  const [showButton, setShowButton] = useState(false);
+
+   // 스크롤 이벤트 감지하여 버튼 표시 여부 결정
+   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) { // 스크롤이 400px 이상 내려갔을 때 버튼 표시
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 맨 위로 스크롤 이동하는 함수
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  
 
   return (
     <div className="company-intro-container">
@@ -34,12 +56,15 @@ const CompanyIntro = () => {
         </p>
       </div>
 
-      {/* 홈으로 돌아가기 버튼 */}
-      <div className="text-center mt-8">
-        <button className="back-to-home" onClick={() => navigate("/")}>
-          H O M E
-        </button>
-      </div>
+      {/* Footer */}
+      {/* <footer className="footer">
+      <p>@ 2024 자쿠과.All rights reserved.</p>
+      </footer> */}
+
+      {/* 맨 위로 가기 화살표 버튼 */}
+      <div className={`scroll-to-top ${showButton ? "show" : ""}`}
+      onClick={scrollToTop}>↑</div>
+
     </div>
   );
 };
