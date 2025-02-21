@@ -11,34 +11,41 @@ function MenuHeader() {
 
   useEffect(() => {
     const updateAuthState = () => {
-      const role = sessionStorage.getItem("userRole");
-      setIsLoggedIn(!!role);
-      setUserRole(role || "");
+      setTimeout(() => { // ✅ 상태 업데이트 보장
+        const role = sessionStorage.getItem("userRole");
+        setIsLoggedIn(!!role);
+        setUserRole(role || "");
+        console.log("현재 userRole 상태 업데이트됨:", role); // ✅ 로그 확인
+      }, 0);
     };
-
-    // ✅ 처음 실행할 때 세션 상태 확인
+  
     updateAuthState();
-
-    // ✅ 커스텀 이벤트 감지하여 로그인 상태 업데이트
     window.addEventListener("authChange", updateAuthState);
-
+  
     return () => {
       window.removeEventListener("authChange", updateAuthState);
     };
   }, []);
 
-  const handleLogout = () => {
-    sessionStorage.clear(); // 세션 로그아웃 처리
-    window.dispatchEvent(new CustomEvent("authChange")); // ✅ 상태 변경 이벤트 발생
-    navigate("/");
-  };
-  const handleLogout = () => {
-    sessionStorage.clear(); //  세션 로그아웃 처리
-    setIsLoggedIn(false);
-    setUserRole("");
-    navigate("/");
+  const handleLogin = (role) => {
+    console.log("handleLogin 함수 실행됨! role:", role);
+    sessionStorage.setItem("userRole", role);
+    window.dispatchEvent(new CustomEvent("authChange"));
+    console.log("로그인 완료 - 저장된 userRole:", sessionStorage.getItem("userRole")); // ✅ 콘솔 확인
   };
 
+  const handleLogout = () => {
+    sessionStorage.clear(); // 세션 로그아웃 처리
+    setIsLoggedIn(false);
+
+    setTimeout(() => {
+      setUserRole(""); // ✅ 상태 즉시 반영 보장
+      console.log("로그아웃 완료 - userRole:", userRole); // ✅ 콘솔에서 확인
+      window.dispatchEvent(new CustomEvent("authChange"));
+      navigate("/");
+    }, 0);
+  };
+  
   return (
     <header className="page-header">
       <div className="header-container">
@@ -52,7 +59,7 @@ function MenuHeader() {
         <nav className="header-nav">
           <ul>
             <li>
-              <Link to="/companyIntro">소개</Link> {/* 링크로 수정한 부분 */}
+              <Link to="/company">소개</Link> {/* 링크로 수정한 부분 */}
             </li>
             <li>
               <Link to="/hotels">호텔</Link>
@@ -72,16 +79,15 @@ function MenuHeader() {
           </ul>
         </nav>
         <div className="header-right-box">
-          {!isLoggedIn ? (
-            <>
-              <Link to="/signup">
-                <button>회원가입</button>
-              </Link>
-              <Link to="/login">
-                <button>로그인</button>
-              </Link>
-            </>
-          ) : (
+          {/* 로그인 상태에 따라 버튼 표시 */}
+          {!isLoggedIn && (
+            <Link to="/signup">
+              <button>회원가입</button>
+            </Link>
+          )}
+
+          {/* userRole에 따라 버튼 표시 */}
+          {userRole && (
             <>
               {userRole === "admin" && (
                 <Link to="/admin">
@@ -93,8 +99,15 @@ function MenuHeader() {
                   <button>마이페이지</button>
                 </Link>
               )}
-              <button onClick={handleLogout}>로그아웃</button>
             </>
+          )}
+
+          {isLoggedIn ? (
+            <button onClick={handleLogout}>로그아웃</button>
+          ) : (
+            <Link to="/login">
+              <button onClick={() => handleLogin("user")}>로그인</button>
+            </Link>
           )}
         </div>
       </div>
