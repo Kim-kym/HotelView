@@ -14,6 +14,7 @@ import PaymentPage from "./components/pages/PaymentPage";
 import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
 import HotelDetail from "./components/pages/HotelDetail";
+import HotelReserve from "./components/pages/HotelReserve";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           {/* <Route path="/hotels" element={<HotelList />} /> */}
           <Route path="/hotels" element={<HotelListDummy />} />
           <Route path="/hotels/:id" element={<HotelDetail />} />
+          <Route path="/reservation/:id" element={<HotelReserve />} />
           {/* 회원가입 페이지 */}
           <Route path="/reserve" element={<MapWithSearch />} />
           <Route path="/companyIntro" element={<CompanyIntro />} />
