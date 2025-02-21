@@ -37,7 +37,7 @@ const CompanyIntro = () => {
       {/* 홈으로 돌아가기 버튼 */}
       <div className="text-center mt-8">
         <button className="back-to-home" onClick={() => navigate("/")}>
-          홈으로 돌아가기
+          H O M E
         </button>
       </div>
     </div>
