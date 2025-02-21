@@ -1,5 +1,5 @@
 /* 🔹 호텔 리스트 컨테이너 - 지도와 동일한 크기로 설정 */
-.hotel-list-container {
+.home_hotel-list-container {
     width: 100%;
     max-width: 1200px; /* 지도 너비와 동일하게 설정 */
     margin: 40px auto;
@@ -11,7 +11,7 @@
 }
 
 /* 🔹 호텔 리스트 스타일 */
-.hotel-list {
+.home_hotel-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* ✅ 한 줄에 2개 배치 */
     gap: 20px;  /* ✅ 카드 간 간격 조정 */
@@ -20,7 +20,7 @@
 }
 
 /* 🔹 호텔 카드 스타일 */
-.hotel-box {
+.home_hotel-box {
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -31,25 +31,25 @@
     flex-direction: column;
     width: 100%;  /* ✅ 컨테이너 너비에 맞게 조정 */
     max-width: 550px; /* ✅ 카드 크기를 줄여서 컨테이너 안에 맞춤 */
-    height: 400px;  /* ✅ 카드 높이 조정 */
+    height: 500px;  /* ✅ 카드 높이 조정 */
 }
 
-.hotel-card:hover {
+.home_hotel-card:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* 🔹 호텔 이미지 스타일 */
-.hotel-image {
+.home_hotel-image {
     width: 100%;
-    height: 200px; /* ✅ 이미지 높이 키우기 */
+    height: 300px; /* ✅ 이미지 높이 키우기 */
     object-fit: cover; /* 이미지 비율 유지 */
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
 
 /* 🔹 호텔 정보 스타일 */
-.hotel-info {
+.home_hotel-info {
     padding: 15px;
     text-align: left;
     display: flex;
@@ -59,7 +59,7 @@
 }
 
 /* 🔹 호텔 제목 */
-.hotel-info h3 {
+.home_hotel-info h3 {
     font-size: 18px;
     font-weight: bold;
     color: #222;
@@ -74,7 +74,7 @@
 }
 
 /* 🔹 호텔 평점 */
-.hotel-info .hotel-rating {
+.home_hotel-info .hotel-rating {
     font-size: 14px;
     color: #ff9800;
     font-weight: bold;
@@ -82,7 +82,7 @@
 }
 
 /* 🔹 호텔 가격 */
-.hotel-price {
+.home_hotel-price {
     font-size: 18px;
     font-weight: bold;
     color: #d32f2f;
@@ -90,17 +90,17 @@
 }
 
 /* 🔹 호텔 전체 카드를 클릭 가능하게 설정 */
-.hotel-box-link {
+.home_hotel-box-link {
     text-decoration: none; /* ✅ 링크 스타일 제거 */
     color: inherit; /* ✅ 기본 색상 유지 */
 }
 
-.hotel-box {
+.home_hotel-box {
     cursor: pointer; /* ✅ 마우스를 올리면 클릭 가능하게 */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.hotel-box:hover {
+.home_hotel-box:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
@@ -108,13 +108,13 @@
 
 /* 🔹 반응형 스타일 */
 @media (max-width: 1024px) {
-    .hotel-list {
+    .home_hotel-list {
         grid-template-columns: repeat(2, 1fr); /* ✅ 태블릿에서도 2개 유지 */
     }
 }
 
 @media (max-width: 768px) {
-    .hotel-list {
+    .home_hotel-list {
         grid-template-columns: 1fr; /* ✅ 모바일에서는 1개씩 */
     }
 }
