@@ -7,15 +7,31 @@ import "../styled/MyPage.css";
 function MenuHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const role = sessionStorage.getItem("userRole"); //  세션에서 userRole 가져오기
-    if (role) {
-      setIsLoggedIn(true);
-      setUserRole(role);
-    }
+    const updateAuthState = () => {
+      const role = sessionStorage.getItem("userRole");
+      setIsLoggedIn(!!role);
+      setUserRole(role || "");
+    };
+
+    // ✅ 처음 실행할 때 세션 상태 확인
+    updateAuthState();
+
+    // ✅ 커스텀 이벤트 감지하여 로그인 상태 업데이트
+    window.addEventListener("authChange", updateAuthState);
+
+    return () => {
+      window.removeEventListener("authChange", updateAuthState);
+    };
   }, []);
 
+  const handleLogout = () => {
+    sessionStorage.clear(); // 세션 로그아웃 처리
+    window.dispatchEvent(new CustomEvent("authChange")); // ✅ 상태 변경 이벤트 발생
+    navigate("/");
+  };
   const handleLogout = () => {
     sessionStorage.clear(); //  세션 로그아웃 처리
     setIsLoggedIn(false);

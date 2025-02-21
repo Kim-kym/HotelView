@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
-// import CompanyIntro from "./components/pages/CompanyIntro.jsx";  
+import CompanyIntro from "./components/pages/CompanyInrto";  
 // 소개 추가
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
@@ -33,7 +33,7 @@ function App() {
           <Route path="/hotels/:id" element={<HotelDetail />} />
           {/* 회원가입 페이지 */}
           <Route path="/reserve" element={<MapWithSearch />} />
-          {/* <Route path="/companyIntro" element={<CompanyIntro />} /> */}
+          <Route path="/companyIntro" element={<CompanyIntro />} />
         </Routes>
         <Footer />
       </Router>
