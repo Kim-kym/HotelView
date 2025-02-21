@@ -32,12 +32,12 @@ function MenuHeader() {
     window.dispatchEvent(new CustomEvent("authChange")); // ✅ 상태 변경 이벤트 발생
     navigate("/");
   };
-  const handleLogout = () => {
-    sessionStorage.clear(); //  세션 로그아웃 처리
-    setIsLoggedIn(false);
-    setUserRole("");
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.clear(); //  세션 로그아웃 처리
+  //   setIsLoggedIn(false);
+  //   setUserRole("");
+  //   navigate("/");
+  // };
 
   return (
     <header className="page-header">
