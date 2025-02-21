@@ -3,10 +3,9 @@ import JejuMap from "../maps/JejuMap";
 import ReserveForm from "../forms/ReserveForm";
 import HomeHotelList from "./HomeHotelList";
 import "../../styled/MapWithSearch.css";
-import dummyHotels from "./DummyList"; // ✅ 올바른 데이터 import
+import { dummyHotels } from "./DummyList"; // ✅ 올바른 데이터 import
 
 function MapWithSearch() {
-
   const [hotels, setHotels] = useState(dummyHotels || []);
 
   console.log("호텔 데이터:", hotels); // ✅ hotels 데이터 확인
