@@ -4,6 +4,8 @@ import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
 import CompanyIntro from "./components/pages/CompanyInrto";
+// import CompanyIntro from "./components/pages/CompanyIntro.jsx";
+// 소개 추가
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 // import HotelList from "./components/pages/HotelList";
@@ -13,7 +15,6 @@ import PaymentPage from "./components/pages/PaymentPage";
 import Admin from "./components/pages/Admin";
 import MapWithSearch from "./components/pages/MapWithSearch";
 import HotelDetail from "./components/pages/HotelDetail";
-
 
 function App() {
   return (
