@@ -89,6 +89,23 @@
     margin-top: auto;
 }
 
+/* 🔹 호텔 전체 카드를 클릭 가능하게 설정 */
+.hotel-box-link {
+    text-decoration: none; /* ✅ 링크 스타일 제거 */
+    color: inherit; /* ✅ 기본 색상 유지 */
+}
+
+.hotel-box {
+    cursor: pointer; /* ✅ 마우스를 올리면 클릭 가능하게 */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hotel-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+
 /* 🔹 반응형 스타일 */
 @media (max-width: 1024px) {
     .hotel-list {
