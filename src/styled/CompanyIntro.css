@@ -95,19 +95,44 @@
   line-height: 1.8;
 }
 
-/* 홈 버튼 스타일 */
+/* 홈 버튼 스타일(입체감 + 반짞임 효과 추가) */
 .back-to-home {
   margin-top: 30px;
   padding: 15px 30px;
   font-size: 1.5rem;
-  background-color: #ff9800;
+  background-color: linear-gradient(145deg,#ff9800, #e68900);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2),
+              -4px, -4px 10px rgba(255, 255, 255, 0.2); /* 입체적인 그림자 */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 버튼 호버 효과 (반짝이는 효과) */
+.back-to-home::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-45deg);
+  transition: 0.6s;
+}
+
+/* 마우스를 올리면 반짝이는 효과 */
+.back-to-home:hover::before {
+  left: 150%;
 }
 
 .back-to-home:hover {
-  background-color: #e68900;
+  background: linear-gradient(145deg, #ffa726, #fb8c00); /* 더 밝은 색상 */
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3), 
+              -6px -6px 15px rgba(255, 255, 255, 0.3);
+  transform: scale(1.05); /* 버튼이 약간 커지는 효과 */
 }
