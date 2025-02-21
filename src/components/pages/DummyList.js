@@ -84,12 +84,12 @@ export const dummyHotels = [
 ];
 
 export const roomImages = [
-  { id: 1, src: "/images/room1.jpg", alt: "방 사진1" },
-  { id: 2, src: "/images/room2.jpg", alt: "방 사진2" },
-  { id: 3, src: "/images/room3.jpg", alt: "방 사진3" },
-  { id: 4, src: "/images/room4.jpg", alt: "방 사진4" },
-  { id: 5, src: "/images/room5.jpg", alt: "방 사진5" },
-  { id: 6, src: "/images/room6.jpg", alt: "방 사진6" },
+  { id: 1, hotelId: 1, src: "/images/room1.jpg", alt: "방 사진1" },
+  { id: 2, hotelId: 2, src: "/images/room2.jpg", alt: "방 사진2" },
+  { id: 3, hotelId: 3, src: "/images/room3.jpg", alt: "방 사진3" },
+  { id: 4, hotelId: 4, src: "/images/room4.jpg", alt: "방 사진4" },
+  { id: 5, hotelId: 5, src: "/images/room5.jpg", alt: "방 사진5" },
+  { id: 6, hotelId: 6, src: "/images/room6.jpg", alt: "방 사진6" },
 ];
 
 export const reviews = [

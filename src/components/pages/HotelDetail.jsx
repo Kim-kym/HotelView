@@ -1,6 +1,6 @@
 // src/components/HotelDetail.js
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import "../../styled/HotelDetail.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,7 @@ function HotelDetail() {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     //  ★  실제 API 사용 시 필요
@@ -49,6 +50,10 @@ function HotelDetail() {
   if (!hotel) {
     return <div>해당 호텔 정보를 찾을 수 없습니다.</div>;
   }
+
+  const handleReserve = (room) => {
+    navigate(`/reservation/${hotel.id}`, { state: { selectedRoom: room } });
+  };
 
   return (
     <div className="hotel-detail-container">
@@ -152,7 +157,9 @@ function HotelDetail() {
                           <button>
                             <FontAwesomeIcon icon={faCartShopping} />
                           </button>
-                          <button>예약하기</button>
+                          <button onClick={() => handleReserve(room)}>
+                            예약하기
+                          </button>
                         </div>
                       </div>
                     </div>
