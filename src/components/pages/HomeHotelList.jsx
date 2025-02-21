@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../styled/HomeHotelList.css";
-import dummyHotels from "./DummyList"; // ✅ 더미 데이터 import
+import { dummyHotels } from "./DummyList"; // ✅ 더미 데이터 import
 
 function HotelListDummy() {
   const [hotels, setHotels] = useState([]);
@@ -18,9 +18,17 @@ function HotelListDummy() {
       <h2>호텔</h2>
       <div className="home_hotel-list">
         {hotels.map((hotel) => (
-          <Link to={`/hotels/${hotel.id}`} key={hotel.id} className="home_hotel-box-link">
+          <Link
+            to={`/hotels/${hotel.id}`}
+            key={hotel.id}
+            className="home_hotel-box-link"
+          >
             <div className="home_hotel-box">
-              <img src={hotel.image} alt={hotel.name} className="home_hotel-image" />
+              <img
+                src={hotel.image}
+                alt={hotel.name}
+                className="home_hotel-image"
+              />
               <div className="home_hotel-info">
                 <h3>{hotel.name}</h3>
                 <p>{hotel.address}</p>

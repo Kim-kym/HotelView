@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "../../styled/HotelList.css";
-import dummyHotels from "./DummyList"; // ✅ 올바른 경로 확인!
-
+import { dummyHotels } from "./DummyList"; // :흰색_확인_표시: 올바른 경로 확인!
 function HotelListDummy() {
   const [hotels, setHotels] = useState(dummyHotels);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,9 +37,9 @@ function HotelListDummy() {
 
   return (
     <div className="hotel-list-container">
-    <div className="hotel-list-background">
-      <img src="/images/sea.jpg" alt="sea" />
-    </div>
+      <div className="hotel-list-background">
+        <img src="/images/sea.jpg" alt="sea" />
+      </div>
       <div className="hotel-list-wrapper">
         <div className="hotel-list">
           {hotels.map((hotel) => (
@@ -68,9 +67,7 @@ function HotelListDummy() {
                       <p>{hotel.price}</p>
                     </div>
                     <div className="reservation-button-container">
-                      <button className="reservation-button">
-                        예약하기
-                      </button>
+                      <button className="reservation-button">예약하기</button>
                     </div>
                   </div>
                 </div>
@@ -82,5 +79,4 @@ function HotelListDummy() {
     </div>
   );
 }
-
 export default HotelListDummy;
