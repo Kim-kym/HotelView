@@ -1,36 +1,181 @@
+/* 회원 관리 페이지 컨테이너 */
 .admin-container {
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .user-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .user-table th, .user-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-  }
-  
-  .user-table th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .user-table button {
-    background-color: #28a745;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .user-table button:hover {
-    background-color: #218838;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 제목 스타일 */
+.admin-container h2 {
+  font-family: "JejuDoldam", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ✅ 테이블 스타일 */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fcf5e5; /* 홈페이지 분위기와 맞춘 배경색 */
+}
+
+/* ✅ 테이블 헤더 스타일 */
+.admin-table thead {
+  background-color: #caa174; /* 브라운 계열 */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ✅ 테이블 헤더 셀 */
+.admin-table thead th {
+  padding: 12px;
+  text-align: center;
+  border-right: 1px solid #f3e1c0;
+}
+
+/* ✅ 마지막 헤더 셀 테두리 제거 */
+.admin-table thead th:last-child {
+  border-right: none;
+}
+
+/* ✅ 테이블 본문 스타일 */
+.admin-table tbody tr {
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #e0d5bd;
+}
+
+/* ✅ 테이블 본문 셀 스타일 */
+.admin-table tbody td {
+  padding: 10px;
+  color: #6b4f3a; /* 브라운 계열 */
+}
+
+/* ✅ 홀수 행 배경색 다르게 */
+.admin-table tbody tr:nth-child(odd) {
+  background-color: #fdf8ef;
+}
+
+/* ✅ 마우스 오버 시 강조 */
+.admin-table tbody tr:hover {
+  background-color: #f3e9da;
+  transition: background 0.3s ease-in-out;
+}
+
+/* ✅ 버튼 스타일 (등급 변경, 포인트 조정) */
+.admin-table button {
+  background-color: #caa174;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.admin-table button:hover {
+  background-color: #b0895b;
+}
+
+/* 포인트 조정 컨트롤 전체 */
+.point-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  gap: 15px;
+}
+
+/* 개별 입력창 & 버튼 정렬 */
+.point-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 포인트 입력 필드 스타일 */
+.point-input {
+  width: 150px; /* 기존보다 넓게 조정 */
+  height: 25px; /* 입력칸 높이 조정 */
+  padding: 5px;
+  font-size: 16px; /* 글자 크기 키움 */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* 지급 버튼 스타일 */
+.give-points {
+  background-color: #69b578; /* 초록색 */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.give-points:hover {
+  background-color: #5a9d67;
+}
+
+/* 차감 버튼 스타일 */
+.deduct-points {
+  background-color: #d9534f; /* 빨간색 */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deduct-points:hover {
+  background-color: #c9302c;
+}
+
+/* ✅ 등급 드롭다운 기본 스타일 (기본값은 유저 등급이 보이게) */
+.rank-select {
+  width: 80px; /* ✅ 크기 고정 → 선택해도 흔들리지 않음 */
+  height: 30px;
+  border: none; /* ✅ 기본적으로 테두리(선) 제거 */
+  border-radius: 5px;
+  background-color: transparent; /* ✅ 배경을 테이블과 동일하게 설정 */
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px;
+  appearance: none; /* 기본 화살표 제거 */
+  transition: all 0.2s ease-in-out; /* ✅ 부드러운 변화 효과 */
+  color: #5a5a5a;
+}
+
+.rank-select:focus,
+.rank-select:hover {
+  background-color: #f3e9da;
+  border: none; /* ✅ 클릭해도 테두리 안 나타나도록 */
+  box-shadow: none; /* ✅ 클릭 시 그림자 효과도 없앰 */
+  color: #5a5a5a;
+}
+
+/* ✅ 드롭다운 옆 변경 버튼 스타일 */
+.update-rank-btn {
+  background-color: #c49c5d; /* ✅ 주변과 조화되는 색상 */
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.update-rank-btn:hover {
+  background-color: #e76f51;
+}
