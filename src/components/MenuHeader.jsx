@@ -59,7 +59,7 @@ function MenuHeader() {
         <nav className="header-nav">
           <ul>
             <li>
-              <Link to="/company">소개</Link> {/* 링크로 수정한 부분 */}
+              <Link to="/companyintro">소개</Link> {/* 링크로 수정한 부분 */}
             </li>
             <li>
               <Link to="/hotels">호텔</Link>
