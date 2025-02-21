@@ -14,14 +14,14 @@ function HotelListDummy() {
   }, []);
 
   return (
-    <div className="hotel-list-container">
+    <div className="home_hotel-list-container">
       <h2>호텔</h2>
-      <div className="hotel-list">
+      <div className="home_hotel-list">
         {hotels.map((hotel) => (
-          <Link to={`/hotels/${hotel.id}`} key={hotel.id} className="hotel-box-link">
-            <div className="hotel-box">
-              <img src={hotel.image} alt={hotel.name} className="hotel-image" />
-              <div className="hotel-info">
+          <Link to={`/hotels/${hotel.id}`} key={hotel.id} className="home_hotel-box-link">
+            <div className="home_hotel-box">
+              <img src={hotel.image} alt={hotel.name} className="home_hotel-image" />
+              <div className="home_hotel-info">
                 <h3>{hotel.name}</h3>
                 <p>{hotel.address}</p>
                 <p>⭐ {hotel.rating}</p>
