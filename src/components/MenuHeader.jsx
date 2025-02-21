@@ -27,6 +27,7 @@ function MenuHeader() {
     };
   }, []);
 
+
   const handleLogin = (role) => {
     console.log("handleLogin 함수 실행됨! role:", role);
     sessionStorage.setItem("userRole", role);
