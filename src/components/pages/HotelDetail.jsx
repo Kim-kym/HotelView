@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../../styled/HotelDetail.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 // 10개의 더미 데이터
 // ★ 실제 API 사용 시 삭제
@@ -100,6 +102,21 @@ const reviews = [
   { id: 2, rating: "★★★★★", date: "2023-02-01", content: "리뷰 내용 2" },
   { id: 3, rating: "★★★★★", date: "2023-03-01", content: "리뷰 내용 3" },
 ];
+
+// ★ 추가 더미 데이터
+// 1. room-box 내부에서 사용할 방 정보 (image와 room-name)
+const roomsData = [
+  { id: 1, image: "/images/room1.jpg", name: "싱글룸" },
+  { id: 2, image: "/images/room2.jpg", name: "더블룸" },
+  { id: 3, image: "/images/room3.jpg", name: "스위트룸" },
+];
+
+// 2. room-reserve-wrapper 내부에서 사용할 "가격"과 "남은 객실 수" 정보
+const reserveDetails = [
+  { id: 1, label: "가격", value: "150,000" },
+  { id: 2, label: "남은 객실", value: "1" },
+];
+
 //
 
 function HotelDetail() {
@@ -193,33 +210,62 @@ function HotelDetail() {
               <h3>객실 선택</h3>
             </div>
             <div className="room-box">
-              <div className="room-wrapper">
-                <div className="room-image">
-                  <img src="/" alt="room1"></img>
-                  <div>
-                    <h3>
-                      <div className="room-name">방 종류</div>
-                    </h3>
-                  </div>
-                </div>
-                <div className="room-reserve-box">
-                  <div className="room-reserve-wrapper">
-                    <div>숙박</div>
-                    <div>체크인 16:30 ~ 체크아웃 11:00</div>
-                    <div className="room-price-box">
-                      <div>가격</div>
-                      <div>무료 취소(3일 이내)</div>
+              {/* roomsData 배열을 map 함수로 렌더링 */}
+              {roomsData.map((room) => (
+                <div className="room-wrapper" key={room.id}>
+                  <div className="room-image">
+                    <img src={room.image} alt={`Room ${room.name}`} />
+                    <div>
+                      <h3>
+                        <div className="room-name">{room.name}</div>
+                      </h3>
                     </div>
-                    <div className="room-status-box">
-                      <div>남은 객실 1개</div>
+                  </div>
+                  <div className="room-reserve-box">
+                    <div className="room-reserve-wrapper">
                       <div>
-                        <button>찜</button>
-                        <button>예약하기</button>
+                        <div className="accommodation">숙박</div>
+                        <div className="checkinAndCheckoutTime">
+                          체크인 <span className="bold-number">16:30</span> ~
+                          체크아웃 <span className="bold-number">11:00</span>
+                        </div>
+                      </div>
+                      <div className="room-price-box">
+                        {/* "가격" 정보만 필터링 후 map 함수로 렌더링 */}
+                        {reserveDetails
+                          .filter((detail) => detail.label === "가격")
+                          .map((detail) => (
+                            <div key={detail.id}>
+                              <span className="bold-price">
+                                {detail.value}원
+                              </span>
+                            </div>
+                          ))}
+                        <div className="cancle-rule">무료 취소(3일 이내)</div>
+                      </div>
+                      <div className="room-status-box">
+                        {/* "남은 객실 수" 정보만 필터링 후 map 함수로 렌더링 */}
+                        {reserveDetails
+                          .filter((detail) => detail.label === "남은 객실")
+                          .map((detail) => (
+                            <div key={detail.id}>
+                              <span className="available-room">
+                                {" "}
+                                {detail.label} {detail.value}개
+                              </span>
+                            </div>
+                          ))}
+                        <div className="favoriteAndReserve-button">
+                          <button>
+                            <FontAwesomeIcon icon={faCartShopping} />
+                          </button>
+                          <button>예약하기</button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

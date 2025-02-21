@@ -115,6 +115,8 @@
   height: 100%;
   gap: 2vh;
   display: flex;
+  margin-bottom: 10vh;
+  /* align-items: stretch; */
 }
 
 .room-image {
@@ -122,6 +124,7 @@
   display: flex; 
   flex-direction: column;
   justify-content: space-between;
+ 
 }
 
 .room-image img {
@@ -141,11 +144,42 @@
 }
 
 .room-reserve-box {
-  height: 100%;
-  /* min-height: 30vh; */
+  display: flex;
   border: 1px solid #ddd;
   border-radius: 2vh;
   padding: 2vh;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.room-reserve-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.accommodation {
+  font-size: 16px;
+  font-weight: bold;
+  /* color: rgb(255, 72, 0); */
+}
+
+.bold-number {
+  font-weight: bold;
+}
+.bold-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.checkinAndCheckoutTime {
+  font-size: 14px;
+  color:#1d2327
+}
+
+.cancle-rule {
+  color:rgb(28, 87, 67);
 }
 
 .room-price-box {
@@ -155,4 +189,40 @@
 .room-status-box {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+
+.available-room {
+  font-weight: bold;
+  font-size: 15px;
+ color: rgb(167, 94, 11);
+}
+
+.favoriteAndReserve-button {
+  display: flex;
+  gap: 2vh;
+
+}
+
+.favoriteAndReserve-button button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.favoriteAndReserve-button button:first-child {
+  padding: 1vh;
+  width: 5vh;
+  height: 5vh;
+  border: 1px solid rgb(138, 95, 95);
+  border-radius: 1vh;
+  box-shadow: 0 0 4px rgba(146, 83, 83, 0.2)
+}
+
+.favoriteAndReserve-button button:last-child {
+  padding: 1vh;
+  border-radius: 1vh;
+  background-color: rgb(84, 135, 228);
+  color: white;
+}
+
