@@ -32,7 +32,12 @@ function MyPage() {
       <div className="mypage-container">
         <div className="mypage-header">
           <h2>마이페이지</h2>
-          <button className="edit-button">정보 수정</button>
+          <button
+            className="edit-button"
+            onClick={() => navigate("/mypage/password-check")}
+          >
+            정보 수정
+          </button>
         </div>
 
         <div className="mypage-info">
