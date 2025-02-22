@@ -26,9 +26,8 @@ function MyPage() {
   //     .catch((err) => console.error("마이페이지 정보 불러오기 실패:", err));
   // }, []);
 
-
   return (
-<div className="mypage-wrapper">
+    <div className={`mypage-wrapper ${showPaymentPanel ? "panel-active" : ""}`}>
       {/* ✅ 마이페이지 본문 */}
       <div className="mypage-container">
         <div className="mypage-header">
@@ -37,7 +36,9 @@ function MyPage() {
         </div>
 
         <div className="mypage-info">
-          <p><strong>닉네임:</strong> {userInfo.nickname}</p>
+          <p>
+            <strong>닉네임:</strong> {userInfo.nickname}
+          </p>
 
           {/* ✅ 포인트 정보 + 버튼을 한 줄로 정렬 */}
           <div className="point-section">
@@ -51,21 +52,30 @@ function MyPage() {
               </div>
             </div>
             <div className="point-buttons">
-              <button onClick={() => setShowPointHistory(true)}>포인트 히스토리</button>
-              <button 
+              <button onClick={() => setShowPointHistory(true)}>
+                히스토리
+              </button>
+              <button
                 onClick={() => {
                   console.log("Before click:", showPaymentPanel);
                   setShowPaymentPanel(!showPaymentPanel); // ✅ 패널 표시 여부 토글
                   console.log("After click:", !showPaymentPanel);
                 }}
               >
-                포인트 충전
+                충전
               </button>
             </div>
           </div>
 
-          <p><strong>회원 등급:</strong> {userInfo.rank}</p>
-          <p><strong>호텔 예약 내역:</strong> {userInfo.reservations ? userInfo.reservations.length + "건" : "없음"}</p>
+          <p>
+            <strong>회원 등급:</strong> {userInfo.rank}
+          </p>
+          <p>
+            <strong>호텔 예약 내역:</strong>{" "}
+            {userInfo.reservations
+              ? userInfo.reservations.length + "건"
+              : "없음"}
+          </p>
         </div>
 
         {/* ✅ 포인트 히스토리 팝업 */}

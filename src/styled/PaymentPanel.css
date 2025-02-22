@@ -1,11 +1,13 @@
 /* ✅ 결제 패널 스타일 */
 .payment-panel-wrapper {
-  position: relative;
+  background-color: #fcf8f3;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   width: 320px;
-  margin-left: 20px;
   opacity: 0;
-  transform: translateX(20px);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateX(20px); /* ✅ 등장할 때 자연스럽게 이동 */
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .payment-panel-wrapper.open {
@@ -15,19 +17,19 @@
 
 /* ✅ 패널 디자인 */
 .payment-panel {
-  background: #fdfaf5; /* ✅ 홈페이지 분위기에 맞춰 따뜻한 톤 적용 */
+  background: #fcf8f3;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
-  border: 1px solid #e0d5c3; /* ✅ 부드러운 베이지 컬러 */
+  border: 1px solid #e0d5c3;
 }
 
 /* ✅ 제목 스타일 */
 .payment-panel h3 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #6b4f2c; /* ✅ 홈페이지 분위기에 맞는 브라운 컬러 */
+  color: #6b4f2c;
   font-weight: bold;
 }
 
@@ -71,8 +73,13 @@
   color: white;
   font-weight: bold;
   position: absolute;
-  top: 2px;
-  left: 3px;
+  top: -1px; /* 🔥 체크 아이콘을 위로 이동 */
+  left: 0px; /* 🔥 왼쪽 정렬 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* ✅ 총 결제 금액 스타일 */
@@ -158,4 +165,48 @@
 
 .qr-modal button:hover {
   background: #c9302c;
+}
+
+
+.custom-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #fdf6e3;
+  border-radius: 8px;
+  border: 1px solid #e0d5c3;
+}
+
+.custom-amount label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #6b4f2c;
+  white-space: nowrap; /* ✅ 줄바꿈 방지 */
+  margin-right: 10px; /* ✅ 입력창과 간격 조정 */
+}
+
+.custom-amount input {
+  width: 150px;
+  padding: 6px 10px;
+  border: 1px solid #d8b894;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fcf8f3;
+  text-align: right;
+  color: #6b4f2c;
+  font-weight: bold;
+}
+
+
+.custom-amount input::placeholder {
+  color: #a28d7d;
+  font-weight: normal;
+}
+
+.custom-amount input:focus {
+  border-color: #caa174;
+  outline: none;
+  background: #f9f3eb;
 }

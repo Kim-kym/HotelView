@@ -5,6 +5,7 @@ const userDummy = [
       email: "hong@example.com",
       password: "password123!",
       profileImage: "https://via.placeholder.com/150",
+      point: 1000,
       role: "user",
       reservations: [
         {

@@ -1,48 +1,111 @@
-/* @font-face {
-  font-family: "JejuDoldam";
-  src: url("/fonts/EF_jejudoldam(TTF).ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.mypage-header h2 {
-  font-family: "JejuDoldam", sans-serif;
-  font-size: 50px;
-} */
-
-/* 마이페이지 전체 컨테이너 */
+/* ✅ 마이페이지 전체 컨테이너 */
 .mypage-wrapper {
   display: flex;
-  justify-content: flex-start; /* 마이페이지와 패널을 자연스럽게 나란히 배치 */
-  align-items: flex-start;
+  justify-content: center; /* ✅ 기본적으로 중앙 정렬 */
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   position: relative;
-  max-width: 1100px; /* ✅ 마이페이지와 패널을 포함한 최대 너비 */
-  margin: 20px auto;
+  gap: 50px; /* ✅ 기본 간격 */
+  transition: all 0.3s ease-in-out;
 }
 
+/* ✅ 패널이 활성화되었을 때 마이페이지가 왼쪽으로 이동 */
+.mypage-wrapper.panel-active {
+  justify-content: flex-start; /* ✅ 패널이 열리면 왼쪽 정렬 */
+  max-width: 1000px;
+  gap: 30px;
+}
+
+/* ✅ 1400px 이상에서 간격 조절 */
+@media (min-width: 1400px) {
+  .mypage-wrapper.panel-active {
+    max-width: 1100px;
+    gap: 25px;
+  }
+}
+
+/* ✅ 작은 화면에서 패널이 없을 때 중앙 정렬 유지 */
+@media (max-width: 1100px) {
+  .mypage-wrapper {
+    justify-content: center; /* ✅ 기본적으로 중앙 */
+    gap: 30px;
+  }
+
+  /* ✅ 패널이 열리면 마이페이지가 왼쪽으로 이동 */
+  .mypage-wrapper.panel-active {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .mypage-wrapper {
+    justify-content: center; /* ✅ 패널이 없으면 중앙 */
+    gap: 20px;
+  }
+
+  .mypage-wrapper.panel-active {
+    justify-content: flex-start;
+  }
+
+  .mypage-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 800px) {
+  .mypage-wrapper {
+    justify-content: center; /* ✅ 기본적으로 중앙 */
+    width: 95%;
+  }
+
+  .mypage-wrapper.panel-active {
+    justify-content: flex-start; /* ✅ 패널이 열리면 왼쪽 */
+  }
+
+  .mypage-container {
+    width: 50%;
+  }
+}
+
+
+/* ✅ 마이페이지 컨테이너 */
+.mypage-container {
+  max-width: 600px;
+  width: 50%;
+  padding: 30px;
+  background-color: #fcf8f3;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
 
 .mypage-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* ✅ 제목과 버튼을 좌우 배치 */
   align-items: center;
+  width: 100%;
   margin-bottom: 10px;
 }
 
-
-.mypage-container {
-  flex-grow: 1; /* ✅ 마이페이지가 줄어들지 않도록 설정 */
-  max-width: 800px; /* ✅ 마이페이지 크기 고정 */
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+/* ✅ 마이페이지 제목 */
+.mypage-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-left: 10px;
 }
 
-
-/* 정보 수정 버튼 스타일 */
+/* ✅ 정보 수정 버튼 */
 .edit-button {
   background-color: #caa174;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 15px;
   font-size: 14px;
   border: none;
   border-radius: 5px;
@@ -53,17 +116,8 @@
 .edit-button:hover {
   background-color: #b0895b;
 }
-/* 헤더 아래 왼쪽 정렬 */
-.mypage-container h2 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #444;
-  margin-bottom: 20px;
-  text-align: left;
-  padding-left: 10px;
-}
 
-/* 유저 정보 섹션 */
+/* ✅ 마이페이지 정보 영역 */
 .mypage-info {
   background-color: #f4f4f4;
   padding: 15px;
@@ -71,79 +125,51 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
-/* 버튼 영역 */
-.mypage-buttons {
+/* ✅ 닉네임, 회원 등급, 호텔 예약 내역 정렬 */
+.mypage-info p {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  justify-content: space-between; /* ✅ 왼쪽 라벨, 오른쪽 값 */
+  align-items: center;
+  width: 100%;
+  margin: 5px 0;
 }
 
-/* 버튼 디자인 - 헤더 색상과 맞춤 */
-.mypage-buttons button {
-  background-color: #caa174;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.mypage-buttons button:hover {
-  background-color: #b0895b;
-}
-
-/* 쿠폰 정보 */
-.mypage-coupons {
-  margin-top: 20px;
-}
-
-.mypage-coupons h3 {
-  font-size: 18px;
+.mypage-info p strong {
   font-weight: bold;
+  color: #333;
+}
+
+.mypage-info p span {
   color: #555;
+  font-weight: normal;
 }
 
-.mypage-coupons p {
-  color: #777;
-}
-
+/* ✅ 포인트 영역 */
 .point-section {
   display: flex;
   align-items: center;
-  gap: 10px; /* 글씨와 버튼 간격 */
+  justify-content: space-between;
+  width: 100%;
 }
 
-/* 포인트 텍스트와 줄을 감싸는 컨테이너 */
 .point-wrapper {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* 포인트 숫자 + 줄 컨테이너 */
+/* ✅ 포인트 값 스타일 */
 .point-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* 숫자를 줄 끝으로 이동 */
+  align-items: flex-end;
   position: relative;
-  width: 80px; /* 밑줄 길이 */
+  width: 80px;
 }
 
-/* 포인트 값 스타일 */
-.point-value {
-  position: absolute;
-  bottom: 1px; /* 숫자를 줄 위로 이동 */
-  right: 0; /* 숫자를 오른쪽 끝으로 정렬 */
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* 밑줄 스타일 */
 .point-underline {
   width: 100%;
   height: 1px;
@@ -151,13 +177,38 @@
   margin-top: 12px; /* 밑줄을 아래로 내림 */
 }
 
+.point-value {
+  position: absolute;
+  bottom: 1px;
+  right: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
 
+/* ✅ 포인트 버튼 스타일 */
 .point-buttons {
   display: flex;
   gap: 5px;
+  justify-content: flex-start;
 }
 
-/* 포인트 내역 팝업 */
+.point-buttons button {
+  background-color: #caa174;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.point-buttons button:hover {
+  background-color: #b0895b;
+}
+
+/* ✅ 포인트 내역 팝업 */
 .point-history-popup {
   position: fixed;
   top: 50%;
@@ -194,40 +245,8 @@
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
-  
 }
 
 .popup-content button:hover {
   background: #b0895b;
-}
-
-/* 포인트 정보와 버튼을 한 줄로 배치 */
-.point-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 포인트와 버튼을 좌우로 정렬 */
-  width: 100%; /* 전체 너비 사용 */
-}
-
-/* 포인트 관련 버튼들 */
-.point-buttons {
-  display: flex;
-  gap: 5px;
-  justify-content: flex-start;
-}
-
-/* 버튼 스타일 (헤더와 동일한 색상 적용) */
-.point-buttons button {
-  background-color: #caa174;
-  color: white;
-  padding: 5px 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.point-buttons button:hover {
-  background-color: #b0895b;
 }
