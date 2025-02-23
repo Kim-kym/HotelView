@@ -43,6 +43,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+
 }
 
 .map-background {
@@ -60,6 +61,10 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.411); 
+    border-radius: 8px; /* ✅ 테두리를 부드럽게 */
+    box-sizing: border-box; /* ✅ border가 요소 크기에 영향을 주지 않도록 */
+    overflow: hidden;
 }
 
 /* 지도 내부의 확대/축소 컨트롤 스타일 (Leaflet 예시) */

@@ -11,17 +11,18 @@ function MenuHeader() {
 
   useEffect(() => {
     const updateAuthState = () => {
-      setTimeout(() => { // ✅ 상태 업데이트 보장
+      setTimeout(() => {
+        // ✅ 상태 업데이트 보장
         const role = sessionStorage.getItem("userRole");
         setIsLoggedIn(!!role);
         setUserRole(role || "");
         console.log("현재 userRole 상태 업데이트됨:", role); // ✅ 로그 확인
       }, 0);
     };
-  
+
     updateAuthState();
     window.addEventListener("authChange", updateAuthState);
-  
+
     return () => {
       window.removeEventListener("authChange", updateAuthState);
     };
@@ -31,7 +32,10 @@ function MenuHeader() {
     console.log("handleLogin 함수 실행됨! role:", role);
     sessionStorage.setItem("userRole", role);
     window.dispatchEvent(new CustomEvent("authChange"));
-    console.log("로그인 완료 - 저장된 userRole:", sessionStorage.getItem("userRole")); // ✅ 콘솔 확인
+    console.log(
+      "로그인 완료 - 저장된 userRole:",
+      sessionStorage.getItem("userRole")
+    ); // ✅ 콘솔 확인
   };
 
   const handleLogout = () => {
@@ -45,7 +49,7 @@ function MenuHeader() {
       navigate("/");
     }, 0);
   };
-  
+
   return (
     <header className="page-header">
       <div className="header-container">
