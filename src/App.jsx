@@ -16,12 +16,34 @@ import HotelDetail from "./components/pages/HotelDetail";
 import HotelReserve from "./components/pages/HotelReserve";
 import PasswordCheck from "./components/pages/PasswordCheck";
 import EditProfile from "./components/pages/EditProfile";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const styles = document.createElement("style");
+    styles.innerHTML = `
+      .fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .content-wrapper {
+        margin-top: 80px;
+      }
+    `;
+    document.head.appendChild(styles);
+  }, []);
+
   return (
     <AuthProvider>
       <Router>
-        <MenuHeader />
+        <div className="fixed-header">
+          <MenuHeader />
+        </div>
         <Routes>
           <Route path="/" element={<MapWithSearch />} />
           <Route path="/login" element={<SignInPage />} />

@@ -2,7 +2,7 @@
 .map-search-container {
     width: 100%;
     max-width: 1200px;
-    margin: 20px auto 0;
+    margin: 50px auto 0; 
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
@@ -37,44 +37,46 @@
     transition: opacity 2.0s ease-in-out;
 }
 
+
+
 /* 📌 흐림 효과 추가 */
-.video-background::after {
+/* .video-background::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1); /* ✅ 흐림 효과와 함께 배경 컬러 추가 */
-    backdrop-filter: blur(3px); /* ✅ 배경 흐림 효과 */
-}
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(3px);
+} */
 
 /* 📌 스크롤 일정 이상 시 배경 고정 해제 */
-.video-background.static {
+/* .video-background.static {
     position: absolute;
     top: 300px;
     height: calc(100vh - 100px);
-    opacity: 0.8; /* ✅ 완전히 사라지지 않게 조정 */
-}
+    opacity: 0.8; 
+} */
 
 /* 📌 배경 비디오 */
-.background-video {
+/* .background-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: blur(1.5px);
-}
+} */
 
 /* 📌 배경 비디오 오버레이 (더 자연스러운 배경 효과) */
-.video-overlay {
+/* .video-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
-}
+} */
 
-.video-background.hidden {
-    opacity: 0; /* ✅ 완전히 사라지는 대신 약간 남기기 */
-}
+/* .video-background.hidden {
+    opacity: 0; 
+} */

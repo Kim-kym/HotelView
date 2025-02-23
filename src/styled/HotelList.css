@@ -6,12 +6,19 @@
 
 .hotel-list-container {
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
   
 .hotel-list-background {
+  position: fixed;
+  top: 60px;
+  left: 0;
   width: 100%;
-  height: 10vh;
-  min-height: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
 }
 
 .hotel-list-background img {
@@ -56,8 +63,15 @@
 }
 
   .hotel-list-wrapper {
-    width: 90vh;
-    margin: 20px auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 380px auto 20px; /* 배경 높이만큼 여백 추가 */
+    padding: 20px;
+    /* background: rgba(255, 255, 255, 0.9); */
+    border-radius: 12px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+    position: relative;
+    z-index: 10;
   }
   
   .hotel-list {
