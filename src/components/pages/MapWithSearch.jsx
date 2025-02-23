@@ -7,6 +7,8 @@ import { dummyHotels } from "./DummyList"; // ✅ 올바른 데이터 import
 
 function MapWithSearch() {
   const [hotels, setHotels] = useState(dummyHotels || []);
+
+  // 배경을 영상으로 할 시 코드
   // const [scrollY, setScrollY] = useState(0);
   // const [videoOpacity, setVideoOpacity] = useState(1);
   // const [lastScrollY, setLastScrollY] = useState(0);
@@ -34,6 +36,9 @@ function MapWithSearch() {
 
   return (
     <div className="map-search-container">
+      <div className="home-background">
+        <img src="/images/sea.jpg" alt="sea" />
+      </div>
       {/* <div
         className="video-background"
         style={{ opacity: videoOpacity, transition: "opacity 1s ease-in-out" }}
