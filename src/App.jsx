@@ -16,7 +16,9 @@ import HotelDetail from "./components/pages/HotelDetail";
 import HotelReserve from "./components/pages/HotelReserve";
 import PasswordCheck from "./components/pages/PasswordCheck";
 import EditProfile from "./components/pages/EditProfile";
+import ReservationConfirm from "./components/pages/ReservationConfirm";
 import { useEffect } from "react";
+import Board from "./components/pages/Board";
 
 function App() {
   useEffect(() => {
@@ -53,9 +55,11 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/signup" element={<SignUpPage />} />
           {/* <Route path="/hotels" element={<HotelList />} /> */}
+          <Route path="/board" element={<Board />} />
           <Route path="/hotels" element={<HotelListDummy />} />
           <Route path="/hotels/:id" element={<HotelDetail />} />
           <Route path="/reservation/:id" element={<HotelReserve />} />
+          <Route path="/reservationConfirm" element={<ReservationConfirm />} /> 
           {/* 회원가입 페이지 */}
           <Route path="/reserve" element={<MapWithSearch />} />
           <Route path="/companyIntro" element={<CompanyIntro />} />

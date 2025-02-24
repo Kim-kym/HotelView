@@ -18,6 +18,7 @@ function SignInPage() {
       sessionStorage.setItem("userRole", user.role);
       sessionStorage.setItem("userName", user.name);
       sessionStorage.setItem("userId", user.id);
+      sessionStorage.setItem("userEmail", user.email);
   
       console.log("로그인 성공! 저장된 userRole:", sessionStorage.getItem("userRole")); // ✅ 로그 추가
   

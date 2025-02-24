@@ -1,0 +1,115 @@
+/* src/styled/PaymentDetails.css */
+
+.payment-details-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .payment-details-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 날짜 영역 */
+  .dates {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .check-in,
+  .check-out {
+    text-align: center;
+  }
+  
+  .check-in h2,
+  .check-out h2 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .arrow {
+    font-size: 1.5em;
+  }
+  
+  .stay-duration {
+    align-self: center;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* 숙소, 방, 예약자, 결제 정보 영역 */
+  .hotel-info,
+  .room-info,
+  .reservation-info,
+  .payment-info {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hotel-info h2,
+  .room-info h2,
+  .reservation-info h2,
+  .payment-info h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  /* 이미지 스타일 */
+  .hotel-info img,
+  .room-info img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .hotel-details h3 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .hotel-details p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  /* 예약자 정보 */
+  .reservation-info p {
+    margin: 5px 0;
+  }
+  
+  /* 결제 정보 */
+  .payment-info .payment-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .payment-info hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  .payment-info .total {
+    font-weight: bold;
+    font-size: 1.1em;
+  }

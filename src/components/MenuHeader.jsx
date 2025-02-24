@@ -1,4 +1,3 @@
-//  최상단 메뉴바
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styled/MenuHeader.css";
@@ -11,43 +10,35 @@ function MenuHeader() {
 
   useEffect(() => {
     const updateAuthState = () => {
-      setTimeout(() => {
-        // ✅ 상태 업데이트 보장
-        const role = sessionStorage.getItem("userRole");
-        setIsLoggedIn(!!role);
-        setUserRole(role || "");
-        console.log("현재 userRole 상태 업데이트됨:", role); // ✅ 로그 확인
-      }, 0);
+      const role = sessionStorage.getItem("userRole");
+      setIsLoggedIn(!!role);
+      setUserRole(role || "");
+      console.log("현재 userRole 상태 업데이트됨:", role);
     };
 
     updateAuthState();
     window.addEventListener("authChange", updateAuthState);
-
     return () => {
       window.removeEventListener("authChange", updateAuthState);
     };
   }, []);
 
-  const handleLogin = (role) => {
-    console.log("handleLogin 함수 실행됨! role:", role);
-    sessionStorage.setItem("userRole", role);
-    window.dispatchEvent(new CustomEvent("authChange"));
-    console.log(
-      "로그인 완료 - 저장된 userRole:",
-      sessionStorage.getItem("userRole")
-    ); // ✅ 콘솔 확인
-  };
+  // 로그인 버튼은 단순히 로그인 페이지로 이동하도록 하고,
+  // 실제 로그인 처리는 SignInPage에서 진행합니다.
+  // handleLogin 함수는 MenuHeader에서 직접 사용하지 않습니다.
+  // (필요하다면 별도의 로그인 모달이나 기능을 구현할 수 있습니다.)
 
   const handleLogout = () => {
-    sessionStorage.clear(); // 세션 로그아웃 처리
+    // 필요한 인증 관련 키만 제거
+    sessionStorage.removeItem("userRole");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userEmail");
     setIsLoggedIn(false);
-
-    setTimeout(() => {
-      setUserRole(""); // ✅ 상태 즉시 반영 보장
-      console.log("로그아웃 완료 - userRole:", userRole); // ✅ 콘솔에서 확인
-      window.dispatchEvent(new CustomEvent("authChange"));
-      navigate("/");
-    }, 0);
+    setUserRole("");
+    console.log("로그아웃 완료 - userRole: (이제 없음)");
+    window.dispatchEvent(new CustomEvent("authChange"));
+    navigate("/");
   };
 
   return (
@@ -63,34 +54,26 @@ function MenuHeader() {
         <nav className="header-nav">
           <ul>
             <li>
-              <Link to="/companyintro">소개</Link> {/* 링크로 수정한 부분 */}
+              <Link to="/companyintro">소개</Link>
             </li>
             <li>
               <Link to="/hotels">호텔</Link>
             </li>
-            {/* <li>
-              <a href="/">즐겨찾기</a>
-            </li> */}
             <li>
               <a href="/">장바구니</a>
             </li>
-            {/* <li>
-              <a href="/">이벤트/혜택</a>
-            </li> */}
             <li>
-              <a href="/">고객 센터</a>
+              <Link to="/board">고객센터</Link>
             </li>
           </ul>
         </nav>
         <div className="header-right-box">
-          {/* 로그인 상태에 따라 버튼 표시 */}
           {!isLoggedIn && (
             <Link to="/signup">
               <button>회원가입</button>
             </Link>
           )}
 
-          {/* userRole에 따라 버튼 표시 */}
           {userRole && (
             <>
               {userRole === "admin" && (
@@ -110,7 +93,7 @@ function MenuHeader() {
             <button onClick={handleLogout}>로그아웃</button>
           ) : (
             <Link to="/login">
-              <button onClick={() => handleLogin("user")}>로그인</button>
+              <button>로그인</button>
             </Link>
           )}
         </div>
@@ -118,4 +101,5 @@ function MenuHeader() {
     </header>
   );
 }
+
 export default MenuHeader;
