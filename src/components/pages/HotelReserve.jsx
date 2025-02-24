@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import "../../styled/ReservationConfirm.css";
+import "../../styled/HotelReserve.css";
 import {
   dummyHotels,
   roomImages,
@@ -127,8 +127,10 @@ function HotelReserve() {
           </div>
         </form>
         <div className="payment-wrapper">
-          <div>
+          <div className="payment-main">
             <h2 className="payment-name">결제 금액</h2>
+            <div className="payment-charge"><Link to="/mypage">포인트 충전하기</Link>
+            </div>
           </div>
           <div className="payment-price">
             <div>상품 금액</div>
@@ -145,7 +147,7 @@ function HotelReserve() {
           </div>
         </div>
         <div className="payCheck-button">
-          <button type="submit">예약 완료</button>
+          <button type="submit">결제하기</button>
         </div>
       </section>
     </div>
