@@ -67,7 +67,7 @@ function HotelListDummy() {
                       <p>{hotel.price}</p>
                     </div>
                     <div className="reservation-button-container">
-                      <button className="reservation-button">예약하기</button>
+                      <button className="reservation-button">상세보기</button>
                     </div>
                   </div>
                 </div>

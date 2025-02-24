@@ -104,6 +104,30 @@
   padding: 2vh;
 }
 
+.payment-point:last-child {
+  border-radius: 2vh;
+  background-color: rgb(84, 135, 228);
+  color: white;
+}
+
+.payment-main {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.payment-charge {
+  width: 14vh;
+  height: 3vh;
+  color: white;
+  font-size: 13px;
+  background-color: rgb(84, 135, 228);
+  border-radius: 2vh;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+}
+
 .payment-name {
   margin-bottom: 2vh;
 }
@@ -118,6 +142,7 @@
   display: flex; 
   justify-content: space-between;
   margin: 1vh 0;
+  /* align-items: center; */
 }
 
 .payment-total-price {
