@@ -175,7 +175,7 @@ const PaymentPanel = ({ onClose }) => {
         <div className="qr-modal">
           <div className="qr-content">
             <p>카카오페이 결제 QR코드 (임시)</p>
-            <button onClick={completePayment}>X (결제 완료)</button>
+            <button onClick={completePayment}>X (결제 하기)</button>
           </div>
         </div>
       )} */}
