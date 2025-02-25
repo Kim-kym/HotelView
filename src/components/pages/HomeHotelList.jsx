@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../styled/HomeHotelList.css";
-import { dummyHotels } from "./DummyList"; // ✅ 더미 데이터 import
-
+import api from "../api/api"; // ✅ 공통 API 파일 import
+ 
 function HotelListDummy() {
   const [hotels, setHotels] = useState([]);
 
-  console.log("더미 호텔 데이터:", dummyHotels); // ✅ 콘솔에서 확인
-  console.log("현재 상태 값:", hotels); // ✅ 상태값 확인
-
   useEffect(() => {
-    setHotels(dummyHotels);
-  }, []);
+     // ✅ API 호출하여 호텔 데이터 가져오기
+     api.get("/api/hotels")
+     .then(response => {
+       setHotels(response.data);  // ✅ 상태 업데이트
+     })
+     .catch(error => {
+       console.error("Error fetching hotels:", error);
+     });
+ }, []);
 
   return (
     <div className="home_hotel-list-container">
       <h2>호텔</h2>
       <div className="home_hotel-list">
-        {hotels.map((hotel) => (
+      {hotels && hotels.length > 0 ? (
+          hotels.map((hotel) => (
           <Link
             to={`/hotels/${hotel.id}`}
             key={hotel.id}
@@ -33,11 +38,14 @@ function HotelListDummy() {
                 <h3>{hotel.name}</h3>
                 <p>{hotel.address}</p>
                 <p>⭐ {hotel.rating}</p>
-                <p>₩ {hotel.price}</p>
+                <p>₩ {hotel.price.toLocaleString()}</p> 
               </div>
             </div>
           </Link>
-        ))}
+        ))
+      ) : (
+        <p>호텔 데이터를 불러오는 중...</p>
+      )}
       </div>
     </div>
   );

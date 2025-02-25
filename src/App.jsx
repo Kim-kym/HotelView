@@ -41,8 +41,8 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
       <Router>
+        <AuthProvider>
         <div className="fixed-header">
           <MenuHeader />
         </div>
@@ -65,8 +65,8 @@ function App() {
           <Route path="/companyIntro" element={<CompanyIntro />} />
         </Routes>
         <Footer />
+        </AuthProvider>
       </Router>
-    </AuthProvider>
   );
 }
 
