@@ -8,7 +8,7 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; 
     gap: 20px;
 }
 
@@ -23,6 +23,14 @@
 /* 📌 검색 폼 컨테이너 */
 .search-container {
     width: 100%;
+    margin-bottom: 0px;
+}
+
+.home-hotel-list-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 0px; /* ✅ 필요 없는 여백 제거 */
+    padding: 20px;
 }
 
 /* 📌 배경 비디오 컨테이너 */

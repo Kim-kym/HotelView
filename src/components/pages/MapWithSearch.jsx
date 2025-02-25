@@ -54,7 +54,7 @@ function MapWithSearch() {
       <div className="search-container">
         <ReserveForm setHotels={setHotels} />
       </div>
-      <div className="hotel-list-container">
+      <div className="home_hotel-list-container">
         <HomeHotelList hotels={hotels} />
       </div>
     </div>

@@ -21,35 +21,33 @@ function ReserveForm({ setHotels }) {
   const [occupancy, setOccupancy] = useState({ adults: 2, children: 0 });
   const [occupancyOpen, setOccupancyOpen] = useState(false);
 
-  // ✅ 무한 렌더링 방지 (한 번만 실행)
   useEffect(() => {
-    setHotels((prevHotels) => [...prevHotels, ...dummyHotels]); // ✅ 기존 데이터 유지
+    setHotels((prevHotels) => [...prevHotels, ...dummyHotels]);
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-
     if (!location.trim()) {
       alert("검색할 위치를 입력하세요.");
       return;
     }
-
     if (!startDate || !endDate) {
       alert("날짜를 선택하세요.");
       return;
     }
 
-    // ✅ 검색 필터 적용
     const filteredHotels = dummyHotels.filter(
-      (hotel) => hotel.address.includes(location) // ✅ address 필드 사용
+      (hotel) => hotel.address.includes(location)
     );
-    setHotels(filteredHotels); // ✅ 검색 결과 업데이트
+    setHotels(filteredHotels);
   };
+
   return (
     <div className="reservation-form-container">
       <div className="reservation-form-background">
         <div className="reservation-form-wrapper">
           <form className="reservation-form" onSubmit={handleSearch}>
+            {/* 🔹 검색창 */}
             <div className="search-box">
               <div className="search-wrapper">
                 <span className="search-icon">
@@ -59,10 +57,12 @@ function ReserveForm({ setHotels }) {
                   type="text"
                   placeholder="어디로 가시나요"
                   value={location}
-                  onChange={(e) => setLocation(e.target.value)} // ✅ 입력값 반영
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
             </div>
+
+            {/* 🔹 날짜 선택 */}
             <div className="date-box-wrapper">
               <div
                 className="date-box"
@@ -80,10 +80,7 @@ function ReserveForm({ setHotels }) {
               </div>
 
               {dateModalOpen && (
-                <div
-                  className="date-modal"
-                  onClick={(e) => e.stopPropagation()}
-                >
+                <div className="date-modal" onClick={(e) => e.stopPropagation()}>
                   <DatePicker
                     selected={startDate || new Date()}
                     onChange={(update) => update && setDateRange(update)}
@@ -142,6 +139,7 @@ function ReserveForm({ setHotels }) {
               )}
             </div>
 
+            {/* 🔹 인원 선택 */}
             <div className="occupancy-box">
               <div
                 className="occupancy-wrapper"
@@ -153,11 +151,86 @@ function ReserveForm({ setHotels }) {
                   <FontAwesomeIcon icon={faPerson} />
                 </span>
                 <div className="occupancy-number">
-                  {`성인 ${occupancy.adults}명`}
+                  {`성인 ${occupancy.adults}명, 어린이 ${occupancy.children}명`}
                 </div>
               </div>
+
+              {/* 🔹 인원 선택 모달 */}
+              {occupancyOpen && (
+                <div className="occupancy-modal" onClick={(e) => e.stopPropagation()}>
+                  <div className="occupancy-modal-content">
+                    <div className="occupancy-modal-line">
+                      <span>성인</span>
+                      <div className="occupancy-modal-button-wrapper">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOccupancy((prev) => ({
+                              ...prev,
+                              adults: Math.max(prev.adults - 1, 1),
+                            }))
+                          }
+                        >
+                          -
+                        </button>
+                        <span>{occupancy.adults}</span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOccupancy((prev) => ({
+                              ...prev,
+                              adults: prev.adults + 1,
+                            }))
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="occupancy-modal-line">
+                      <span>어린이</span>
+                      <div className="occupancy-modal-button-wrapper">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOccupancy((prev) => ({
+                              ...prev,
+                              children: Math.max(prev.children - 1, 0),
+                            }))
+                          }
+                        >
+                          -
+                        </button>
+                        <span>{occupancy.children}</span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOccupancy((prev) => ({
+                              ...prev,
+                              children: prev.children + 1,
+                            }))
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 🔹 모달 닫기 버튼 */}
+                    <button
+                      className="occupancy-modal-close"
+                      type="button"
+                      onClick={() => setOccupancyOpen(false)}
+                    >
+                      확인
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
+            {/* 🔹 검색 버튼 */}
             <button className="search-button" type="submit">
               검색
             </button>
