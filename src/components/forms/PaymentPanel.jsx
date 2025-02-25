@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PaymentScreen from "../forms//PaymentScreen";
 import "../../styled/PaymentPanel.css";
 
 const PaymentPanel = ({ onClose }) => {
   const [selectedAmounts, setSelectedAmounts] = useState([]);
   const [customAmount, setCustomAmount] = useState(""); // ✅ 직접 입력 금액 추가
   const [showCustomInput, setShowCustomInput] = useState(false);
-  const [showQR, setShowQR] = useState(false);
+  // const [showQR, setShowQR] = useState(false);
   const navigate = useNavigate();
   const presetAmounts = [5000, 10000, 50000, 100000];
+// 결제창 추가 
+  const [showPaymentScreen, setShowPaymentScreen] = useState(false);
 
   const handleCheckboxChange = (value) => {
     if (showCustomInput) return; // ✅ 직접 입력 모드일 때는 다른 체크 불가
@@ -42,7 +45,15 @@ const PaymentPanel = ({ onClose }) => {
       alert("충전할 금액을 선택하거나 입력하세요!");
       return;
     }
-    setShowQR(true);
+    //<추가> 결제 완료 버튼 시 PaymentScreen을 모달로 띄움
+    // setShowQR(true);
+    setShowPaymentScreen(true);
+  };
+
+  //  PaymentScreen 닫기 처리
+  const closePaymentScreen = () => {
+    setShowPaymentScreen(false);
+    //  PaymentScreen 내 결제 완료 후, 원한다면 onclose()나 navigate() 호출 가능
   };
 
   const completePayment = async () => {
@@ -72,7 +83,7 @@ const PaymentPanel = ({ onClose }) => {
 
       // ✅ 더미 데이터로 확인 (스프링 연결 전)
       alert(`충전 완료! 충전 금액: ${totalAmount.toLocaleString()}원`);
-      setShowQR(false);
+      // setShowQR(false);
       onClose();
     } catch (error) {
       console.error("결제 오류:", error);
@@ -138,15 +149,23 @@ const PaymentPanel = ({ onClose }) => {
         </button>
       </div>
 
+      {/* PaymentScreen 모달 조건부 렌더링 */}
+      {showPaymentScreen && (
+        <PaymentScreen
+          totalAmount={totalAmount}
+          onclose={closePaymentScreen}
+          />
+      )}
+
       {/* ✅ QR 코드 모달 추가 */}
-      {showQR && (
+      {/* {showQR && (
         <div className="qr-modal">
           <div className="qr-content">
             <p>카카오페이 결제 QR코드 (임시)</p>
             <button onClick={completePayment}>X (결제 완료)</button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
