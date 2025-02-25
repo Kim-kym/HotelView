@@ -64,7 +64,7 @@ function App() {
         </div>
         <Footer />
         {/* PaymentModalManager를 항상 렌더링하여 모달 전환을 관리 */}
-        <PaymentModalManager />
+      
       </Router>
     </AuthProvider>
   );
