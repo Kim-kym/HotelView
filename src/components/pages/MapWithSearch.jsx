@@ -9,37 +9,37 @@ function MapWithSearch() {
   const [hotels, setHotels] = useState(dummyHotels || []);
 
   // 배경을 영상으로 할 시 코드
-  // const [scrollY, setScrollY] = useState(0);
-  // const [videoOpacity, setVideoOpacity] = useState(1);
-  // const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const [videoOpacity, setVideoOpacity] = useState(1);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const newScrollY = window.scrollY;
-  //     const scrollDiff = newScrollY - lastScrollY;
+  useEffect(() => {
+    const handleScroll = () => {
+      const newScrollY = window.scrollY;
+      const scrollDiff = newScrollY - lastScrollY;
 
-  //     let newOpacity = Math.max(1 - newScrollY / 800, 0);
+      let newOpacity = Math.max(1 - newScrollY / 800, 0);
 
-  //     if (scrollDiff < 0) {
-  //       newOpacity = Math.min(videoOpacity + 0.02, 1);
-  //     }
+      if (scrollDiff < 0) {
+        newOpacity = Math.min(videoOpacity + 0.02, 1);
+      }
 
-  //     setVideoOpacity(newOpacity);
-  //     setLastScrollY(newScrollY);
-  //   };
+      setVideoOpacity(newOpacity);
+      setLastScrollY(newScrollY);
+    };
 
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [videoOpacity, lastScrollY]);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [videoOpacity, lastScrollY]);
 
   return (
     <div className="map-search-container">
-      <div className="home-background">
+     {/* <div className="home-background">
         <img src="/images/sea.jpg" alt="sea" />
-      </div>
-      {/* <div
+      </div>*/}
+      <div
         className="video-background"
         style={{ opacity: videoOpacity, transition: "opacity 1s ease-in-out" }}
       >
@@ -47,7 +47,7 @@ function MapWithSearch() {
           <source src="/videos/jeju6.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      </div> */}
+      </div>
       <div className="map-container">
         <JejuMap />
       </div>

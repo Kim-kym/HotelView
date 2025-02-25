@@ -21,7 +21,6 @@
 .reservation-form-wrapper {
     width: 100%;
     max-width: 1200px;
-    /* padding: 30px; */
     border-radius: 12px;
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -48,11 +47,6 @@
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
-/* .search-box:hover {
-    border-color: #007bff;
-    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
-} */
 
 .search-wrapper {
     position: relative;
@@ -152,39 +146,6 @@
     transition: all 0.3s ease;
 }
 
-/* --------------- Calender css --------------- */
-
-.react-datepicker-wrapper {
-    width: 100%;
-}
-
-.date-range-wrapper {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.checkIn-wrapper,
-.checkOut-wrapper {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: white;
-    border: 1px solid #ddd;
-    transition: all 0.3s ease;
-}
-
-.checkIn-wrapper:hover, .checkOut-wrapper:hover {
-    border-color: #007bff;
-}
-
-.check-icon {
-    font-size: 20px;
-    color: gray;
-    margin-right: 10px;
-}
 
 .occupancy-wrapper {
     display: flex;
@@ -293,22 +254,6 @@
 .occupancy-modal-close:hover {
     background-color: #0056b3;
 }
-
-/* .occupancy-modal-line div, 
-.occpuancy-modal-line button, 
-.occupancy-modal-line p {
-} */
-
-/* 지도와 폼 간의 여백 */
-/* .page-content-placeholder {
-    margin-bottom: 40px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-} */
 
 /* 캘린더 */
 /* 📌 달력 전체 스타일 */

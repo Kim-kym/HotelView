@@ -14,12 +14,10 @@
 .home_hotel-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* ✅ 한 줄에 2개 배치 */
-    gap: 20px;  /* ✅ 카드 간 간격 조정 */
-    justify-content: center;
-    padding: 10px;
+    gap: 20px;
+    padding: 10px/;
 }
 
-/* 🔹 호텔 카드 스타일 */
 .home_hotel-box {
     background: white;
     border-radius: 12px;
@@ -27,11 +25,10 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    width: 100%;  /* ✅ 컨테이너 너비에 맞게 조정 */
-    max-width: 550px; /* ✅ 카드 크기를 줄여서 컨테이너 안에 맞춤 */
-    height: 500px;  /* ✅ 카드 높이 조정 */
+    display: block; /* ✅ flex → block 변경 */
+    width: 100%; /* ✅ 부모 요소 크기에 맞춤 */
+    max-width: 100%; /* ✅ 최대 너비 제한 해제 */
+    height: auto; /* ✅ 높이 자동 조정 */
 }
 
 .home_hotel-card:hover {
