@@ -88,10 +88,10 @@ function HotelReserve() {
             </div>
           </div>
           <div className="hotelReserve-info">
-            <p className="price">
+            <div className="price">
               <span className="bold-price">{hotel.price}원</span>
               <div className="cancel-rule">무료 취소(3일 이내)</div>
-            </p>
+            </div>
           </div>
         </div>
 

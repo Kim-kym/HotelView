@@ -9,12 +9,7 @@ export function AuthProvider({ children }) {
   const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
 
-  // 마운트 시와 authChange 이벤트 발생 시 sessionStorage를 기반으로 로그인 상태 확인
-  // useEffect(() => {
-  //   checkAuthStatus();
-  // }, []);
-
-  //  로그인 상태 확인 함수 
+  //  로그인 상태 확인 함수 (백엔드 세션 활용)
   const checkAuthStatus = async () => {
     try {
       const response = await api.post("/user/login", {}, { withCredentials: true });
@@ -31,17 +26,18 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // 세션 만료 감지 (1분마다 체크)
+  // 로그인 필요한 페이지에서 로그인 상태 확인 및 리디렉트
   useEffect(() => {
-    checkAuthStatus();  // 처음 마운트 시 로그인 상태 확인
+    const path = window.location.pathname;
+    if (path.startsWith("/reservation") || path.startsWith("/mypage") || path.startsWith("/admin")) {
+      checkAuthStatus().then(() => {
+        if (!isAuthenticated) {
+          navigate("/login"); // ✅ 로그인 상태가 아니면 로그인 페이지로 이동
+        }
+      });
+    }
+  }, [isAuthenticated, navigate]);
 
-    const interval = setInterval(() => {
-      checkAuthStatus();  // 1분마다 로그인 상태 확인
-    }, 60000); // 1분마다 실행
-
-    return () => clearInterval(interval);  // 언마운트 시 인터벌 해제
-  }, []);
-  
   // 로그아웃 함수
   const logout = async () => {
     try {
