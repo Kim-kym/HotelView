@@ -6,33 +6,51 @@ import api from "../api/api";
 function HotelListDummy() {
   const [hotels, setHotels] = useState([]);
   const [searchParams] = useSearchParams();
+  const [originalHotels, setOriginalHotels] = useState([]);
   const initialSort = searchParams.get("sort") || "recommend";
   const [activeSort, setActiveSort] = useState(initialSort);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // ✅ API 호출하여 호텔 데이터 가져오기
-    api
-      .get("/hotel/hotels")
-      .then((response) => {
-        setHotels(response.data); // ✅ 상태 업데이트
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("호텔 데이터를 불러오는 중 오류 발생:", error);
-        setError("데이터를 불러오는 중 오류가 발생했습니다.");
-        setLoading(false);
-      });
+    async function fetchHotels() {
+      try {
+        const response = await api.get("/hotel/hotels");
+
+        const hotelData = response.data;
+
+        // ✅ 각 호텔의 이미지 가져오기
+        const hotelsWithImages = await Promise.all(
+          hotelData.map(async (hotel) => {
+            try {
+              const imgResponse = await api.get(
+                `/hotel/hotels/${hotel.hotelNo}/images`
+              );
+              return {
+                ...hotel,
+                image: imgResponse.data[0],
+              };
+            } catch (error) {
+              console.error(error);
+            }
+          })
+        );
+
+        setHotels(hotelsWithImages);
+        setOriginalHotels(hotelsWithImages);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchHotels();
   }, []);
 
   // 정렬 함수
   const handleSort = (sortType) => {
-    let sortedHotels = [...hotels];
+    let sortedHotels = [...originalHotels];
 
     switch (sortType) {
       case "recommend":
-        sortedHotels = [...hotels]; // 기본 추천 순
+        setHotels(originalHotels);
         break;
       // ✅ 스프링 부트에 가격 필드 넣기 전까지 주석 처리
       // case "price":
@@ -52,9 +70,6 @@ function HotelListDummy() {
     setHotels(sortedHotels);
     setActiveSort(sortType);
   };
-
-  if (loading) return <p>호텔 정보를 불러오는 중...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <div className="hotel-list-container">
@@ -127,11 +142,11 @@ function HotelListDummy() {
                   {/* 호텔 가격 및 예약 버튼 */}
                   <div className="hotel-status-wrapper">
                     <div className="hotel-rating">
-                      <p>★ {hotel.rating}</p>
+                      <p>⭐{hotel.rating}</p>
                     </div>
                     <div className="hotel-price">
-                      <p>1박당 요금</p>
-                      <p>{hotel.price}</p>
+                      {/* <p>1박당 요금</p>
+                      <p>{hotel.price}</p> */}
                     </div>
                     <div className="reservation-button-container">
                       <button className="reservation-button">상세보기</button>

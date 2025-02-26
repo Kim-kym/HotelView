@@ -28,7 +28,11 @@ function HotelDetail() {
           ]);
 
         setHotel(hotelResponse.data);
-        setRooms(roomsResponse.data);
+        setRooms(
+          roomsResponse.data.sort(
+            (a, b) => (a.room_price || 0) - (b.room_price || 0)
+          )
+        ); // ✅ 가격 낮은 순으로 정렬
         setHotelImages(hotelImagesResponse.data);
 
         // 객실 이미지 요청 병렬 처리

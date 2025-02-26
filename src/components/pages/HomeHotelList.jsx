@@ -4,18 +4,40 @@ import "../../styled/HomeHotelList.css";
 import api from "../api/api"; // ✅ 공통 API 파일 import
 
 function HomeHotelList() {
+  // const { hotelId } = useParams();
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
-    // ✅ API 호출하여 호텔 데이터 가져오기
-    api
-      .get("/hotel/hotels")
-      .then((response) => {
-        setHotels(response.data); // ✅ 상태 업데이트
-      })
-      .catch((error) => {
-        console.error("Error fetching hotels:", error);
-      });
+    async function fetchHotels() {
+      try {
+        const response = await api.get("/hotel/hotels");
+
+        const hotelData = response.data;
+
+        // 이미지 데이터 로드
+        const hotelsWithImages = await Promise.all(
+          hotelData.map(async (hotel) => {
+            try {
+              const imgResponse = await api.get(
+                `/hotel/hotels/${hotel.hotelNo}/images`
+              );
+              return {
+                ...hotel,
+                image: imgResponse.data[0],
+              };
+            } catch (error) {
+              console.error(error);
+            }
+          })
+        );
+
+        setHotels(hotelsWithImages);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchHotels();
   }, []);
 
   return (
@@ -25,7 +47,7 @@ function HomeHotelList() {
         {hotels && hotels.length > 0 ? (
           hotels.map((hotel) => (
             <Link
-              to={`/hotels/${hotel.id}`}
+              to={`/hotels/${hotel.hotelNo}`}
               key={hotel.id}
               className="home_hotel-box-link"
             >
@@ -37,9 +59,9 @@ function HomeHotelList() {
                 />
                 <div className="home_hotel-info">
                   <h3>{hotel.name}</h3>
-                  <p>{hotel.address}</p>
+                  <p>{hotel.location}</p>
                   <p>⭐ {hotel.rating}</p>
-                  <p>₩ {hotel.price.toLocaleString()}</p>
+                  {/* price 필드 추가 전<p>₩ {hotel.price.toLocaleString()}</p> */}
                 </div>
               </div>
             </Link>
