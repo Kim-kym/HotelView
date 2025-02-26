@@ -19,16 +19,16 @@ function HotelDetail() {
     async function fetchHotelDetails() {
       try {
         // ✅ 호텔 기본 정보 가져오기
-        const hotelResponse = await api.get(`/hotels/${id}`);
+        const hotelResponse = await api.get(`/hotels/datails/${id}`);
         setHotel(hotelResponse.data);
 
         // ✅ 객실 목록 가져오기
-        const roomsResponse = await api.get(`/hotels/${id}/rooms`);
-        setRooms(roomsResponse.data);
+        // const roomsResponse = await api.get(`/hotels/${id}/rooms`);
+        // setRooms(roomsResponse.data);
 
         // ✅ 호텔 리뷰 가져오기
-        const reviewsResponse = await api.get(`/hotels/${id}/reviews`);
-        setReviews(reviewsResponse.data);
+        // const reviewsResponse = await api.get(`/hotels/${id}/reviews`);
+        // setReviews(reviewsResponse.data);
       } catch (error) {
         console.error("데이터를 불러오는 중 오류 발생:", error);
         setError("데이터를 불러오지 못했습니다.");
