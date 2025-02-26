@@ -19,7 +19,7 @@ function HotelDetail() {
     async function fetchHotelDetails() {
       try {
         // ✅ 호텔 기본 정보 가져오기
-        const hotelResponse = await api.get(`/hotels/datails/${id}`);
+        const hotelResponse = await api.get(`/hotel/hotels/${id}`);
         setHotel(hotelResponse.data);
 
         // ✅ 객실 목록 가져오기
