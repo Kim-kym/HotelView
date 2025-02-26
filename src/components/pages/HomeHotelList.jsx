@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styled/HomeHotelList.css";
 import api from "../api/api"; // ✅ 공통 API 파일 import
 
-function HotelListDummy() {
+function HomeHotelList() {
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function HotelListDummy() {
                   <h3>{hotel.name}</h3>
                   <p>{hotel.address}</p>
                   <p>⭐ {hotel.rating}</p>
-                  {/* <p>₩ {hotel.price.toLocaleString()}</p> */}
+                  <p>₩ {hotel.price.toLocaleString()}</p>
                 </div>
               </div>
             </Link>
@@ -52,4 +52,4 @@ function HotelListDummy() {
   );
 }
 
-export default HotelListDummy;
+export default HomeHotelList;

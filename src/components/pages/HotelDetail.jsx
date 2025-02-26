@@ -10,25 +10,44 @@ function HotelDetail() {
   const { id } = useParams(); // URL에서 호텔 ID 가져오기
   const [hotel, setHotel] = useState(null);
   const [rooms, setRooms] = useState([]); // ✅ 객실 정보 저장
+  const [hotelImages, setHotelImages] = useState([]);
+  const [roomImages, setRoomImages] = useState({}); // ✅ 객실 이미지 저장
   const [reviews, setReviews] = useState([]); // ✅ 리뷰 데이터 저장
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchHotelDetails() {
+    async function fetchHotelData() {
       try {
-        // ✅ 호텔 기본 정보 가져오기
-        const hotelResponse = await api.get(`/hotel/hotels/${id}`);
+        const [hotelResponse, roomsResponse, hotelImagesResponse] =
+          await Promise.all([
+            api.get(`/hotel/hotels/${id}`),
+            api.get(`/hotel/rooms/hotel/${id}`),
+            api.get(`/hotel/hotels/${id}/images`),
+          ]);
+
         setHotel(hotelResponse.data);
-
-        // ✅ 객실 목록 가져오기
-        const roomsResponse = await api.get(`hotel/rooms/hotel/${id}`);
         setRooms(roomsResponse.data);
+        setHotelImages(hotelImagesResponse.data);
 
-        // ✅ 호텔 리뷰 가져오기
-        // const reviewsResponse = await api.get(`/hotels/${id}/reviews`);
-        // setReviews(reviewsResponse.data);
+        // 객실 이미지 요청 병렬 처리
+        const roomImageRequests = roomsResponse.data.map((room) =>
+          api.get(`/hotel/rooms/${room.id}/images`).then((response) => ({
+            roomId: room.id,
+            imageUrl:
+              response.data.length > 0
+                ? response.data[0]
+                : "/images/default-room.jpg",
+          }))
+        );
+
+        const roomImagesResponses = await Promise.all(roomImageRequests);
+        const roomImagesMap = {};
+        roomImagesResponses.forEach(({ roomId, imageUrl }) => {
+          roomImagesMap[roomId] = imageUrl;
+        });
+        setRoomImages(roomImagesMap);
       } catch (error) {
         console.error("데이터를 불러오는 중 오류 발생:", error);
         setError("데이터를 불러오지 못했습니다.");
@@ -37,7 +56,7 @@ function HotelDetail() {
       }
     }
 
-    fetchHotelDetails();
+    fetchHotelData();
   }, [id]);
 
   if (loading) return <p>호텔 정보를 불러오는 중...</p>;
@@ -55,7 +74,9 @@ function HotelDetail() {
         <div className="hotel-detail-main-image">
           <img
             src={
-              hotel.image_url ? hotel.image_url : "/images/default-hotel.jpg"
+              hotelImages.length > 0
+                ? hotelImages[0]
+                : "/images/default-hotel.jpg"
             }
             alt={`호텔 ${hotel.name}`}
             className="detail-image"
@@ -66,9 +87,7 @@ function HotelDetail() {
             rooms.map((room) => (
               <img
                 key={room.id}
-                src={
-                  room.image_url ? room.image_url : "/images/default-room.jpg"
-                }
+                src={roomImages[room.id] || "/images/default-room.jpg"}
                 alt={`객실 ${room.name}`}
                 className="room-sub-image"
               />
@@ -120,16 +139,14 @@ function HotelDetail() {
                 <div className="room-wrapper" key={room.id}>
                   <div className="room-image">
                     <img
-                      src={
-                        room.image_url
-                          ? room.image_url
-                          : "/images/default-room.jpg"
-                      }
+                      src={roomImages[room.id] || "/images/default-room.jpg"}
                       alt={`Room ${room.name}`}
                     />
                     <div>
                       <h3>
-                        <div className="room-name">{room.name}</div>
+                        <div className="room-name">
+                          {room.room_name || "객실 정보 없음"}
+                        </div>
                       </h3>
                     </div>
                   </div>
