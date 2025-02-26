@@ -14,7 +14,7 @@ function HotelListDummy() {
   useEffect(() => {
     // ✅ API 호출하여 호텔 데이터 가져오기
     api
-      .get("/hotels")
+      .get("/hotel/hotels")
       .then((response) => {
         setHotels(response.data); // ✅ 상태 업데이트
         setLoading(false);
