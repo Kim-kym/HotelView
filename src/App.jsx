@@ -39,8 +39,8 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <div className="fixed-header">
           <MenuHeader />
         </div>
@@ -57,16 +57,18 @@ function App() {
             <Route path="/hotels" element={<HotelListDummy />} />
             <Route path="/hotels/:id" element={<HotelDetail />} />
             <Route path="/reservation/:id" element={<HotelReserve />} />
-            <Route path="/reservationConfirm" element={<ReservationConfirm />} />
+            <Route
+              path="/reservationConfirm"
+              element={<ReservationConfirm />}
+            />
             <Route path="/reserve" element={<MapWithSearch />} />
             <Route path="/companyIntro" element={<CompanyIntro />} />
           </Routes>
         </div>
         <Footer />
-        {/* PaymentModalManager를 항상 렌더링하여 모달 전환을 관리 */}
-      
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+      {/* PaymentModalManager를 항상 렌더링하여 모달 전환을 관리 */}
+    </Router>
   );
 }
 
