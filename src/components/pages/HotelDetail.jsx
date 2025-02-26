@@ -19,12 +19,12 @@ function HotelDetail() {
     async function fetchHotelDetails() {
       try {
         // ✅ 호텔 기본 정보 가져오기
-        const hotelResponse = await api.get(`/hotels/${id}`);
+        const hotelResponse = await api.get(`/hotel/hotels/${id}`);
         setHotel(hotelResponse.data);
 
         // ✅ 객실 목록 가져오기
-        // const roomsResponse = await api.get(`/hotels/${id}/rooms`);
-        // setRooms(roomsResponse.data);
+        const roomsResponse = await api.get(`hotel/rooms/hotel/${id}`);
+        setRooms(roomsResponse.data);
 
         // ✅ 호텔 리뷰 가져오기
         // const reviewsResponse = await api.get(`/hotels/${id}/reviews`);
@@ -46,6 +46,8 @@ function HotelDetail() {
   const handleReserve = (room) => {
     navigate(`/reservation/${hotel.id}`, { state: { selectedRoom: room } });
   };
+
+  const availableRooms = rooms ? rooms.length : "정보 없음";
 
   return (
     <div className="hotel-detail-container">
@@ -143,7 +145,9 @@ function HotelDetail() {
                       <div className="room-price-box">
                         <div>
                           <span className="bold-price">
-                            {room.price.toLocaleString()}원
+                            {room.room_price
+                              ? room.room_price.toLocaleString() + "원"
+                              : "가격 정보 없음"}
                           </span>
                         </div>
                         <div className="cancle-rule">무료 취소(3일 이내)</div>
@@ -152,9 +156,7 @@ function HotelDetail() {
                         <div>
                           <span className="available-room">
                             남은 객실:
-                            {room.availableRooms
-                              ? `${room.availableRooms}개`
-                              : "정보 없음"}
+                            {availableRooms}개
                           </span>
                         </div>
                         <div className="favoriteAndReserve-button">
