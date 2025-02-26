@@ -3,11 +3,16 @@ import "../../styled/MyPage.css";
 import { useNavigate } from "react-router-dom";
 import userDummy from "./UserDummy";
 import PaymentPanel from "../forms/PaymentPanel";
+import PaymentScreen from "../forms/PaymentScreen"; // 추가: PaymentScreen import
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState({});
   const [showPointHistory, setShowPointHistory] = useState(false);
+  // 기존: PaymentPanel 단독으로 관리하던 상태
   const [showPaymentPanel, setShowPaymentPanel] = useState(false);
+  // 추가: PaymentScreen 모달을 위한 상태
+  const [showPaymentScreen, setShowPaymentScreen] = useState(false);
+  const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,20 +20,9 @@ function MyPage() {
     console.log("MyPage - userInfo 상태 업데이트:", userDummy);
   }, []);
 
-  // 실 사용 코드
-  // useEffect(() => {
-  //   fetch("http://localhost:8050/user/mypage", {
-  //     method: "GET",
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setUserInfo(data))
-  //     .catch((err) => console.error("마이페이지 정보 불러오기 실패:", err));
-  // }, []);
-
   return (
     <div className={`mypage-wrapper ${showPaymentPanel ? "panel-active" : ""}`}>
-      {/* ✅ 마이페이지 본문 */}
+      {/* 마이페이지 본문 */}
       <div className="mypage-container">
         <div className="mypage-header">
           <h2>마이페이지</h2>
@@ -45,7 +39,7 @@ function MyPage() {
             <strong>닉네임:</strong> {userInfo.nickname}
           </p>
 
-          {/* ✅ 포인트 정보 + 버튼을 한 줄로 정렬 */}
+          {/* 포인트 정보와 버튼을 한 줄로 정렬 */}
           <div className="point-section">
             <div className="point-wrapper">
               <strong>포인트:</strong>
@@ -63,8 +57,9 @@ function MyPage() {
               <button
                 onClick={() => {
                   console.log("Before click:", showPaymentPanel);
-                  setShowPaymentPanel(!showPaymentPanel); // ✅ 패널 표시 여부 토글
-                  console.log("After click:", !showPaymentPanel);
+                  // PaymentPanel(충전 모달)을 열도록 함
+                  setShowPaymentPanel(true);
+                  console.log("After click:", true);
                 }}
               >
                 충전
@@ -83,7 +78,7 @@ function MyPage() {
           </p>
         </div>
 
-        {/* ✅ 포인트 히스토리 팝업 */}
+        {/* 포인트 히스토리 팝업 */}
         {showPointHistory && (
           <div className="point-history-popup">
             <div className="popup-content">
@@ -101,10 +96,34 @@ function MyPage() {
         )}
       </div>
 
-      {/* ✅ 마이페이지 옆에 결제 패널 추가 */}
+      {/* MyPage 옆에 PaymentPanel(충전 모달) 추가 */}
       {showPaymentPanel && (
         <div className="payment-panel-wrapper open">
-          <PaymentPanel onClose={() => setShowPaymentPanel(false)} />
+          <PaymentPanel
+            onClose={(amount) => {
+              // onClose가 호출될 때 amount가 0보다 크면 결제 금액이 선택되었다고 판단
+              if (amount > 0) {
+                setTotalAmount(amount);
+                setShowPaymentPanel(false);
+                setShowPaymentScreen(true); // PaymentScreen 모달을 연다.
+              } else {
+                // 단순 닫기인 경우
+                setShowPaymentPanel(false);
+              }
+            }}
+          />
+        </div>
+      )}
+
+      {/* PaymentScreen 모달 추가 */}
+      {showPaymentScreen && (
+        <div className="payment-screen-wrapper open">
+          <PaymentScreen
+            totalAmount={totalAmount}
+            onClose={() => {
+              setShowPaymentScreen(false);
+            }}
+          />
         </div>
       )}
     </div>

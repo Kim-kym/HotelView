@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PaymentScreen from "../forms//PaymentScreen";
+// import { useNavigate } from "react-router-dom";
+// import PaymentScreen from "../forms//PaymentScreen";
 import "../../styled/PaymentPanel.css";
 
 const PaymentPanel = ({ onClose }) => {
@@ -8,10 +8,10 @@ const PaymentPanel = ({ onClose }) => {
   const [customAmount, setCustomAmount] = useState(""); // ✅ 직접 입력 금액 추가
   const [showCustomInput, setShowCustomInput] = useState(false);
   // const [showQR, setShowQR] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const presetAmounts = [5000, 10000, 50000, 100000];
 // 결제창 추가 
-  const [showPaymentScreen, setShowPaymentScreen] = useState(false);
+  // const [showPaymentScreen, setShowPaymentScreen] = useState(false);
 
   const handleCheckboxChange = (value) => {
     if (showCustomInput) return; // ✅ 직접 입력 모드일 때는 다른 체크 불가
@@ -21,6 +21,7 @@ const PaymentPanel = ({ onClose }) => {
         : [...prev, value]
     );
   };
+  
 
   const handleCustomCheckboxChange = () => {
     if (!showCustomInput) {
@@ -40,29 +41,41 @@ const PaymentPanel = ({ onClose }) => {
     (showCustomInput && customAmount ? parseInt(customAmount, 10) : 0) +
     (showCustomInput ? 0 : selectedAmounts.reduce((sum, val) => sum + val, 0));
 
-  const handlePayment = () => {
-    if (totalAmount === 0) {
-      alert("충전할 금액을 선택하거나 입력하세요!");
-      return;
-    }
-    //<추가> 결제 완료 버튼 시 PaymentScreen을 모달로 띄움
-    // setShowQR(true);
-    setShowPaymentScreen(true);
-  };
+
+    const handlePayment = () => {
+      console.log("handlePayment triggered, totalAmount:", totalAmount);
+      if (totalAmount === 0) {
+        alert("충전할 금액을 선택하거나 입력하세요!");
+        return;
+      }
+      console.log("Calling onClose with:", totalAmount);
+      onClose(totalAmount);
+    };
+  // const handlePayment = () => {
+  //   console.log("handlePayment triggered, totalAmount:", totalAmount); // 디버깅 로그 추가
+  //   if (totalAmount === 0) {
+  //     alert("충전할 금액을 선택하거나 입력하세요!");
+  //     return;
+    // }
+     // PaymentPanel 모달을 닫고 totalAmount를 부모에 전달
+    //  onClose(totalAmount);    
+     // onClose(); // PaymentPanel 닫기
+    //  navigate("/paymentscreen", { state: { totalAmount } }); // PaymentScreen으로 이동 (라우터에서 해당 경로에 대해 PaymentScreen 모달 렌더링)
+  //  };
 
   //  PaymentScreen 닫기 처리
-  const closePaymentScreen = () => {
-    setShowPaymentScreen(false);
-    //  PaymentScreen 내 결제 완료 후, 원한다면 onclose()나 navigate() 호출 가능
-  };
+  // const closePaymentScreen = () => {
+  //   setShowPaymentScreen(false);
+  //   //  PaymentScreen 내 결제 완료 후, 원한다면 onclose()나 navigate() 호출 가능
+  // };
 
-  const completePayment = async () => {
-    if (totalAmount <= 0) {
-      alert("충전할 금액을 선택하세요.");
-      return;
-    }
+  // const completePayment = async () => {
+  //   if (totalAmount <= 0) {
+  //     alert("충전할 금액을 선택하세요.");
+  //     return;
+  //   }
 
-    try {
+  //   try {
       // 🔥🔥 스프링 부트 연동 시 주석 해제! 🔥🔥
       /*
       const response = await fetch("http://localhost:8050/user/charge-points", {
@@ -82,14 +95,14 @@ const PaymentPanel = ({ onClose }) => {
       */
 
       // ✅ 더미 데이터로 확인 (스프링 연결 전)
-      alert(`충전 완료! 충전 금액: ${totalAmount.toLocaleString()}원`);
+      // alert(`충전 완료! 충전 금액: ${totalAmount.toLocaleString()}원`);
       // setShowQR(false);
-      onClose();
-    } catch (error) {
-      console.error("결제 오류:", error);
-      alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-    }
-  };
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("결제 오류:", error);
+  //     alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+  //   }
+  // };
 
   return (
     <div className="payment-panel">
@@ -148,14 +161,14 @@ const PaymentPanel = ({ onClose }) => {
           결제 완료
         </button>
       </div>
-
+      {/* 코드 수정 준일 */}
       {/* PaymentScreen 모달 조건부 렌더링 */}
-      {showPaymentScreen && (
+      {/* {showPaymentScreen && (
         <PaymentScreen
           totalAmount={totalAmount}
           onclose={closePaymentScreen}
           />
-      )}
+      )} */}
 
       {/* ✅ QR 코드 모달 추가 */}
       {/* {showQR && (

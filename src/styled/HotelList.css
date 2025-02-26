@@ -1,21 +1,25 @@
-/* src/components/HotelList.css */
+/* ✅ 기본 스타일 */
 * {
   box-sizing: border-box;
   margin: 0;
 }
 
+/* ✅ 전체 컨테이너 */
 .hotel-list-container {
   width: 100%;
+  max-width: 900px; /* 가로 제한 */
+  margin: auto;
   position: relative;
+  padding-top: 300px;
   z-index: 10;
 }
-  
+
 .hotel-list-background {
   position: fixed;
   top: 60px;
   left: 0;
   width: 100%;
-  height: 600px;
+  height: 450px;
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -28,178 +32,177 @@
   object-fit: cover;
 }
 
+/* ✅ 정렬 바 (호텔 리스트와 자연스럽게 연결) */
 .hotel-list-sortBar-box {
+  width: 100%;
   display: flex;
   justify-content: center;
+  position: sticky;
+  margin-bottom: 10px;
+  position: sticky; /* 🔥 추가: 상단 고정 */
+  top: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* ✅ 정렬 바 내부 */
 .hotel-list-sortBar-wrapper {
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  flex-direction: row; /* 🔥 가로 정렬 */
+  justify-content: space-around; /* 🔥 버튼을 일정 간격으로 배치 */
+  align-items: center;
   width: 100%;
-  height: 8vh;
-  border: 1px solid #ddd;
-  margin: 20px auto;
-  /* padding: 0 5vh; */
-  /* box-sizing: border-box; */
+  max-width: 1200px;
+  /* background-color: white; */
+  border-radius: 10px;
+  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
+  padding: 10px 0; /* 버튼 간격 조정 */
+  /* margin-top: 300px; */
 }
 
+/* ✅ 정렬 버튼 */
 .hotel-list-sortBar-button {
+  flex: 1; /* 버튼이 균등한 크기를 갖도록 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  padding: 12px;
+  cursor: pointer;
+  background-color: white; 
+   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.hotel-list-sortBar-button:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+.hotel-list-sortBar-button.active {
+  background-color: rgb(84, 135, 228);
+  color: white;
+  font-weight: bold;
+}
+
+/* ✅ 호텔 리스트 */
+.hotel-list-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* ⭐ 중앙 정렬 유지 */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+}
+
+/* ✅ 호텔 카드 */
+.hotel-box {
+  width: 90vh;
+  height: 40vh;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.hotel-box:hover {
+  transform: scale(1.02);
+}
+
+/* ✅ 호텔 카드 내부 */
+.hotel-box-background {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 2vh;
+  background-color: #fff;
+}
+
+/* ✅ 호텔 이미지 */
+.hotel-image {
+  height: 100%;
+  border-radius: 2vh;
+  flex: 1.5;
+  object-fit: cover;
+}
+
+/* ✅ 호텔 정보 */
+.hotel-info {
+  padding: 0 0 0 2vh;
+  flex: 2;
+}
+
+.hotel-info p {
+  margin-top: 2vh;
+}
+
+/* ✅ 호텔 상태 정보 */
+.hotel-status-wrapper {
   flex: 1;
-  border-right: 1px solid #ddd;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ddd;
+  padding-left: 2vh;
+}
+
+/* ✅ 가격 스타일 */
+.hotel-price p:first-child {
+  color: rgb(20, 20, 20);
+  font-size: 14px;
+}
+
+.hotel-price p:last-child {
+  color: red;
+  font-size: 25px;
+}
+
+/* ✅ 🔥 버튼 고정 */
+.reservation-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+.reservation-button {
+  width: 90%;
+  max-width: 200px;
+  height: 45px;
+  border-radius: 8px;
+  background-color: rgb(84, 135, 228);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hotel-list-sortBar-wrapper > .hotel-list-sortBar-button:last-child {
-  border-right: none;
+.reservation-button:hover {
+  background-color: rgb(60, 110, 200);
+  transform: scale(1.05);
 }
 
-.hotel-list-sortBar-button.active {
-  background-color: rgb(84, 135, 228);
-  color:white;
+.reservation-button:active {
+  background-color: rgb(50, 100, 180);
+  transform: scale(1.02);
 }
 
-  .hotel-list-wrapper {
-    width: 100%;
-    max-width: 1000px;
-    margin: 380px auto 20px; /* 배경 높이만큼 여백 추가 */
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
-    position: relative;
-    z-index: 10;
-  }
-  
-  .hotel-list {
-    display: flex;
-    flex-direction: column;       /* 모든 아이템을 한 줄에 배치 */
-    align-items: center;
-    gap: 20px;               /* 아이템 사이의 간격 */
-    padding: 10px 0;
-  }
-
+/* ✅ 반응형 스타일 */
+@media (max-width: 768px) {
   .hotel-box {
-    flex: 0 0 auto;          /* 크기 변경 없이 고정 너비 유지 */
-    width: 90vh;            /* 원하는 고정 너비 (예: 300px) */
-    height: 40vh;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    width: 80%;
   }
-  
-  .hotel-box:hover{
-    transform: scale(1.02); 
-  }
-  .hotel-box-background {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 2vh;
-    background-color: #fff;
-  }
- 
-  .hotel:hover {
-    transform: translateY(-5px);
-  }
-  
-  .hotel-image,
-  .hotel-info {
-    flex: 1.5;
-  }
-  
-  .hotel-image {
-    height: 100%;
-    border-radius: 2vh;
-  }
-
-  .hotel-info {
-    padding: 0 0 0 2vh ;
-  }
-  
-  .hotel-info p {
-    margin-top: 2vh;
-  }
-
-  .hotel-status-wrapper {
-    flex: 1;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid #ddd;
-    padding-left: 2vh;
-  }
-
-  .hotel-status {
-    margin-top: auto;
-  }
-
-
-
-  .hotel-price P:first-child {
-  color: rgb(20, 20, 20);
-  font-size: 14px;
 }
 
-  .hotel-price P:last-child {
-    color: red; 
-    font-size: 25px;
-  }
-
-  .reservation-button-container {
+@media (max-width: 480px) {
+  .hotel-box {
     width: 100%;
-    display: flex;
-    justify-content: center;  /* 버튼을 중앙 정렬 */
-    align-items: center;
-    margin-top: auto; /* 자동으로 아래쪽 정렬 */
   }
-
-  .reservation-button {
-    width: 90%;  /* 버튼 크기 조절 */
-    max-width: 200px;  /* 너무 커지지 않도록 제한 */
-    height: 45px;
-    border-radius: 8px;
-    background-color: rgb(84, 135, 228);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .reservation-button:hover {
-    background-color: rgb(60, 110, 200);
-    transform: scale(1.05);  /* 버튼이 커지는 효과 */
-  }
-  
-  .reservation-button:active {
-    background-color: rgb(50, 100, 180);
-    transform: scale(1.02);  /* 클릭 시 조금 작아지는 효과 */
-  }
-  
-  .reservation-button p {
-    font-size: 16px;
-    margin: 0;
-  }
-  /* 반응형 디자인 */
-  @media (max-width: 768px) {
-    .hotel {
-      width: calc(50% - 20px);
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .hotel {
-      width: 100%;
-    }
-  }
-  
+}
