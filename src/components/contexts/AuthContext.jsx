@@ -1,62 +1,84 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/api";
+import axios from "axios";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // 로그인 상태 추가
-  const [userRole, setUserRole] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  //  로그인 상태 확인 함수 (백엔드 세션 활용)
-  const checkAuthStatus = async () => {
+  // 로그인 요청 (세션 유지)
+  const login = async (id, password) => {
     try {
-      const response = await api.post("/user/login", {}, { withCredentials: true });
+      const response = await axios.post(
+        "http://localhost:8050/hotel/users/login",
+        { id, password },
+        { withCredentials: true } // ✅ 세션 유지
+      );
       if (response.data) {
         setIsAuthenticated(true);
-        setUserRole(response.data.role);
-      } else {
-        setIsAuthenticated(false);
-        setUserRole("");
+        setUser(response.data);
+        sessionStorage.setItem("isAuthenticated", "true"); // ✅ 로그인 상태 저장
+        return true;
       }
     } catch (error) {
-      console.error("세션 확인 오류:", error);
-      setIsAuthenticated(false);
+      console.error("로그인 실패", error);
+      return false;
     }
   };
 
-  // 로그인 필요한 페이지에서 로그인 상태 확인 및 리디렉트
-  useEffect(() => {
-    const path = window.location.pathname;
-    if (path.startsWith("/reservation") || path.startsWith("/mypage") || path.startsWith("/admin")) {
-      checkAuthStatus().then(() => {
-        if (!isAuthenticated) {
-          navigate("/login"); // ✅ 로그인 상태가 아니면 로그인 페이지로 이동
+  // 자동 로그인 유지 (백엔드에서 세션 확인)
+  const checkAuthStatus = async () => {
+    if (sessionStorage.getItem("isAuthenticated") === "true") {
+      try {
+        const response = await axios.post(
+          "http://localhost:8050/hotel/users/mypage",
+          {},
+          { withCredentials: true }
+        );
+        if (response.data) {
+          setIsAuthenticated(true);
+          setUser(response.data);
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
         }
-      });
+      } catch (error) {
+        console.error("세션 확인 오류:", error);
+        setIsAuthenticated(false);
+      }
     }
-  }, [isAuthenticated, navigate]);
+  };
 
-  // 로그아웃 함수
+  // 로그아웃 요청
   const logout = async () => {
     try {
-      await api.post("/user/logout");
+      await axios.post(
+        "http://localhost:8050/hotel/users/logout",
+        {},
+        { withCredentials: true }
+      );
       setIsAuthenticated(false);
-      setUserRole("");
-      navigate("/"); // 홈페이지로 이동
+      setUser(null);
+      sessionStorage.removeItem("isAuthenticated");
+      navigate("/login");
     } catch (error) {
-      console.error("로그아웃 오류:", error);
+      console.error("로그아웃 실패:", error);
     }
   };
- 
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userRole, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 }
-
 
 export function useAuth() {
   return useContext(AuthContext);

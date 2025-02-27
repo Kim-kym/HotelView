@@ -53,9 +53,7 @@ function SignUpPage() {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:8050/user/check-duplicate?type=${field}&value=${value}`
-      );
+      const response = await fetch(``);
       const data = await response.json();
 
       if (response.ok) {
