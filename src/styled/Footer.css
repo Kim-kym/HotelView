@@ -1,4 +1,133 @@
-footer {
+/* 기본 배경: 야놀자처럼 옅은 그레이 느낌 */
+.site-footer {
     background-color: rgba(201, 201, 201, 0.205);
-}
-
+    padding: 20px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* 최대 너비를 제한하고 가운데 정렬 */
+  .site-footer > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* 상단 섹션: footer-top (왼쪽+오른쪽) */
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  /* 왼쪽 (이용약관/회사정보) */
+  .footer-left {
+    flex: 1;
+    min-width: 300px;
+    margin-right: 20px;
+  }
+  
+  /* 링크 리스트 */
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .footer-links li {
+    font-weight: bold;
+  }
+  
+  .footer-links a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.2s;
+  }
+  
+  .footer-links a:hover {
+    color: #007bff;
+  }
+  
+  /* 회사 정보 */
+  .footer-company-info p {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* 오른쪽 (SNS 아이콘 + 선택 목록) */
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 220px;
+    gap: 10px;
+  }
+  
+  /* SNS 아이콘 */
+  .footer-social-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .footer-social-icons a img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    transition: opacity 0.2s;
+  }
+  
+  .footer-social-icons a:hover img {
+    opacity: 0.7;
+  }
+  
+  /* 선택 목록창 */
+  .footer-select select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* 하단 섹션: 저작권 + 연락처 */
+  .footer-bottom {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-bottom p {
+    margin: 5px 0;
+  }
+  
+  /* 연락처 강조 */
+  .footer-contact {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 반응형 (모바일) */
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-right {
+      align-items: flex-start;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
+  
