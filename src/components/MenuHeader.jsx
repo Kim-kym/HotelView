@@ -18,7 +18,7 @@ function MenuHeader() {
       window.removeEventListener("authChange", handleAuthChange);
     };
   }, []);
-  
+
   // ★ 콘솔에 상태 확인
   console.log("MenuHeader -> isAuthenticated:", isAuthenticated, "userRole:", userRole);
 
@@ -72,7 +72,10 @@ function MenuHeader() {
           )}
 
           {isAuthenticated ? (
-            <button onClick={logout}>로그아웃</button>
+            <button onClick={() => {
+              console.log("로그아웃 버튼 클릭됨"); // ✅ 로그 확인
+              logout();
+            }}>로그아웃</button>
           ) : (
             <Link to="/login">
               <button>로그인</button>
