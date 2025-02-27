@@ -6,6 +6,9 @@ import "../styled/MyPage.css";
 function MenuHeader() {
   const { isAuthenticated, userRole, logout } = useAuth();
 
+  // ★ 콘솔에 상태 확인
+  console.log("MenuHeader -> isAuthenticated:", isAuthenticated, "userRole:", userRole);
+
   return (
     <header className="page-header">
       <div className="header-container">
@@ -16,6 +19,7 @@ function MenuHeader() {
             </h1>
           </Link>
         </div>
+
         <nav className="header-nav">
           <ul>
             <li>
@@ -32,6 +36,7 @@ function MenuHeader() {
             </li>
           </ul>
         </nav>
+
         <div className="header-right-box">
           {!isAuthenticated && (
             <Link to="/signup">
