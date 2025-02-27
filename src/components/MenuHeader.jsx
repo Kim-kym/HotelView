@@ -2,10 +2,23 @@ import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 import "../styled/MenuHeader.css";
 import "../styled/MyPage.css";
+import { useEffect } from "react";
 
 function MenuHeader() {
   const { isAuthenticated, userRole, logout } = useAuth();
 
+  useEffect(() => {
+    const handleAuthChange = () => {
+      setIsAuthenticated((prev) => !prev);
+    };
+  
+    window.addEventListener("authChange", handleAuthChange);
+  
+    return () => {
+      window.removeEventListener("authChange", handleAuthChange);
+    };
+  }, []);
+  
   // ★ 콘솔에 상태 확인
   console.log("MenuHeader -> isAuthenticated:", isAuthenticated, "userRole:", userRole);
 
@@ -44,14 +57,13 @@ function MenuHeader() {
             </Link>
           )}
 
-          {userRole && (
+          {isAuthenticated && (
             <>
-              {userRole === "admin" && (
+              {userRole === "admin" ? (
                 <Link to="/admin">
                   <button>회원 관리</button>
                 </Link>
-              )}
-              {userRole === "user" && (
+              ) : (
                 <Link to="/mypage">
                   <button>마이페이지</button>
                 </Link>

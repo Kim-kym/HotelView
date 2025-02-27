@@ -20,8 +20,11 @@ export function AuthProvider({ children }) {
       );
       if (response.data) {
         setIsAuthenticated(true);
-        setUser(response.data);
-        sessionStorage.setItem("isAuthenticated", "true"); // ✅ 로그인 상태 저장
+        setUser({
+          id: response.data.id,
+          userRole: response.data.userRole || "user", // ✅ 기본값을 "user"로 설정
+        });
+        sessionStorage.setItem("isAuthenticated", "true");
         return true;
       }
     } catch (error) {
