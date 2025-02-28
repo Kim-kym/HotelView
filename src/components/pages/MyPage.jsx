@@ -32,8 +32,10 @@ function MyPage() {
           { withCredentials: true }
         )
         .then((res) => {
+          console.log("API 응답 데이터:", res.data); // 👈 추가
           setUserInfo(res.data);
           sessionStorage.setItem("user", JSON.stringify(res.data));
+          sessionStorage.setItem("userId", res.data.id); // 추가
           console.log("MyPage - userInfo 상태 업데이트 (API):", res.data);
         })
         .catch((err) => {
