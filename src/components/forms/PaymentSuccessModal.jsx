@@ -43,7 +43,7 @@ const PaymentSuccessModal = ({
 
           <ul className="receipt-list">
             <li>
-              <span className="label">총 적립포인트</span>
+              <span className="label">총 적립포인트(결제금액의 10% 추가적립)</span>
               <span className="value">
                 {bonusPoints.toLocaleString()}원
               </span>
