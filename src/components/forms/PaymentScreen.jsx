@@ -33,17 +33,24 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
 
   // 결제 성공 모달 상태 및 관련 데이터
   const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false);
-  const [earnedPoints, setEarnedPoints] = useState(0);
+
+  /**
+   * 핵심: 
+   *  - basePoints = 결제금액(예: 5,000)
+   *  - bonusPoints = 결제금액 + 결제금액의 10%(예: 5,500)
+   */
+  const [basePoints, setBasePoints] = useState(0);    
+  const [bonusPoints, setBonusPoints] = useState(0);
   const [usedDate, setUsedDate] = useState("");
 
   const qrUrl = "https://example.com/qr-payment";
 
-  // 탭 전환
+  /** 탭 전환 */
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
 
-  // 인증번호 발송 (가상)
+  /** 인증번호 발송 (가상) */
   const sendAuthCode = () => {
     if (!selectedCarrier || !phoneNumber) {
       alert("통신사와 핸드폰 번호를 먼저 입력해주세요.");
@@ -55,7 +62,7 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     alert(`인증번호 발송 (테스트코드: ${generatedCode})`);
   };
 
-  // 인증번호 확인
+  /** 인증번호 확인 */
   const verifyAuthCode = () => {
     if (authCode && authCode === sentAuthCode) {
       alert("인증이 완료되었습니다!");
@@ -66,15 +73,20 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     }
   };
 
-  // 보안코드 새로고침 (↻)
+  /** 보안코드 새로고침 (↻) */
   const refreshSecurityCode = () => {
     const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
     setExampleSecurityCode(randomCode);
     setSecurityCode("");
   };
 
-  // 결제하기 버튼
+  /**
+   * 결제하기 버튼 클릭 시
+   * - 카드 결제는 별도 모달에서 처리
+   * - 핸드폰/QR 결제 시 아래 로직으로 포인트 계산 후 결제 성공 모달 표시
+   */
   const handleConfirmPayment = () => {
+    // 1) 카드 결제
     if (selectedTab === "card") {
       if (!selectedCardOption) {
         alert("카드 결제 수단을 선택해주세요.");
@@ -88,12 +100,8 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         "삼성카드",
         "롯데카드",
       ];
-      const checkCardList = [
-        "국민은행",
-        "신한은행",
-        "기업은행",
-        "농협은행",
-      ];
+      const checkCardList = ["국민은행", "신한은행", "기업은행", "농협은행"];
+
       if (selectedCardOption === "카카오페이") {
         setKakaoQRDefaultTab("kakao");
         setShowKakaoQRModal(true);
@@ -112,7 +120,10 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         setShowCheckCardModal(true);
         return;
       }
-    } else if (selectedTab === "phone") {
+    }
+
+    // 2) 핸드폰 결제
+    else if (selectedTab === "phone") {
       if (!selectedCarrier || !phoneNumber) {
         alert("휴대폰 결제 정보를 모두 입력해주세요.");
         return;
@@ -133,20 +144,59 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         alert("개인정보 동의가 필요합니다.");
         return;
       }
-      // 핸드폰 결제 성공 시, 예시로 10% 적립 포인트 계산
-      const points = Math.floor(totalAmount * 0.1);
-      setEarnedPoints(points);
-      setUsedDate(new Date().toLocaleString());
-      // 결제 성공 모달 띄우기
+
+      // [핵심] basePoints(= 결제금액), bonusPoints(= 결제금액 + 결제금액의 10%)
+      const base = totalAmount; 
+      const bonus = base + Math.floor(base * 0.1); // 예) 5,000 + 500 => 5,500
+
+      setBasePoints(base);
+      setBonusPoints(bonus);
+
+      // 결제일시 포맷
+      setUsedDate(getFormattedDate());
+
       setShowPaymentSuccessModal(true);
       return;
     }
-    // QR 탭은 별도 검증 없이 진행
+
+    // 3) QR 결제
+    else if (selectedTab === "qr") {
+      const base = totalAmount;
+      const bonus = base + Math.floor(base * 0.1);
+
+      setBasePoints(base);
+      setBonusPoints(bonus);
+      setUsedDate(getFormattedDate());
+
+      setShowPaymentSuccessModal(true);
+      return;
+    }
+
+    // 그 외
     alert(`결제 완료! 충전 금액: ${totalAmount.toLocaleString()}원`);
     onClose();
   };
 
-  // 카드 결제 탭 내용
+  /** 결제일시 포맷 함수(예: 2025. 2. 28. 오전 10:46:51) */
+  const getFormattedDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    let hour = now.getHours();
+    let ampm = "오전";
+    if (hour >= 12) {
+      ampm = "오후";
+      if (hour > 12) hour -= 12;
+    }
+    const minute = String(now.getMinutes()).padStart(2, "0");
+    const second = String(now.getSeconds()).padStart(2, "0");
+
+    return `${year}. ${month}. ${day}. ${ampm} ${hour}:${minute}:${second}`;
+  };
+
+  /** 카드 결제 탭 내용 */
   const renderCardPayment = () => (
     <div className="payment-tab-content">
       <h4>신용/체크카드 결제</h4>
@@ -169,13 +219,12 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     </div>
   );
 
-  // 핸드폰 결제 탭 내용
+  /** 핸드폰 결제 탭 내용 */
   const renderPhonePayment = () => (
     <div className="payment-tab-content">
       <h4>핸드폰결제</h4>
       <p>통신사와 휴대폰 번호를 입력해주세요.</p>
 
-      {/* 통신사 선택 + 휴대폰 번호 입력 + 인증번호 보내기 (한 줄) */}
       <div className="phone-row">
         <select
           value={selectedCarrier}
@@ -201,7 +250,6 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         </button>
       </div>
 
-      {/* 인증번호 입력 + 인증확인 (한 줄) */}
       <div className="auth-row">
         <input
           type="text"
@@ -214,7 +262,6 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         </button>
       </div>
 
-      {/* 보안코드 입력 + 예시 + 새로고침 (한 줄) */}
       <div className="security-row">
         <input
           type="text"
@@ -230,7 +277,6 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         </button>
       </div>
 
-      {/* 개인정보 동의 라디오 버튼 */}
       <div className="privacy-consent">
         <label>
           <input
@@ -256,7 +302,7 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     </div>
   );
 
-  // QR 결제 탭 내용
+  /** QR 결제 탭 내용 */
   const renderQRPayment = () => (
     <div className="payment-tab-content">
       <h4>QR코드 결제</h4>
@@ -270,12 +316,12 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         rel="noopener noreferrer"
         className="qr-payment-link"
       >
-        QR코드 결제하기
+        {/* QR코드 결제하기 */}
       </a>
     </div>
   );
 
-  // 탭별 렌더링
+  /** 탭별 렌더링 */
   const renderTabContent = () => {
     switch (selectedTab) {
       case "card":
@@ -289,6 +335,7 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     }
   };
 
+  // 카드/은행/페이 목록
   const cardOptions = [
     { value: "국민카드", img: "/images/국민카드.jpg" },
     { value: "신한카드", img: "/images/신한카드.jpg" },
@@ -298,14 +345,14 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     { value: "롯데카드", img: "/images/롯데카드.jpg" },
     { value: "카카오페이", img: "/images/카카오페이.png" },
     { value: "네이버페이", img: "/images/네이버페이.png" },
-    // { value: "QR코드", img: "/images/qr_code.jpg" },
+    // { value: "QR코드", img: "/images/qr_code.jpg" }, // 필요 시 추가
     { value: "국민은행", img: "/images/국민은행.jpg" },
     { value: "신한은행", img: "/images/신한은행.png" },
     { value: "기업은행", img: "/images/기업은행.png" },
     { value: "농협은행", img: "/images/농협은행.jpg" },
   ];
 
-  // 모달 닫기 콜백들
+  /** 모달 닫기 콜백들 */
   const handleCreditCardModalClose = () => {
     setShowCreditCardModal(false);
     onClose();
@@ -323,17 +370,12 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
     onClose();
   };
 
-  // // PaymentSuccessModal 상태 (핸드폰 결제일 경우)
-  // const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false);
-  // const [earnedPoints, setEarnedPoints] = useState(0);
-  // const [usedDate, setUsedDate] = useState("");
-
-  // 만약 결제 성공 모달을 띄워야 한다면 PaymentSuccessModal을 먼저 렌더링
+  // 결제 성공 모달
   if (showPaymentSuccessModal) {
     return (
       <PaymentSuccessModal
-        totalAmount={totalAmount}
-        earnedPoints={earnedPoints}
+        basePoints={basePoints}    // 예) 5,000
+        bonusPoints={bonusPoints}  // 예) 5,500
         usedDate={usedDate}
         onClose={() => {
           setShowPaymentSuccessModal(false);

@@ -8,60 +8,55 @@ const NaverPayModal = ({ defaultTab = "naverpay", totalAmount, onClose }) => {
   // 결제 성공 모달 표시 여부
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // 적립 포인트, 결제 일시
-  const [earnedPoints, setEarnedPoints] = useState(0);
+  // ★ basePoints, bonusPoints, usedDate
+  const [basePoints, setBasePoints] = useState(0);
+  const [bonusPoints, setBonusPoints] = useState(0);
   const [usedDate, setUsedDate] = useState("");
 
-  // 결제하기 버튼
   const handleConfirm = () => {
-    // 예: 포인트 적립 로직 (10% 가정)
-    const points = Math.floor(totalAmount * 0.1);
-    setEarnedPoints(points);
+    // 결제 로직 후 포인트 계산
+    const base = totalAmount;
+    const bonus = base + Math.floor(base * 0.1);
 
-    // 결제 일시 기록
+    setBasePoints(base);
+    setBonusPoints(bonus);
     setUsedDate(new Date().toLocaleString());
 
-    // PaymentSuccess 모달 띄우기
     setShowSuccess(true);
   };
 
-  // 취소 버튼
   const handleCancel = () => {
     onClose();
   };
 
   // N-Pay 결제 탭 내용
-  const renderNaverPayContent = () => {
-    return (
-      <div className="naverpay-content">
-        <h4>N-Pay 결제</h4>
-        <div className="naverpay-benefit">
-          <p>포인트 혜택: 구매 시 1% 적립</p>
-        </div>
-        <div className="naverpay-payment">
-          <h4>결제금액</h4>
-          <div className="naverpay-payment-amount">
-            {totalAmount.toLocaleString()}원
-          </div>
+  const renderNaverPayContent = () => (
+    <div className="naverpay-content">
+      <h4>N-Pay 결제</h4>
+      <div className="naverpay-benefit">
+        <p>포인트 혜택: 구매 시 1% 적립</p>
+      </div>
+      <div className="naverpay-payment">
+        <h4>결제금액</h4>
+        <div className="naverpay-payment-amount">
+          {totalAmount.toLocaleString()}원
         </div>
       </div>
-    );
-  };
+    </div>
+  );
 
   // QR코드 결제 탭 내용
-  const renderQRContent = () => {
-    return (
-      <div className="naverpay-qr-content">
-        <h4>QR코드 결제</h4>
-        <p>아래 QR코드를 스캔하여 결제해주세요.</p>
-        <div className="qr-code-box">
-          <img src="/images/qr_code.jpg" alt="QR코드" />
-        </div>
+  const renderQRContent = () => (
+    <div className="naverpay-qr-content">
+      <h4>QR코드 결제</h4>
+      <p>아래 QR코드를 스캔하여 결제해주세요.</p>
+      <div className="qr-code-box">
+        <img src="/images/qr_code.jpg" alt="QR코드" />
       </div>
-    );
-  };
+    </div>
+  );
 
-  // 탭별로 내용 전환
+  // 탭별 컨텐츠
   const renderTabContent = () => {
     if (selectedTab === "naverpay") {
       return renderNaverPayContent();
@@ -70,12 +65,12 @@ const NaverPayModal = ({ defaultTab = "naverpay", totalAmount, onClose }) => {
     }
   };
 
-  // 만약 결제 성공 모달을 띄워야 한다면, PaymentSuccess를 먼저 렌더링
+  // 결제 성공 모달 열렸을 때
   if (showSuccess) {
     return (
       <PaymentSuccessModal
-        totalAmount={totalAmount}
-        earnedPoints={earnedPoints}
+        basePoints={basePoints}
+        bonusPoints={bonusPoints}
         usedDate={usedDate}
         onClose={() => {
           setShowSuccess(false);
@@ -109,7 +104,7 @@ const NaverPayModal = ({ defaultTab = "naverpay", totalAmount, onClose }) => {
           </button>
         </div>
 
-        {/* 탭별 컨텐츠 */}
+        {/* 탭별 내용 */}
         <div className="naverpay-tab-content">{renderTabContent()}</div>
 
         {/* 하단 버튼 영역 */}

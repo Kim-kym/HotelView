@@ -1,66 +1,45 @@
-import React, { useState, useEffect } from "react";
-import "../../styled/CreditCardModal.css"; 
-import PaymentSuccessModal from "./PaymentSuccessModal"; // 새로 만든 결제 성공 모달
+import React, { useState } from "react";
+import "../../styled/CreditCardModal.css";
+import PaymentSuccessModal from "./PaymentSuccessModal";
 
 const CreditCardModal = ({ totalAmount, onClose }) => {
   const [cardNumber, setCardNumber] = useState("");
   const [cardPassword, setCardPassword] = useState("");
   const [cvc, setCvc] = useState("");
-//   const [timeLeft, setTimeLeft] = useState(20);
 
-  // 추가: 결제 성공 모달 표시 여부
+  // 결제 성공 모달
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  // 포인트 적립 예시 (원하는 로직 적용 가능)
-  const [earnedPoints, setEarnedPoints] = useState(0);
-  // 결제 사용 날짜
+  // ★ basePoints, bonusPoints, usedDate
+  const [basePoints, setBasePoints] = useState(0);
+  const [bonusPoints, setBonusPoints] = useState(0);
   const [usedDate, setUsedDate] = useState("");
-
-//   useEffect(() => {
-//     if (timeLeft <= 0) {
-//       onClose();
-//       return;
-//     }
-//     const timerId = setInterval(() => {
-//       setTimeLeft((prev) => prev - 1);
-//     }, 1000);
-//     return () => clearInterval(timerId);
-//   }, [timeLeft, onClose]);
 
   const handleConfirm = () => {
     if (!cardNumber || !cardPassword || !cvc) {
       alert("카드번호, 비밀번호, CVC를 모두 입력해주세요.");
       return;
     }
-    // 결제 로직(스프링 부트 API 등) 호출 가능
-    // 예: 포인트 적립 로직 (10% 가정)
-    const points = Math.floor(totalAmount * 0.1);
+    // 결제 후 포인트 계산
+    const base = totalAmount;
+    const bonus = base + Math.floor(base * 0.1);
+    setBasePoints(base);
+    setBonusPoints(bonus);
+    setUsedDate(new Date().toLocaleString());
 
-    setEarnedPoints(points);
-    setUsedDate(new Date().toLocaleString()); // 현재 시간 기록
-
-    // 결제 성공 모달 표시
     setShowSuccessModal(true);
   };
 
-  // 결제 성공 모달 닫기 콜백
   const handleSuccessClose = () => {
     setShowSuccessModal(false);
-    // 최종 모달 닫기
-    onClose();
+    onClose(); // 최종 모달 닫기
   };
 
-//   // 숫자 타이머 텍스트
-//   const renderTimerText = () => {
-//     return <p className="timer-text"> {timeLeft}초</p>;
-//   };
-
   if (showSuccessModal) {
-    // 결제 성공 모달 표시 시, 카드 입력창 대신 성공 모달 렌더링
     return (
       <PaymentSuccessModal
-        totalAmount={totalAmount}
-        earnedPoints={earnedPoints}
+        basePoints={basePoints}
+        bonusPoints={bonusPoints}
         usedDate={usedDate}
         onClose={handleSuccessClose}
       />
@@ -97,8 +76,6 @@ const CreditCardModal = ({ totalAmount, onClose }) => {
           value={cvc}
           onChange={(e) => setCvc(e.target.value.replace(/[^0-9]/g, ""))}
         />
-
-        {/* {renderTimerText()} */}
 
         <div className="modal-button-group">
           <button className="cancel-button" onClick={onClose}>
