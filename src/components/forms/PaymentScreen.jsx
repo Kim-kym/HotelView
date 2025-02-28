@@ -316,7 +316,7 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
         rel="noopener noreferrer"
         className="qr-payment-link"
       >
-        QR코드 결제하기
+        {/* QR코드 결제하기 */}
       </a>
     </div>
   );
