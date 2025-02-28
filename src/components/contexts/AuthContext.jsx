@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   const login = async (id, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:8050/hotel/users/login",
+        "/hotel/users/login",
         { id, password },
         { withCredentials: true } // ✅ 세션 유지
       );
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     if (sessionStorage.getItem("isAuthenticated") === "true") {
       try {
         const response = await axios.post(
-          "http://localhost:8050/hotel/users/mypage",
+          "/hotel/users/mypage",
           {},
           { withCredentials: true }
         );
@@ -55,11 +55,7 @@ export function AuthProvider({ children }) {
   // 로그아웃 요청
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8050/hotel/users/logout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post("/hotel/users/logout", {}, { withCredentials: true });
       setIsAuthenticated(false);
       setUser(null);
       sessionStorage.removeItem("isAuthenticated");
