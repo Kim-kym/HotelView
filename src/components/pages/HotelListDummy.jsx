@@ -9,6 +9,22 @@ function HotelListDummy() {
   const [originalHotels, setOriginalHotels] = useState([]);
   const initialSort = searchParams.get("sort") || "recommend";
   const [activeSort, setActiveSort] = useState(initialSort);
+  //  스크롤 버튼 상태 추가 (준일)
+  const [isVisible, setIsVisible] = useState(false);
+
+  // 스크롤 이벤트 감지(준일)
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
 
   useEffect(() => {
     async function fetchHotels() {
@@ -43,6 +59,11 @@ function HotelListDummy() {
 
     fetchHotels();
   }, []);
+
+  // 버튼 클릭 시 부드럽게 상단 이동 (준일)
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // 정렬 함수
   const handleSort = (sortType) => {
@@ -117,6 +138,15 @@ function HotelListDummy() {
             찜 많은 순
           </div>
         </div>
+
+        {/* 🔥 스크롤 상단 이동 버튼 */}
+        {/* 준일 스크롤 상단 버튼 추가 */}
+        <button
+          className={`scroll-to-top-button ${isVisible ? "visible" : ""}`}
+          onClick={scrollToTop}
+        >
+          ↑
+        </button>
       </div>
 
       {/* 호텔 리스트 */}

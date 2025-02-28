@@ -6,6 +6,8 @@ import api from "../api/api"; // ✅ 공통 API 파일 import
 function HomeHotelList() {
   // const { hotelId } = useParams();
   const [hotels, setHotels] = useState([]);
+  // 화살표 버튼 준일추가 //
+  const [isVisible, setIsVisible] = useState(false); // 🔥 화살표 버튼 상태 추가
 
   useEffect(() => {
     async function fetchHotels() {
@@ -38,7 +40,24 @@ function HomeHotelList() {
     }
 
     fetchHotels();
+
+    // 🔥 스크롤 감지 이벤트 추가 (준일추가)
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
+
+  // 🔥 버튼 클릭 시 상단 이동 (준일추가)
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="home_hotel-list-container">
@@ -48,7 +67,7 @@ function HomeHotelList() {
           hotels.map((hotel) => (
             <Link
               to={`/hotels/${hotel.hotelNo}`}
-              key={hotel.id}
+              key={hotel.hotelNo}
               className="home_hotel-box-link"
             >
               <div className="home_hotel-box">
@@ -61,7 +80,7 @@ function HomeHotelList() {
                   <h3>{hotel.name}</h3>
                   <p>{hotel.location}</p>
                   <p>⭐ {hotel.rating}</p>
-                  {/* price 필드 추가 전<p>₩ {hotel.price.toLocaleString()}</p> */}
+                  {/* price 필드 추가<p>₩ {hotel.price.toLocaleString()}</p> */}
                 </div>
               </div>
             </Link>
@@ -70,6 +89,13 @@ function HomeHotelList() {
           <p>호텔 데이터를 불러오는 중...</p>
         )}
       </div>
+      {/* 🔥 스크롤 상단 이동 버튼 추가 */} {/* 준일추가 */}
+      <button
+        className={`scroll-to-top-button ${isVisible ? "visible" : ""}`}
+        onClick={scrollToTop}
+      >
+        ↑
+      </button>
     </div>
   );
 }

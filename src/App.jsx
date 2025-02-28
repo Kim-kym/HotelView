@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import MenuHeader from "./components/MenuHeader";

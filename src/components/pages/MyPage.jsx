@@ -1,23 +1,33 @@
 import { useState, useEffect } from "react";
+import axios from "axios"
 import "../../styled/MyPage.css";
 import { useNavigate } from "react-router-dom";
 import userDummy from "./UserDummy";
 import PaymentPanel from "../forms/PaymentPanel";
-import PaymentScreen from "../forms/PaymentScreen"; // 추가: PaymentScreen import
+import PaymentScreen from "../forms/PaymentScreen";
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState({});
   const [showPointHistory, setShowPointHistory] = useState(false);
-  // 기존: PaymentPanel 단독으로 관리하던 상태
   const [showPaymentPanel, setShowPaymentPanel] = useState(false);
-  // 추가: PaymentScreen 모달을 위한 상태
   const [showPaymentScreen, setShowPaymentScreen] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserInfo(userDummy);
-    console.log("MyPage - userInfo 상태 업데이트:", userDummy);
+    // ★ 실제 백엔드 API 호출 (예: /api/mypage)
+    axios
+      .get("http://localhost:8050/api/mypage", { withCredentials: true })
+      .then((res) => {
+        // 백엔드에서 받은 유저 정보를 state에 저장
+        setUserInfo(res.data);
+        console.log("MyPage - userInfo 상태 업데이트 (API):", res.data);
+      })
+      .catch((err) => {
+        console.error("마이페이지 API 오류:", err);
+        // 예: 에러 시 fallback으로 userDummy 사용 가능 (선택 사항)
+        // setUserInfo(userDummy);
+      });
   }, []);
 
   return (
@@ -57,7 +67,6 @@ function MyPage() {
               <button
                 onClick={() => {
                   console.log("Before click:", showPaymentPanel);
-                  // PaymentPanel(충전 모달)을 열도록 함
                   setShowPaymentPanel(true);
                   console.log("After click:", true);
                 }}
@@ -96,18 +105,16 @@ function MyPage() {
         )}
       </div>
 
-      {/* MyPage 옆에 PaymentPanel(충전 모달) 추가 */}
+      {/* PaymentPanel (충전 모달) */}
       {showPaymentPanel && (
         <div className="payment-panel-wrapper open">
           <PaymentPanel
             onClose={(amount) => {
-              // onClose가 호출될 때 amount가 0보다 크면 결제 금액이 선택되었다고 판단
               if (amount > 0) {
                 setTotalAmount(amount);
                 setShowPaymentPanel(false);
-                setShowPaymentScreen(true); // PaymentScreen 모달을 연다.
+                setShowPaymentScreen(true);
               } else {
-                // 단순 닫기인 경우
                 setShowPaymentPanel(false);
               }
             }}
@@ -115,7 +122,7 @@ function MyPage() {
         </div>
       )}
 
-      {/* PaymentScreen 모달 추가 */}
+      {/* PaymentScreen (결제 수단 모달) */}
       {showPaymentScreen && (
         <div className="payment-screen-wrapper open">
           <PaymentScreen

@@ -1,0 +1,160 @@
+/* 모달 배경 */
+.naverpay-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* 모달 컨테이너 */
+.naverpay-modal {
+  background: #fff;
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}
+
+.naverpay-modal h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.naverpay-total-amount {
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 탭 버튼 영역 */
+.naverpay-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.naverpay-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.naverpay-tabs button.active,
+.naverpay-tabs button:hover {
+  background-color: #03c75a; /* 네이버 페이 메인 색(녹색) */
+  color: #fff;
+}
+
+/* 탭 내용 컨테이너 */
+.naverpay-tab-content {
+  text-align: left;
+  min-height: 160px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* N-Pay 결제 탭 내용 */
+.naverpay-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.naverpay-benefit {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.naverpay-benefit p {
+  margin: 0;
+  color: #555;
+}
+
+.naverpay-payment {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.naverpay-payment-amount {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* QR 결제 탭 내용 */
+.naverpay-qr-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qr-code-box {
+  display: flex;
+  justify-content: center;
+}
+
+.qr-code-box img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* 하단 버튼 그룹 */
+.naverpay-button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* 취소 버튼 - 빨간색 */
+.naverpay-cancel-button {
+  flex: 1;
+  background-color: #dc3545; /* 빨간색 */
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* 결제하기 버튼 - 초록색 */
+.naverpay-confirm-button {
+  flex: 1;
+  background-color: #28a745; /* 초록색 */
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* 호버 시 버튼 살짝 커지게 (scale) */
+.naverpay-cancel-button:hover,
+.naverpay-confirm-button:hover {
+  transform: scale(1.05);
+}

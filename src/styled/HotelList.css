@@ -206,3 +206,70 @@
     width: 100%;
   }
 }
+
+/* 준일 쇼버튼 디자인 추가 */
+/* 🔥 스크롤 상단 이동 버튼 */
+.scroll-to-top-button {
+  position: fixed;
+  bottom: 40px; /* 버튼 위치 조정 */
+  right: 40px; /* 버튼 위치 조정 */
+  width: 60px; /* 사진 속 버튼 크기와 동일하게 설정 */
+  height: 60px; /* 사진 속 버튼 크기와 동일하게 설정 */
+  background-color: #b07c4e; /* 버튼 색상 유지 */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px; /* 아이콘 크기 조정 */
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 조정 */
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 🔥 버튼이 나타날 때 */
+.scroll-to-top-button.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 🔥 버튼 호버 효과 */
+.scroll-to-top-button:hover {
+  background-color: #a06c3e;
+  transform: scale(1.1);
+}
+
+/* 🔥 반응형 (모바일에서 크기 조절) */
+@media (max-width: 768px) {
+  .scroll-to-top-button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    bottom: 30px;
+    right: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top-button {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
