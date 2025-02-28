@@ -41,6 +41,8 @@ export function AuthProvider({ children }) {
             userRole: response.data.userRole || "user",
           })
         );
+        // ✅ 로그인 후 JSESSIONID 확인
+        console.log("로그인 후 쿠키 확인:", document.cookie);
 
         return true;
       }
