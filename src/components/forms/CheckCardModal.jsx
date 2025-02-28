@@ -10,9 +10,9 @@ const CheckCardModal = ({ totalAmount, onClose }) => {
   // 결제 성공 모달 표시 여부
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  // 포인트 적립 예시 (10% 가정)
-  const [earnedPoints, setEarnedPoints] = useState(0);
-  // 결제 사용 날짜
+  // ★ basePoints, bonusPoints, usedDate
+  const [basePoints, setBasePoints] = useState(0);
+  const [bonusPoints, setBonusPoints] = useState(0);
   const [usedDate, setUsedDate] = useState("");
 
   const handleConfirm = () => {
@@ -21,10 +21,12 @@ const CheckCardModal = ({ totalAmount, onClose }) => {
       return;
     }
 
-    // 실제 결제 로직(스프링 부트 API 등) 가능
-    // 여기서 포인트 적립 계산 + 날짜 기록
-    const points = Math.floor(totalAmount * 0.1);
-    setEarnedPoints(points);
+    // 결제 로직 후 포인트 계산
+    const base = totalAmount;
+    const bonus = base + Math.floor(base * 0.1); // 예: 5000 + 500 = 5500
+
+    setBasePoints(base);
+    setBonusPoints(bonus);
     setUsedDate(new Date().toLocaleString());
 
     // 결제 성공 모달 표시
@@ -34,16 +36,15 @@ const CheckCardModal = ({ totalAmount, onClose }) => {
   // 결제 성공 모달 닫기
   const handleSuccessClose = () => {
     setShowSuccessModal(false);
-    // 최종 모달 닫기
-    onClose();
+    onClose(); // 최종 모달 닫기
   };
 
-  // 결제 성공 모달이 열려있으면, 카드 입력창 대신 성공 모달 표시
+  // 결제 성공 모달 열렸을 때
   if (showSuccessModal) {
     return (
       <PaymentSuccessModal
-        totalAmount={totalAmount}
-        earnedPoints={earnedPoints}
+        basePoints={basePoints}
+        bonusPoints={bonusPoints}
         usedDate={usedDate}
         onClose={handleSuccessClose}
       />
@@ -65,7 +66,7 @@ const CheckCardModal = ({ totalAmount, onClose }) => {
 
         <input
           type="text"
-          placeholder="계좌번호 (숫자만)"
+          placeholder="카드 유효기간 (숫자만)"
           value={accountNumber}
           onChange={(e) =>
             setAccountNumber(e.target.value.replace(/[^0-9]/g, ""))
