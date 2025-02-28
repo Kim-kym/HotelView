@@ -10,7 +10,9 @@ export function AuthProvider({ children }) {
     sessionStorage.getItem("isAuthenticated") === "true"
   );
   const [user, setUser] = useState(
-    sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : null
+    sessionStorage.getItem("user")
+      ? JSON.parse(sessionStorage.getItem("user"))
+      : null
   );
 
   const navigate = useNavigate();
@@ -32,10 +34,15 @@ export function AuthProvider({ children }) {
 
         // ✅ 로그인 상태를 sessionStorage에 저장 (새로고침 후에도 유지)
         sessionStorage.setItem("isAuthenticated", "true");
-        sessionStorage.setItem("user", JSON.stringify({
-          id: response.data.id,
-          userRole: response.data.userRole || "user",
-        }));
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: response.data.id,
+            userRole: response.data.userRole || "user",
+          })
+        );
+        // ✅ 로그인 후 JSESSIONID 확인
+        console.log("로그인 후 쿠키 확인:", document.cookie);
 
         return true;
       }

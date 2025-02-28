@@ -1,17 +1,14 @@
-// src/components/ReservationConfirmation.js
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../../styled/HotelReserve.css";
-import { dummyHotels, roomImages } from "./DummyList";
 
 function HotelReserve() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { selectedRoom } = location.state || {};
-  const [hotel, setHotel] = useState(null);
+  const { hotel, hotelImages, roomImages, selectedRoom } = location.state || {};
   const [reservationInfo, setReservationInfo] = useState({
     name: "",
     phone: "",
@@ -21,16 +18,7 @@ function HotelReserve() {
   const checkIn = "2월 22일 (금)";
   const checkOut = "2월 23일 (토)";
 
-  useEffect(() => {
-    // 숙소 아이디를 기반으로 호텔 정보를 찾음
-    const foundHotel = dummyHotels.find((h) => h.id === parseInt(id, 10));
-    if (!foundHotel) {
-      // 숙소 정보가 없으면 메인 페이지로 이동
-      navigate("/");
-    } else {
-      setHotel(foundHotel);
-    }
-  }, [id, navigate]);
+  if (!hotel) return <div>로딩 중...</div>;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,13 +32,10 @@ function HotelReserve() {
     e.preventDefault();
     // 예약 제출 로직 (예: API 호출)
     console.log("예약 정보:", reservationInfo);
-    // 예약이 성공하면 ReservationConfirm 페이지로 데이터 전달하며 이동
     navigate("/reservationConfirm", {
       state: { hotel, selectedRoom, reservationInfo, checkIn, checkOut },
     });
   };
-
-  if (!hotel) return <div>로딩 중...</div>;
 
   return (
     <div className="hotelReserve-container">
@@ -77,19 +62,37 @@ function HotelReserve() {
           </div>
           <div className="hotelReserve-info-main">
             <h2>숙소</h2>
-            <img src={hotel.image} alt={`호텔 ${hotel.name}`} />
+            <img
+              src={
+                hotelImages && hotelImages.length > 0
+                  ? hotelImages[0]
+                  : "/images/default-hotel.jpg"
+              }
+              alt={`호텔 ${hotel.name}`}
+            />
             <div className="hotelReserve-name">
               <h3>{hotel.name}</h3>
               <p>{hotel.address}</p>
             </div>
             <div className="hotelReserve-room">
-              <img src={selectedRoom.image} alt={`Room ${selectedRoom.name}`} />
+              <img
+                src={
+                  roomImages && roomImages[selectedRoom.id]
+                    ? roomImages[selectedRoom.id]
+                    : "/images/default-room.jpg"
+                }
+                alt={`Room ${selectedRoom.name}`}
+              />
               <h3>{selectedRoom.name}</h3>
             </div>
           </div>
           <div className="hotelReserve-info">
             <div className="price">
-              <span className="bold-price">{hotel.price}원</span>
+              <span className="bold-price">
+                {selectedRoom.price
+                  ? selectedRoom.price.toLocaleString() + "원"
+                  : "가격 정보 없음"}
+              </span>
               <div className="cancel-rule">무료 취소(3일 이내)</div>
             </div>
           </div>
@@ -138,7 +141,11 @@ function HotelReserve() {
           </div>
           <div className="payment-price">
             <div>상품 금액</div>
-            <div>{hotel.price}원</div>
+            <div>
+              {selectedRoom.price
+                ? selectedRoom.price.toLocaleString() + "원"
+                : "가격 정보 없음"}
+            </div>
           </div>
           <div className="payment-point">
             <div>보유 포인트</div>

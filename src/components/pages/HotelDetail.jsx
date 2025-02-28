@@ -67,7 +67,17 @@ function HotelDetail() {
   if (error) return <p>{error}</p>;
 
   const handleReserve = (room) => {
-    navigate(`/reservation/${hotel.id}`, { state: { selectedRoom: room } });
+    navigate(`/reservation/${hotel.id}`, {
+      state: {
+        hotel,
+        hotelImages,
+        roomImages,
+        selectedRoom: {
+          ...room, // 기존 room 정보 유지
+          price: room.room_price, // 방 가격 추가
+        },
+      },
+    });
   };
 
   const availableRooms = rooms ? rooms.length : "정보 없음";

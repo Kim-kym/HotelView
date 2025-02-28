@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import "../../styled/MyPage.css";
 import { useNavigate } from "react-router-dom";
 import userDummy from "./UserDummy";
@@ -7,28 +7,46 @@ import PaymentPanel from "../forms/PaymentPanel";
 import PaymentScreen from "../forms/PaymentScreen";
 
 function MyPage() {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUser = sessionStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [showPointHistory, setShowPointHistory] = useState(false);
   const [showPaymentPanel, setShowPaymentPanel] = useState(false);
   const [showPaymentScreen, setShowPaymentScreen] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
+  // ✅ sessionStorage에서 유저 정보 불러오기
+
   useEffect(() => {
-    // ★ 실제 백엔드 API 호출 (예: /api/mypage)
-    axios
-      .get("http://localhost:8050/api/mypage", { withCredentials: true })
-      .then((res) => {
-        // 백엔드에서 받은 유저 정보를 state에 저장
-        setUserInfo(res.data);
-        console.log("MyPage - userInfo 상태 업데이트 (API):", res.data);
-      })
-      .catch((err) => {
-        console.error("마이페이지 API 오류:", err);
-        // 예: 에러 시 fallback으로 userDummy 사용 가능 (선택 사항)
-        // setUserInfo(userDummy);
-      });
-  }, []);
+    const storedUser = sessionStorage.getItem("user");
+
+    if (storedUser) {
+      setUserInfo(JSON.parse(storedUser));
+    } else {
+      axios
+        .post(
+          "http://localhost:8050/hotel/users/mypage",
+          {},
+          { withCredentials: true }
+        )
+        .then((res) => {
+          console.log("API 응답 데이터:", res.data); // 👈 추가
+          setUserInfo(res.data);
+          sessionStorage.setItem("user", JSON.stringify(res.data));
+          sessionStorage.setItem("userId", res.data.id); // 추가
+          console.log("MyPage - userInfo 상태 업데이트 (API):", res.data);
+        })
+        .catch((err) => {
+          console.error("마이페이지 API 오류:", err);
+          if (err.response && err.response.status === 401) {
+            alert("로그인이 필요합니다.");
+            navigate("/login");
+          }
+        });
+    }
+  }, [navigate]);
 
   return (
     <div className={`mypage-wrapper ${showPaymentPanel ? "panel-active" : ""}`}>
