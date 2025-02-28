@@ -2,24 +2,25 @@ import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 import "../styled/MenuHeader.css";
 import "../styled/MyPage.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function MenuHeader() {
   const { isAuthenticated, userRole, logout } = useAuth();
+  const [authStatus, setAuthStatus] = useState(isAuthenticated);
 
   useEffect(() => {
     const handleAuthChange = () => {
-      setIsAuthenticated((prev) => !prev);
+      console.log("🔄 인증 상태 변경 감지됨");
+      setAuthStatus((prev) => !prev); 
     };
-  
+
     window.addEventListener("authChange", handleAuthChange);
-  
+
     return () => {
       window.removeEventListener("authChange", handleAuthChange);
     };
   }, []);
 
-  // ★ 콘솔에 상태 확인
   console.log("MenuHeader -> isAuthenticated:", isAuthenticated, "userRole:", userRole);
 
   return (
@@ -73,7 +74,7 @@ function MenuHeader() {
 
           {isAuthenticated ? (
             <button onClick={() => {
-              console.log("로그아웃 버튼 클릭됨"); // ✅ 로그 확인
+              console.log("로그아웃 버튼 클릭됨");
               logout();
             }}>로그아웃</button>
           ) : (

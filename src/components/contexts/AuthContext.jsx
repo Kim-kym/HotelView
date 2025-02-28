@@ -45,30 +45,20 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // ✅ 로그아웃 함수 (로그아웃 시 sessionStorage 삭제)
-  const logout = async () => {
-    try {
-      console.log("로그아웃 요청 시작");
+  // ✅ 🔥 강제 로그아웃 (API 없이 sessionStorage만 삭제)
+  const logout = () => {
+    console.log("🚀 강제 로그아웃 실행");
 
-      const response = await axios.post(
-        "http://localhost:8050/hotel/users/logout",
-        {},
-        { withCredentials: true }
-      );
+    setIsAuthenticated(false);
+    setUser(null);
 
-      console.log("로그아웃 응답:", response.data);
-      setIsAuthenticated(false);
-      setUser(null);
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("user");
 
-      // ✅ 로그아웃 시 sessionStorage에서 로그인 정보 삭제
-      sessionStorage.removeItem("isAuthenticated");
-      sessionStorage.removeItem("user");
+    // ✅ UI 업데이트 트리거 (로그아웃 후 화면 변경)
+    window.dispatchEvent(new Event("authChange"));
 
-      window.dispatchEvent(new Event("authChange")); // ✅ UI 업데이트 트리거
-      navigate("/login");
-    } catch (error) {
-      console.error("로그아웃 실패:", error);
-    }
+    navigate("/login");
   };
 
   return (
