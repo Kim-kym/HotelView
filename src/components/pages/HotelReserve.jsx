@@ -13,6 +13,9 @@ function HotelReserve() {
     name: "",
     phone: "",
   });
+  const roomPrice = selectedRoom.price || 0; // 상품 금액 (방 가격)
+  const userPoints = 150000; // 보유 포인트 (기본값)
+  const totalPayment = Math.max(userPoints - roomPrice, 0); // 총 결제 금액 (음수 방지)
 
   // 예시 체크인/체크아웃 날짜 (추후 동적 데이터로 대체 가능)
   const checkIn = "2월 22일 (금)";
@@ -153,8 +156,8 @@ function HotelReserve() {
           </div>
           <div className="cutLine"></div>
           <div className="payment-total-price">
-            <div>총 결제 금액</div>
-            <div>0원</div>
+            <div>잔여 포인트</div>
+            <div>{totalPayment.toLocaleString()}원</div>
           </div>
         </div>
         <div className="payCheck-button">
