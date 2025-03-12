@@ -2,10 +2,10 @@ import React from "react";
 import "../../styled/PaymentSuccessModal.css";
 
 const PaymentSuccessModal = ({
-  basePoints,
-  bonusPoints,
-  usedDate,
-  onClose,
+  basePoints, //  결제금액
+  bonusPoints,  //  결제금액의 10% 적립
+  usedDate, //  결제내용
+  onClose,  //  결제종료
 }) => {
   // 예: 가맹점 이름, 결제금액, 카드번호 등 원하는 데이터
   const storeName = "자쿠과";

@@ -43,7 +43,7 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
   const [bonusPoints, setBonusPoints] = useState(0);
   const [usedDate, setUsedDate] = useState("");
 
-  const qrUrl = "https://example.com/qr-payment";
+  const qrUrl = "https://example.com/qr-payment"; //  QR코드 URL주소
 
   /** 탭 전환 */
   const handleTabChange = (tab) => {
@@ -195,6 +195,8 @@ const PaymentScreen = ({ totalAmount, onClose }) => {
 
     return `${year}. ${month}. ${day}. ${ampm} ${hour}:${minute}:${second}`;
   };
+
+  //  페이지창 실제 디자인
 
   /** 카드 결제 탭 내용 */
   const renderCardPayment = () => (
